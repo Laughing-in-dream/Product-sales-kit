@@ -17,6 +17,8 @@
 | `data/products.json` | 产品主数据库：205 个产品（SKU 去重），含分类/线长/分辨率/图片路径/usedBy（哪些产品线在用） | ❌ 生成物 |
 | `docs/product-index.md` | 产品主数据的人可读索引 | ❌ 生成物 |
 | `scripts/build_product_db.js` | catalog-data.js → 产品主数据 生成脚本（分类规则在这里改） | ✅ |
+| `assets/products/` | 手动补图目录：照片按 `<SKU>.png` 命名放入即被数据库收录 | ✅ |
+| `data/image-overrides.json` | 补图通道2：SKU → 项目内已有图片路径 | ✅ |
 
 ## 铁律（每次会话必须遵守）
 

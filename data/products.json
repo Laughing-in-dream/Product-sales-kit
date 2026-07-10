@@ -1,7 +1,7 @@
 {
   "generatedFrom": "catalog-data.js（源头是 North America Sales List.xlsx）",
   "generatedBy": "scripts/build_product_db.js",
-  "generatedAt": "2026-07-10T18:22:07.639Z",
+  "generatedAt": "2026-07-10T18:28:52.018Z",
   "organizedBy": "product（SKU 去重；产品线/方案是产品的 usedBy 字段）",
   "taxonomy": [
     {

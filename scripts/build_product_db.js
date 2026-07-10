@@ -126,6 +126,38 @@ for (const line of catalog.productLines) {
   }
 }
 
+// ---- 手动补图（两条通道，均以 SKU 为键，不依赖 Excel 行号）----
+// 通道1：assets/products/ 下按 SKU 命名的图片自动挂载
+//        （5152119100007.png、5152119100007-2.jpg 都认，前缀是 SKU 即可）
+const MANUAL_IMG_DIR = path.join(ROOT, "assets", "products");
+if (fs.existsSync(MANUAL_IMG_DIR)) {
+  for (const f of fs.readdirSync(MANUAL_IMG_DIR)) {
+    if (!/\.(png|jpe?g|webp|gif)$/i.test(f)) continue;
+    const m = f.match(/^(\d{8,})/);
+    if (!m) { console.warn(`⚠ assets/products/${f}: 文件名不以 SKU 开头，已忽略`); continue; }
+    const p = products.get(m[1]);
+    if (p) p.images.add(`assets/products/${f}`);
+    else console.warn(`⚠ assets/products/${f}: SKU ${m[1]} 不存在于任何产品线，已忽略`);
+  }
+}
+// 通道2：data/image-overrides.json 里 SKU → 项目内已有图片路径
+const OVERRIDES_PATH = path.join(ROOT, "data", "image-overrides.json");
+if (fs.existsSync(OVERRIDES_PATH)) {
+  const overrides = JSON.parse(fs.readFileSync(OVERRIDES_PATH, "utf8"));
+  for (const [sku, paths] of Object.entries(overrides)) {
+    if (sku.startsWith("_")) continue; // 说明/示例键
+    const p = products.get(sku);
+    if (!p) { console.warn(`⚠ image-overrides: SKU ${sku} 不存在，已忽略`); continue; }
+    for (const rel of [].concat(paths)) {
+      if (!fs.existsSync(path.join(ROOT, rel))) {
+        console.warn(`⚠ image-overrides: ${sku} 的图片路径不存在: ${rel}`);
+        continue;
+      }
+      p.images.add(rel);
+    }
+  }
+}
+
 const productList = [...products.values()]
   .map((p) => ({
     ...p,

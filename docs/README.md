@@ -62,6 +62,21 @@ docs/
 > 说明："规则来自代码反推"的行，第三列天然一致，但第二列必须人工确认；
 > 反过来 960C53 规则可信，但还没核对代码是否全部实现。
 
+## 怎么给产品补图片
+
+三种方式，按优先级选：
+
+1. **通道1（最简单，推荐）**：照片命名为 `<SKU>.png`（如 `5151029100026.png`，同一产品多张图用
+   `<SKU>-2.png`），放进 `assets/products/`，然后跑 `node scripts/build_product_db.js`。
+   SKU 不存在或文件名不规范时脚本会警告。
+2. **通道2（复用已有图片）**：在 `data/image-overrides.json` 里加一行
+   `"SKU": ["项目内图片路径"]`，再跑生成脚本。路径不存在会警告。
+3. **正规渠道（钉钉/Excel 有图时）**：图片放进对应产品线的 `North America Sales List-FILE/<产品线>/Image` 文件夹，
+   并在 Excel 该行第 4 列写上文件名，然后依次跑 `python scripts/extract_catalog.py` 和
+   `node scripts/build_product_db.js`。**只有这条渠道的图会同时显示在选型向导页面上。**
+
+缺图清单见 [product-index.md](product-index.md) 末尾"缺图片的产品清单"（当前 59 个）。
+
 ## 与其他文件的关系
 
 - `North America Sales List.xlsx` —— 物料清单源数据（SKU、名称、图片），由钉钉页面导出。
