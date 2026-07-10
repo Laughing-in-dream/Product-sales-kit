@@ -212,8 +212,8 @@ function selectedCustomItems() {
 
   const selectedAccessoryDefs = selectedCustomAccessoryDefs();
   const shouldAddVideoOutputCable = selectedAccessoryDefs.some((def) => {
-    if (def.cameraType) return true;
-    if (def.id === "screen") return powerBox?.id !== "max";
+    if (powerBox?.id === "max") return false;
+    if (def.cameraType || def.id === "screen") return true;
     return false;
   });
   if (shouldAddVideoOutputCable) {
@@ -282,9 +282,10 @@ function selectedCustomItems() {
     const quantity = Math.max(1, Number(stateBlock.quantity || 1));
     const item = findItemByRow(def.itemRow);
     if (item) rows.push({ ...item, quantity: String(quantity) });
-    for (const requiredRow of def.requiredRows || []) {
+    const requiredRows = def.requiredRowsByQuantity?.[quantity] || def.requiredRows || [];
+    for (const requiredRow of requiredRows) {
       const requiredItem = findItemByRow(requiredRow);
-      if (requiredItem) rows.push({ ...requiredItem, quantity: String(quantity) });
+      if (requiredItem) rows.push({ ...requiredItem, quantity: def.requiredRowsByQuantity ? "1" : String(quantity) });
     }
     if (def.maxQuantity && def.extensionRows?.length) {
       for (const extensionId of stateBlock.extensions || []) {
@@ -358,4 +359,3 @@ function validateCurrentStep() {
   if (state.step === 4) return selectedCustomWirings().length > 0;
   return true;
 }
-

@@ -131,8 +131,14 @@ for (const pb of powerBoxes) {
   g("state.step = 4");
   renderOk(`步骤4-接线-${pb.id}`);
   const defaultWiring = Object.entries(g("state.custom.wiring")).filter(([, v]) => v).map(([k]) => k);
+  const hasDefaultPower16Extension = Boolean(g("state.custom.wiringExtras.power16Extension"));
   say(`### ${pb.title.en}`);
   say(`- 默认勾选: ${defaultWiring.join(", ") || "（无）"}`);
+  if (pb.id === "plus" || pb.id === "max") {
+    const hasExtensionInList = g("selectedCustomItems().some(item => item.partNumber === '1260040100236')");
+    say(`- 16PIN 电源延长线（SKU 1260040100236）：默认勾选=${hasDefaultPower16Extension ? "是" : "否"}，已计入清单=${hasExtensionInList ? "是" : "否"}（不属于套装料号）`);
+    if (!hasDefaultPower16Extension || !hasExtensionInList) flag("bug", `步骤4-${pb.id}`, "16PIN 电源延长线应默认勾选并计入清单");
+  }
   for (const mode of wiringModes) {
     const support = mode.support[pb.id];
     if (!support) { say(`- ${mode.title.en}: 不支持`); continue; }
@@ -189,6 +195,16 @@ for (const pb of powerBoxes) {
     }
     const maxQty = g(`maxAccessoryQuantity(${JSON.stringify(acc.id)} && customCatalog.accessories.find(a=>a.id===${JSON.stringify(acc.id)}))`);
     if (acc.cameraType) say(`  - 当前可选数量上限: ${maxQty}`);
+    const expectedCa46Max = pb.id === "max" ? 4 : 1;
+    if (acc.id === "ca46_adplus" && maxQty !== expectedCa46Max) flag("bug", `步骤5-${pb.id}-ca46`, `CA46 在 ${pb.id} 方案的上限应为 ${expectedCa46Max}，实际为 ${maxQty}`);
+    const hasVideoOutputCable = g("selectedCustomItems().some(item => item.partNumber === '1261020100065')");
+    const shouldHaveVideoOutputCable = pb.id !== "max" && Boolean(acc.cameraType || acc.id === "screen");
+    if (shouldHaveVideoOutputCable) say(`  - Video Output Cable（SKU 1261020100065）：${hasVideoOutputCable ? "自动带出" : "未带出"}`);
+    if (hasVideoOutputCable !== shouldHaveVideoOutputCable) {
+      flag("bug", `步骤5-${pb.id}-${acc.id}`, shouldHaveVideoOutputCable
+        ? "Standard / PBP 选择屏幕或摄像头时未自动带出 Video Output Cable"
+        : "PBM 选择屏幕或摄像头时不应带出 Video Output Cable");
+    }
     g(`toggleCustomAccessory('${acc.id}', false)`);
   }
   say("");
@@ -251,8 +267,9 @@ for (const pb of powerBoxes) {
     const title = opt.title?.en || opt.title?.zh || opt.id;
     say(`- **${title}**${opt.maxQuantity ? `（最多 ${opt.maxQuantity} 个）` : ""}`);
     if (opt.itemRow) checkRows([opt.itemRow], `步骤6-${pb.id}-${opt.id}`);
-    if (opt.requiredRows?.length) {
-      const req = checkRows(opt.requiredRows, `步骤6-${pb.id}-${opt.id}-必配件`);
+    const initialRequiredRows = opt.requiredRowsByQuantity?.[1] || opt.requiredRows || [];
+    if (initialRequiredRows.length) {
+      const req = checkRows(initialRequiredRows, `步骤6-${pb.id}-${opt.id}-必配件`);
       say(`  - 勾选后自动带出必配件: ${req.map(fmtItem).join("、")}`);
     }
     if (opt.extensionRows?.length) {
@@ -268,6 +285,12 @@ for (const pb of powerBoxes) {
       const qty = Number(g(`ensureOptionalState('${opt.id}')`).quantity);
       say(`  - 强行设置数量 ${opt.maxQuantity + 5} → 实际 ${qty} ${qty <= opt.maxQuantity ? "✅ 钳制生效" : "❌ 未钳制"}`);
       if (qty > opt.maxQuantity) flag("bug", `步骤6-${pb.id}-${opt.id}`, `数量上限 ${opt.maxQuantity} 未生效，可设为 ${qty}`);
+      if (opt.id === "b2") {
+        const b2AdapterSkus = g("selectedCustomItems().filter(item => ['1262010000025', '1262010100031'].includes(item.partNumber)).map(item => item.partNumber)");
+        const expectedAdapterSku = qty === 2 ? "1262010100031" : "1262010000025";
+        say(`  - ${qty} 个 B2 的转接线: ${b2AdapterSkus.join(", ") || "未带出"}（应为 ${expectedAdapterSku}）`);
+        if (b2AdapterSkus.length !== 1 || b2AdapterSkus[0] !== expectedAdapterSku) flag("bug", `步骤6-${pb.id}-b2`, `${qty} 个 B2 应带出转接线 ${expectedAdapterSku}`);
+      }
       if (opt.requiredExtension) {
         g(`setOptionalExtension('${opt.id}', 'none', 0)`);
         const extensionId = g(`ensureOptionalState('${opt.id}')`).extensions?.[0] || g(`ensureOptionalState('${opt.id}')`).extension;

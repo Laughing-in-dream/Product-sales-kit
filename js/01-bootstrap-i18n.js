@@ -150,7 +150,7 @@ const UI = {
     },
     optionalDetails: {
       rwatch: "Useful for driver behavior reminder and linkage reminder projects. Available on Standard, PBP, and PBM.",
-      b2: "External BSD sound-and-light alarm. Available on PBM. One B2 power and adapter cable is included automatically.",
+      b2: "External BSD sound-and-light alarm. Available on PBM. The matching adapter cable is selected automatically for one or two alarms.",
       b3: "Internal sound-and-light alarm. Available on PBM and requires a B3 extension cable length choice.",
       microSd: "Optional storage card. AD Plus 2.0 supports up to 2 cards.",
     },
@@ -182,4 +182,3 @@ const UI = {
 };
 
 UI.zh = UI.en;
-

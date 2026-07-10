@@ -371,19 +371,20 @@ function maxAccessoryQuantity(accessoryDef) {
   const otherAhd = counts.ahd - (accessoryDef.cameraType === "ahd" ? currentQty : 0);
   const powerBox = selectedCustomPowerBox();
   if (!powerBox) return 1;
+  const perAccessoryMax = Number(accessoryDef.maxQuantityByPowerBox?.[powerBox.id] ?? accessoryDef.maxQuantity ?? Infinity);
   if (powerBox.id === "standard" || powerBox.id === "plus") {
-    if (accessoryDef.cameraType === "ipc") return Math.max(0, 1 - otherIpc);
-    if (accessoryDef.cameraType === "ahd") return Math.max(0, 1 - otherAhd);
+    if (accessoryDef.cameraType === "ipc") return Math.min(perAccessoryMax, Math.max(0, 1 - otherIpc));
+    if (accessoryDef.cameraType === "ahd") return Math.min(perAccessoryMax, Math.max(0, 1 - otherAhd));
     return 1;
   }
   if (powerBox.id === "max") {
     if (accessoryDef.cameraType === "ipc") {
       if (otherAhd >= 4) return 0;
-      return Math.max(0, 1 - otherIpc);
+      return Math.min(perAccessoryMax, Math.max(0, 1 - otherIpc));
     }
     if (accessoryDef.cameraType === "ahd") {
       const limit = otherIpc >= 1 ? 3 : 4;
-      return Math.max(0, limit - otherAhd);
+      return Math.min(perAccessoryMax, Math.max(0, limit - otherAhd));
     }
   }
   return 1;

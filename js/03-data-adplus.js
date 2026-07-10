@@ -41,7 +41,7 @@ const customCatalog = {
         zh: "With ECU parsing cability, suitable for mid-level projects.", en: "With ECU parsing cability, suitable for mid-level projects.",
       },
       note: {
-        zh: "Includes 16PIN by default and can also add 9PIN or loose wire.", en: "Includes 16PIN by default and can also add 9PIN or loose wire.",
+        zh: "默认选择 16PIN 接线及其延长线，也可改选 9PIN 或散线。", en: "Defaults to 16PIN wiring and its extension cable; 9PIN or loose wire can also be selected.",
       },
     },
     {
@@ -79,7 +79,7 @@ const customCatalog = {
       id: "16pin",
       title: { zh: "16PIN OBD", en: "16PIN OBD" },
       detail: {
-        zh: "Standard OBD method. PBP / PBM builds include the 16PIN power extension cable by default.", en: "Standard OBD method. PBP / PBM builds include the 16PIN power extension cable by default.",
+        zh: "标准 OBD 接法。PBP / PBM 向导默认选择 16PIN 电源延长线（套装料号不含该线）。", en: "Standard OBD method. PBP / PBM builds default-select the 16PIN power extension cable; it is not included in the kit SKU.",
       },
       support: { standard: "item", plus: "item", max: "item" },
       rows: { standard: 23, plus: 25, max: 25 },
@@ -93,7 +93,8 @@ const customCatalog = {
       cameraType: "ahd",
       extensionRows: [31, 32, 33],
       extensionLabel: { zh: "AHD extension cable", en: "AHD extension cable" },
-      allowedPowerBoxes: ["max"],
+      allowedPowerBoxes: ["standard", "plus", "max"],
+      maxQuantityByPowerBox: { standard: 1, plus: 1 },
       sortOrder: -10,
     },
     {
@@ -164,7 +165,7 @@ const customCatalog = {
       ...skuInfo("5090091100025"),
       itemRow: 43,
       allowedPowerBoxes: ["max"],
-      requiredRows: [45],
+      requiredRowsByQuantity: { 1: [45], 2: [46] },
       extensionRows: [28, 29, 30],
       extensionLabel: { zh: "6PIN IPC 延长线", en: "6PIN IPC extension cable" },
       requiredExtension: true,

@@ -31,75 +31,97 @@
 
 ### Power Box Plus
 - 默认勾选: 16pin
+- 16PIN 电源延长线（SKU 1260040100236）：默认勾选=是，已计入清单=是（不属于套装料号）
 - Loose wire: 需要物料 Power Breakout Cable（SKU 1261090100044）
 - 9PIN J1939: 需要物料 9PIN OBD Cable（SKU 1260060100012）
 - 16PIN OBD: 需要物料 16PIN OBD Extension Cable（SKU 1260040100236）（另有专用 SKU 1260040100242）
 
 ### Power Box Max
 - 默认勾选: 16pin
+- 16PIN 电源延长线（SKU 1260040100236）：默认勾选=是，已计入清单=是（不属于套装料号）
 - Loose wire: 需要物料 Power Breakout Cable（SKU 1261090100061）
 - 9PIN J1939: 需要物料 9PIN OBD Cable（SKU 1260060100012）
 - 16PIN OBD: 需要物料 16PIN OBD Extension Cable（SKU 1260040100236）（另有专用 SKU 1260040100242）
 
 ## 步骤 5 · 选摄像头与屏幕（逐电源盒遍历）
 
-### Standard Power Box（可见 6 项）
+### Standard Power Box（可见 7 项）
 
+- **CA46 BSD camera**（AHD 摄像头，仅 standard/plus/max）
+  - 勾选后出现「AHD extension cable」选择，共 3 种（3M / 5M / 7M），默认 3M
+  - 当前可选数量上限: 1
+  - Video Output Cable（SKU 1261020100065）：自动带出
 - **C29N DMS camera**（IPC 摄像头）
   - 勾选后出现「IPC extension cable」选择，共 3 种（3M / 5M / 7M），默认 3M
   - 当前可选数量上限: 1
+  - Video Output Cable（SKU 1261020100065）：自动带出
 - **CA38 reverse camera**（AHD 摄像头）
   - 勾选后出现「AHD extension cable」选择，共 3 种（3M / 5M / 7M），默认 3M
   - 当前可选数量上限: 1
+  - Video Output Cable（SKU 1261020100065）：自动带出
 - **CA42 wireless camera**（AHD 摄像头）
   - 勾选后出现「Rear BSD extension cable」选择，共 3 种（9M / 1.5M / 11M），默认 9M
   - 当前可选数量上限: 1
+  - Video Output Cable（SKU 1261020100065）：自动带出
 - **Square camera**（AHD 摄像头）
   - 勾选后出现「AHD extension cable」选择，共 3 种（3M / 5M / 7M），默认 3M
   - 当前可选数量上限: 1
+  - Video Output Cable（SKU 1261020100065）：自动带出
 - **Metal snail camera**（AHD 摄像头）
   - 勾选后出现「AHD 延长线」选择，共 3 种（3M / 5M / 7M），默认 3M
   - 当前可选数量上限: 1
+  - Video Output Cable（SKU 1261020100065）：自动带出
 - **DP7S screen**（非摄像头项）
   - 勾选后出现「Screen corrugated cable」选择，共 1 种（150MM），锁定不可换
   - 另出现「AHD 延长线」，共 3 种（3M / 5M / 7M）
+  - Video Output Cable（SKU 1261020100065）：自动带出
 
 **容量规则验证**（最多 1 路 IPC + 1 路 AHD（知识库规则 1））：
 
 - 选 1 IPC + 1 AHD 后：IPC 剩余 0、AHD 剩余 0，警告=「无」
-- 此时再选第二路 AHD（ca42）：✅ 被禁用
+- 此时再选第二路 AHD（ca38）：✅ 被禁用
 - 强行把 AHD 数量改为 2：实际被钳制回 1 ✅
 
-### Power Box Plus（可见 6 项）
+### Power Box Plus（可见 7 项）
 
+- **CA46 BSD camera**（AHD 摄像头，仅 standard/plus/max）
+  - 勾选后出现「AHD extension cable」选择，共 3 种（3M / 5M / 7M），默认 3M
+  - 当前可选数量上限: 1
+  - Video Output Cable（SKU 1261020100065）：自动带出
 - **C29N DMS camera**（IPC 摄像头）
   - 勾选后出现「IPC extension cable」选择，共 3 种（3M / 5M / 7M），默认 3M
   - 当前可选数量上限: 1
+  - Video Output Cable（SKU 1261020100065）：自动带出
 - **CA38 reverse camera**（AHD 摄像头）
   - 勾选后出现「AHD extension cable」选择，共 3 种（3M / 5M / 7M），默认 3M
   - 当前可选数量上限: 1
+  - Video Output Cable（SKU 1261020100065）：自动带出
 - **CA42 wireless camera**（AHD 摄像头）
   - 勾选后出现「Rear BSD extension cable」选择，共 3 种（9M / 1.5M / 11M），默认 9M
   - 当前可选数量上限: 1
+  - Video Output Cable（SKU 1261020100065）：自动带出
 - **Square camera**（AHD 摄像头）
   - 勾选后出现「AHD extension cable」选择，共 3 种（3M / 5M / 7M），默认 3M
   - 当前可选数量上限: 1
+  - Video Output Cable（SKU 1261020100065）：自动带出
 - **Metal snail camera**（AHD 摄像头）
   - 勾选后出现「AHD 延长线」选择，共 3 种（3M / 5M / 7M），默认 3M
   - 当前可选数量上限: 1
+  - Video Output Cable（SKU 1261020100065）：自动带出
 - **DP7S screen**（非摄像头项）
   - 勾选后出现「Screen corrugated cable」选择，共 1 种（150MM），锁定不可换
   - 另出现「AHD 延长线」，共 3 种（3M / 5M / 7M）
+  - Video Output Cable（SKU 1261020100065）：自动带出
 
 **容量规则验证**（最多 1 路 IPC + 1 路 AHD（知识库规则 1））：
 
 - 选 1 IPC + 1 AHD 后：IPC 剩余 0、AHD 剩余 0，警告=「无」
-- 此时再选第二路 AHD（ca42）：✅ 被禁用
+- 此时再选第二路 AHD（ca38）：✅ 被禁用
 - 强行把 AHD 数量改为 2：实际被钳制回 1 ✅
 
 ### Power Box Max（可见 7 项）
 
-- **CA46 BSD camera**（AHD 摄像头，仅 max）
+- **CA46 BSD camera**（AHD 摄像头，仅 standard/plus/max）
   - 勾选后出现「AHD extension cable」选择，共 3 种（3M / 5M / 7M），默认 3M
   - 当前可选数量上限: 4
 - **C29N DMS camera**（IPC 摄像头）
@@ -145,6 +167,7 @@
   - 勾选后自动带出必配件: B2 Power and Adapter Cable（SKU 1262010000025）
   - 延长线共 3 种（3M / 5M / 7M），可任选长度
   - 强行设置数量 7 → 实际 2 ✅ 钳制生效
+  - 2 个 B2 的转接线: 1262010100031（应为 1262010100031）
 - **B3 sound and light alarm**（最多 2 个）
   - 延长线共 3 种（3M / 7.5M / 2M），可任选长度
   - 强行设置数量 7 → 实际 2 ✅ 钳制生效
@@ -156,11 +179,10 @@
 
 ## 步骤 7 · 清单汇总与导出（满配 PBM 方案）
 
-满配方案共 14 行物料：
+满配方案共 13 行物料：
 
 - 5154021100086 × 1 — AD Plus 2.0+PBM Kit
 - 1260040100236 × 1 — 16PIN OBD Extension Cable
-- 1261020100065 × 1 — Video Output Cable
 - 5190012100075 × 1 — DP7S Overseas Version
 - 1210010100059 × 1 — AHD Signal Adapter Cable
 - 1210030000163 × 2 — AHD Extension Cable
@@ -173,15 +195,15 @@
 - 1260040100038 × 1 — B3 Extension Cable
 - 1610002100008 × 1 — Micro SD 128GB
 
-CSV 导出：14 行数据（清单 14 行）✅ 一致
+CSV 导出：13 行数据（清单 13 行）✅ 一致
 
 ## 疑似 Bug / 需要注意的问题（8 条）
 
 ### 🟡 提醒（8）
 
-1. **[步骤5-standard-ca38-延长线]** 行 31 AHD Extension Cable（SKU 1210030000163） 页面上没有任何图片（catalog 与兜底图均缺）
-2. **[步骤5-standard-ca38-延长线]** 行 32 AHD Extension Cable（SKU 1210030000164） 页面上没有任何图片（catalog 与兜底图均缺）
-3. **[步骤5-standard-ca38-延长线]** 行 33 AHD Extension Cable（SKU 1210030000165） 页面上没有任何图片（catalog 与兜底图均缺）
+1. **[步骤5-standard-ca46_adplus-延长线]** 行 31 AHD Extension Cable（SKU 1210030000163） 页面上没有任何图片（catalog 与兜底图均缺）
+2. **[步骤5-standard-ca46_adplus-延长线]** 行 32 AHD Extension Cable（SKU 1210030000164） 页面上没有任何图片（catalog 与兜底图均缺）
+3. **[步骤5-standard-ca46_adplus-延长线]** 行 33 AHD Extension Cable（SKU 1210030000165） 页面上没有任何图片（catalog 与兜底图均缺）
 4. **[步骤5-standard-ca42-延长线]** 行 37 Extension cable（SKU 1260010100201） 页面上没有任何图片（catalog 与兜底图均缺）
 5. **[步骤5-standard-ca42-延长线]** 行 38 Extension cable（SKU 1260010100204） 页面上没有任何图片（catalog 与兜底图均缺）
 6. **[步骤5-standard-ca42-延长线]** 行 39 Extension cable（SKU 1260010100216） 页面上没有任何图片（catalog 与兜底图均缺）
