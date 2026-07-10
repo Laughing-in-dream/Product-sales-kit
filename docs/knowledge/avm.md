@@ -4,7 +4,7 @@
 
 ## 1. 方案构成
 
-向导流程（`app.js: AVM_STEPS` / `AVM_STEP_ROWS`）：
+向导流程（`js/04-product-meta.js: AVM_STEPS / AVM_STEP_ROWS`）：
 
 1. 选基础套装（AVM 360 kit，含 4 个环视摄像头 + 标定布）
 2. 连接与接线（独立 standalone / 级联 cascade，加视频延长线，rows 7-12）
@@ -16,7 +16,7 @@
 
 | # | 规则 | 状态 | 来源 | 代码位置 |
 | --- | --- | --- | --- | --- |
-| 1 | 基础套装固定包含 4 个环视摄像头和标定布 | ⚠️ 推断自代码 | 代码反推（步骤文案） | `app.js: AVM_STEPS` |
+| 1 | 基础套装固定包含 4 个环视摄像头和标定布 | ⚠️ 推断自代码 | 代码反推（步骤文案） | `js/04-product-meta.js: AVM_STEPS` |
 
 ## 5. 待确认问题
 

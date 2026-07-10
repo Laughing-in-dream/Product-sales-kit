@@ -5,13 +5,13 @@
 ## 1. 方案构成
 
 - 向导流程：选场景方案 → 接线 → 摄像头 → 可选件 → 导出
-- 步骤对应 Excel 行号见 `app.js: M3N_STEP_ROWS`
+- 步骤对应 Excel 行号见 `js/04-product-meta.js: M3N_STEP_ROWS`
 
 ## 2. 硬性规则（既是知识也是限制）
 
 | # | 规则 | 状态 | 来源 | 代码位置 |
 | --- | --- | --- | --- | --- |
-| 1 | 最大支持 **4 路 IPC + 4 路 AHD** | ⚠️ 推断自代码 | 代码反推 | `app.js: M_SERIES_CHANNEL_RULES` |
+| 1 | 最大支持 **4 路 IPC + 4 路 AHD** | ⚠️ 推断自代码 | 代码反推 | `js/04-product-meta.js: M_SERIES_CHANNEL_RULES` |
 
 ## 3. 选配关系
 

@@ -6,8 +6,8 @@
 
 | 路径 | 作用 | 可否手改 |
 | --- | --- | --- |
-| `index.html` | 页面骨架 | ✅ |
-| `app.js` | 向导交互 + 全部业务规则（约 4400 行） | ✅ |
+| `index.html` | 页面骨架 + 脚本加载顺序（js/01 → js/12，顺序不可调换） | ✅ |
+| `js/` | 应用代码，按加载顺序编号的 12 个普通 script（共享全局作用域，非 ES module） | ✅ |
 | `styles.css` | 样式 | ✅ |
 | `catalog-data.js` | 物料数据，由脚本从 Excel 生成 | ❌ 禁止手改，改 Excel 后重新生成 |
 | `scripts/extract_catalog.py` | Excel → catalog-data.js 生成脚本 | ✅ |
@@ -34,8 +34,30 @@ python .\scripts\extract_catalog.py
 
 （README 中记录了旧的 python 绝对路径，若本机 python 不可用可参考。）
 
+## js/ 目录说明
+
+原 4400 行的 app.js 已按原顺序无损拆分（2026-07-10，git 历史可查证逐字节一致）：
+
+| 文件 | 内容 |
+| --- | --- |
+| `01-bootstrap-i18n.js` | catalog 引导 + 双语 UI 文案 |
+| `02-dom-state.js` | DOM 引用、全局 state、文本/预览工具、SKU_LIBRARY |
+| `03-data-adplus.js` | AD Plus 2.0 的 customCatalog（主机/电源盒/接线/配件数据） |
+| `04-product-meta.js` | 各产品线步骤定义、行号映射、M 系列路数规则、PRODUCT_META |
+| `05-selection-logic.js` | 场景/选择状态逻辑 + AD Plus 路数限制规则（cameraCapacityRule 等） |
+| `06-cart.js` | 清单汇总（selectedPresetItems / selectedCustomItems） |
+| `07-render-common.js` | 通用步骤渲染 + Z5 |
+| `08-logic-mseries.js` | M 系列选择逻辑 |
+| `09-render-avm-c6.js` | AVM / C6 Lite 渲染 |
+| `10-render-mseries.js` | M 系列渲染 |
+| `11-render-adplus.js` | AD Plus 渲染 |
+| `12-main.js` | 总渲染、导出、语言切换、事件绑定、启动 |
+
+**约束：** 这些是普通 script（非 ES module，为了保住"双击 index.html 直接跑"），
+靠 index.html 中的加载顺序共享全局作用域。新增文件必须考虑顺序；
+新增的顶层可执行语句只能引用更早文件里定义的变量。
+
 ## 已知技术债
 
-- `app.js` 单文件过大（约 4400 行），8 个产品线的逻辑混在一起，后续可按产品线拆分模块。
 - Excel 里的业务规则未完全结构化（单选/多选分组），目前靠"推荐预选 + 人工确认"。
 - `docs/knowledge/` 中大量规则状态为"⚠️ 推断自代码"，需逐条人工确认。

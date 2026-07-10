@@ -4,7 +4,7 @@
 
 ## 1. 方案构成
 
-向导流程（`app.js: C6_STEPS` / `C6_STEP_ROWS`）：
+向导流程（`js/04-product-meta.js: C6_STEPS / C6_STEP_ROWS`）：
 
 1. 选核心套装（单目 / 双目 C6 Lite 2.0 base kit）
 2. 选接线（设备延长线、电源线等，rows 9-15）
