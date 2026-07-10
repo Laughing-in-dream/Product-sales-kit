@@ -54,6 +54,10 @@ docs/
 | Z5 | ⬜ 空 | ⬜ | — |
 | 960C53 | ✅（钉钉页整理） | ✅ | ⬜ 未逐条核对 |
 | 966C46-IPC | ⬜ 空 | ⬜ | — |
+| GT1 Pro+DC Max | ⬜ 空 | ⬜ | —（向导未覆盖） |
+| F6N | ⬜ 空 | ⬜ | —（向导未覆盖） |
+| 通用配件 | ⬜ 空 | ⬜ | —（向导未覆盖） |
+| 叉车-防水C46 | ⬜ 空 | ⬜ | —（向导未覆盖） |
 
 > 说明："规则来自代码反推"的行，第三列天然一致，但第二列必须人工确认；
 > 反过来 960C53 规则可信，但还没核对代码是否全部实现。
@@ -62,4 +66,6 @@ docs/
 
 - `North America Sales List.xlsx` —— 物料清单源数据（SKU、名称、图片），由钉钉页面导出。
 - `catalog-data.js` —— 由 `scripts/extract_catalog.py` 从 Excel 生成，**不要手改**。
-- `app.js` —— 向导交互 + 业务规则实现。业务规则以本知识库为准。
+- `data/products.json` / `docs/product-index.md` —— 产品主数据（全部产品线物料 + 统一分类 + 跨线复用 SKU 索引），
+  由 `node scripts/build_product_db.js` 从 catalog-data.js 生成，**不要手改**。查"有哪些产品/SKU"先看这里。
+- `js/` —— 向导交互 + 业务规则实现。业务规则以本知识库为准。

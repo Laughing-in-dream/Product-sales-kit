@@ -1,0 +1,4939 @@
+{
+  "generatedFrom": "catalog-data.js（源头是 North America Sales List.xlsx）",
+  "generatedBy": "scripts/build_product_db.js",
+  "generatedAt": "2026-07-10T18:12:18.537Z",
+  "taxonomy": [
+    {
+      "id": "power",
+      "label": "电源"
+    },
+    {
+      "id": "kit",
+      "label": "核心套装"
+    },
+    {
+      "id": "mdvr",
+      "label": "主机 / MDVR"
+    },
+    {
+      "id": "cable",
+      "label": "线材"
+    },
+    {
+      "id": "screen",
+      "label": "屏幕"
+    },
+    {
+      "id": "alarm",
+      "label": "报警与提醒"
+    },
+    {
+      "id": "camera",
+      "label": "摄像头"
+    },
+    {
+      "id": "storage",
+      "label": "存储"
+    },
+    {
+      "id": "gps",
+      "label": "GPS / 定位"
+    },
+    {
+      "id": "mount",
+      "label": "支架与安装"
+    },
+    {
+      "id": "maintain",
+      "label": "维护与标定"
+    },
+    {
+      "id": "misc",
+      "label": "其他配件"
+    }
+  ],
+  "productLines": [
+    {
+      "id": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "itemCount": 38,
+      "solutionCount": 12
+    },
+    {
+      "id": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "itemCount": 45,
+      "solutionCount": 2
+    },
+    {
+      "id": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "itemCount": 18,
+      "solutionCount": 5
+    },
+    {
+      "id": "m1n20",
+      "sheetName": "M1N 2_0",
+      "itemCount": 35,
+      "solutionCount": 2
+    },
+    {
+      "id": "m3n",
+      "sheetName": "M3N",
+      "itemCount": 36,
+      "solutionCount": 1
+    },
+    {
+      "id": "960c53",
+      "sheetName": "960C53",
+      "itemCount": 46,
+      "solutionCount": 3
+    },
+    {
+      "id": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "itemCount": 25,
+      "solutionCount": 0
+    },
+    {
+      "id": "f6n",
+      "sheetName": "F6N",
+      "itemCount": 39,
+      "solutionCount": 1
+    },
+    {
+      "id": "avm",
+      "sheetName": "AVM",
+      "itemCount": 15,
+      "solutionCount": 4
+    },
+    {
+      "id": "z5",
+      "sheetName": "Z5",
+      "itemCount": 5,
+      "solutionCount": 1
+    },
+    {
+      "id": "accessories",
+      "sheetName": "Accessories",
+      "itemCount": 6,
+      "solutionCount": 0
+    },
+    {
+      "id": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "itemCount": 30,
+      "solutionCount": 0
+    }
+  ],
+  "itemCount": 338,
+  "uniqueSkuCount": 205,
+  "items": [
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 14,
+      "sku": "5154021100049",
+      "name": "AD Plus 2.0 Kit 套装",
+      "group": "Dual-lens Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 15,
+      "sku": "5154021100054",
+      "name": "AD Plus 2.0-S Kit 套装",
+      "group": "Single-lens Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 16,
+      "sku": "5151053100007",
+      "name": "CA46",
+      "group": "BSD",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 17,
+      "sku": "5154021100086",
+      "name": "AD Plus 2.0+PBM Kit 套装",
+      "group": "Dual-lens Kit,PBM",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 18,
+      "sku": "5154021100090",
+      "name": "AD Plus 2.0-S+PBM Kit 套装",
+      "group": "PBM,Single-lens Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 19,
+      "sku": "5154021100098",
+      "name": "AD Plus 2.0+PBP Kit 套装",
+      "group": "Dual-lens Kit,PBP",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 20,
+      "sku": "5154021100103",
+      "name": "AD Plus 2.0-S + PBP Kit 套装",
+      "group": "PBP,Single-lens Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 21,
+      "sku": "1261020100065",
+      "name": "Video Output Cable 视频输出线",
+      "group": "Video Output Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 22,
+      "sku": "1261080100075",
+      "name": "9PIN OBD Cable",
+      "group": "Optional Power Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 23,
+      "sku": "1261080100072",
+      "name": "16PIN OBD Cable",
+      "group": "Optional Power Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 24,
+      "sku": "1260060100012",
+      "name": "9PIN OBD Cable",
+      "group": "Optional Power Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 25,
+      "sku": "1260040100236",
+      "name": "16PIN OBD Extension Cable",
+      "group": "Optional Power Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 26,
+      "sku": "1261090100044",
+      "name": "Power Breakout Cable 电源散线",
+      "group": "Optional Power Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 27,
+      "sku": "1261090100061",
+      "name": "Power Breakout Cable 电源散线",
+      "group": "Optional Power Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 28,
+      "sku": "1260010000351",
+      "name": "IPC Extension Cable IPC延长线",
+      "group": "Audio and Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 29,
+      "sku": "1260010000352",
+      "name": "IPC Extension Cable IPC延长线",
+      "group": "Audio and Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 30,
+      "sku": "1260010000353",
+      "name": "IPC Extension Cable IPC延长线",
+      "group": "Audio and Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 31,
+      "sku": "1210030000163",
+      "name": "AHD Extension Cable AHD 延长线",
+      "group": "Audio and Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 32,
+      "sku": "1210030000164",
+      "name": "AHD Extension Cable AHD 延长线",
+      "group": "Audio and Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 33,
+      "sku": "1210030000165",
+      "name": "AHD Extension Cable AHD 延长线",
+      "group": "Audio and Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 34,
+      "sku": "5152119100007",
+      "name": "C29N",
+      "group": "DMS",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 35,
+      "sku": "5051043100003",
+      "name": "CA38",
+      "group": "Reversing Monitoring",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 36,
+      "sku": "5200027100004",
+      "name": "CA42 2.0",
+      "group": "Reversing Monitoring,Rear BSD",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 2
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 37,
+      "sku": "1260010100201",
+      "name": "Extension cable 延长线",
+      "group": "Reversing Monitoring,Rear BSD",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 38,
+      "sku": "1260010100204",
+      "name": "Extension cable 延长线",
+      "group": "Reversing Monitoring,Rear BSD",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 39,
+      "sku": "1260010100216",
+      "name": "Extension cable 延长线",
+      "group": "Reversing Monitoring,Rear BSD",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 40,
+      "sku": "5190012100075",
+      "name": "DP7S Overseas Version DP7S 海外货运版",
+      "group": "Screen",
+      "category": "screen",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 41,
+      "sku": "1210010100059",
+      "name": "AHD Signal Adapter Cable AHD信号转接线",
+      "group": "Screen",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 42,
+      "sku": "5190067100051",
+      "name": "R-Watch",
+      "group": "R-Watch",
+      "category": "misc",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 2
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 43,
+      "sku": "5090091100025",
+      "name": "B2 Sound and Light Alarm 声光报警器",
+      "group": "B2",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 44,
+      "sku": "5090091100026",
+      "name": "B2 Sound and Light Alarm 声光报警器",
+      "group": "B2",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 45,
+      "sku": "1262010000025",
+      "name": "B2 Power and Adapter Cable 电源及转接线",
+      "group": "B2",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 46,
+      "sku": "1262010100031",
+      "name": "B2 Power and Adapter Cable 电源及转接线",
+      "group": "B2",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 47,
+      "sku": "5190108100003",
+      "name": "B3 Sound and Light Alarm声光报警器",
+      "group": "B3",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 48,
+      "sku": "1260040100038",
+      "name": "B3 Extension Cable 延长线",
+      "group": "B3",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 49,
+      "sku": "1260040000149",
+      "name": "B3 Extension Cable 延长线",
+      "group": "B3",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 50,
+      "sku": "1210040000204",
+      "name": "B3 Extension Cable 延长线",
+      "group": "B3",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "adplus20",
+      "sheetName": "AD Plus 2_0",
+      "rowNumber": 51,
+      "sku": "For specific part numbers, refer to the memory device recommendation table 具体料号参考存储器件推荐表",
+      "name": "Micro SD Card",
+      "group": "Storage",
+      "category": "storage",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 21,
+      "sku": "5190115100001",
+      "name": "iButton Reader",
+      "group": "Identity Verification",
+      "category": "misc",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 2
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 22,
+      "sku": "5190114100001",
+      "name": "iButton",
+      "group": "Identity Verification",
+      "category": "misc",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 2
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 23,
+      "sku": "5190067100044",
+      "name": "R-Watch",
+      "group": "In-vehicle notifier",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 24,
+      "sku": "5190067100045",
+      "name": "R-Watch",
+      "group": "In-vehicle notifier",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 26,
+      "sku": "5190021100004",
+      "name": "Microphone 麦克风",
+      "group": "Microphone",
+      "category": "misc",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 27,
+      "sku": "1260040100057",
+      "name": "Microphone Adapter Cable 麦克风转接线",
+      "group": "Microphone",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 40,
+      "sku": "5151019100038",
+      "name": "CA20S",
+      "group": "ADAS,CA20S",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 41,
+      "sku": "5151019100070",
+      "name": "CA20S",
+      "group": "ADAS,CA20S",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 42,
+      "sku": "5200007100101",
+      "name": "AD Kit 3.0",
+      "group": "DMS,ADAS,AD Kit 3.0,In-vehicle notifier",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 43,
+      "sku": "1120041000455",
+      "name": "DMS Riser Bracket DMS垫高支架",
+      "group": "DMS,ADAS,AD Kit 3.0,In-vehicle notifier",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 44,
+      "sku": "1160010100023",
+      "name": "Riser Bracket Screws DMS垫高支架螺丝",
+      "group": "DMS,ADAS,AD Kit 3.0,In-vehicle notifier",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 45,
+      "sku": "5151029100026",
+      "name": "CA24S",
+      "group": "Side BSD,CA24S",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 46,
+      "sku": "5151029100027",
+      "name": "CA24S",
+      "group": "Side BSD,CA24S",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 47,
+      "sku": "5151029100022",
+      "name": "CA24S",
+      "group": "Side BSD,CA24S",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 48,
+      "sku": "5151029100023",
+      "name": "CA24S",
+      "group": "Side BSD,CA24S",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 49,
+      "sku": "5151053100002",
+      "name": "CA46",
+      "group": "Four-way BSD,CA46",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 50,
+      "sku": "5151053100007",
+      "name": "CA46",
+      "group": "Four-way BSD,CA46",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 51,
+      "sku": "5151014100091",
+      "name": "MINI C24",
+      "group": "Four-way BSD,MINI C24",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 52,
+      "sku": "5051014100110",
+      "name": "MINI C24",
+      "group": "Four-way BSD,MINI C24",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 53,
+      "sku": "5090091100025",
+      "name": "B2",
+      "group": "Exterior Alarm",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 54,
+      "sku": "5090091100026",
+      "name": "B2",
+      "group": "Exterior Alarm",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 55,
+      "sku": "1262010000025",
+      "name": "B2 adapter cable B2转接线",
+      "group": "Exterior Alarm",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 56,
+      "sku": "1262010100031",
+      "name": "B2 adapter cable B2转接线",
+      "group": "Exterior Alarm",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 57,
+      "sku": "5151003100126",
+      "name": "Square Camera 方型机",
+      "group": "Rear BSD,Square Camera",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 58,
+      "sku": "5151072100008",
+      "name": "Square Camera 方型机",
+      "group": "Rear BSD,Square Camera",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 59,
+      "sku": "5151021100011",
+      "name": "New Metal Conch 新金属海螺",
+      "group": "In-vehicle surveillance",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 60,
+      "sku": "5151021100017",
+      "name": "New Metal Conch 新金属海螺",
+      "group": "In-vehicle surveillance",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 61,
+      "sku": "5151022100067",
+      "name": "New Metal Conch 新金属海螺",
+      "group": "In-vehicle surveillance",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 62,
+      "sku": "5151022100069",
+      "name": "New Metal Conch 新金属海螺",
+      "group": "In-vehicle surveillance",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 63,
+      "sku": "1260010100356",
+      "name": "AHD Extension Cable AHD延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 64,
+      "sku": "1260010100357",
+      "name": "AHD Extension Cable AHD延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 65,
+      "sku": "1260010100358",
+      "name": "AHD Extension Cable AHD延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 66,
+      "sku": "1260010100359",
+      "name": "AHD Extension Cable AHD延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 67,
+      "sku": "1260010000351",
+      "name": "IPC Extension Cable IPC 延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 68,
+      "sku": "1260010000352",
+      "name": "IPC Extension Cable IPC 延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 69,
+      "sku": "1260010000353",
+      "name": "IPC Extension Cable IPC 延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 70,
+      "sku": "5190012100066",
+      "name": "DP7S Standard Version DP7S 标准版",
+      "group": "Screen",
+      "category": "screen",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 71,
+      "sku": "5190012100075",
+      "name": "DP7S Overseas Version DP7S 海外货运版",
+      "group": "Screen",
+      "category": "screen",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 72,
+      "sku": "1210010100059",
+      "name": "AHD Signal Adapter Cable AHD信号转接线",
+      "group": "Screen",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 73,
+      "sku": "1210010100058",
+      "name": "AHD Signal Adapter Cable AHD信号转接线",
+      "group": "Screen",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 74,
+      "sku": "1261050000056",
+      "name": "Aviation Port Adapter Cable 航空头转接线",
+      "group": "Screen + Speaker",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 75,
+      "sku": "5190015100004",
+      "name": "12V Speaker 喇叭",
+      "group": "Speaker A",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 76,
+      "sku": "1260011000026",
+      "name": "Speaker Adapter Cable 喇叭转接线",
+      "group": "Speaker A",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 78,
+      "sku": "5190015100021",
+      "name": "Speaker 喇叭",
+      "group": "Speaker B",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "sheetName": "GT1 Pro+DC Max",
+      "rowNumber": 79,
+      "sku": "Specific Part Number Refer to Storage Device Recommendation List",
+      "name": "Micro SD Card",
+      "group": "Storage",
+      "category": "storage",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 7,
+      "sku": "5154022100006",
+      "name": "C6 Lite 2.0 Kit 套装",
+      "group": "Dual-lens Kit,RS232",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 8,
+      "sku": "5154022100020",
+      "name": "C6 Lite 2.0-S Kit套装",
+      "group": "Single-lens Kit,RS232",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 9,
+      "sku": "1260040100326",
+      "name": "Device Extension Cable 主机延长线",
+      "group": "Extension Cable",
+      "category": "mdvr",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 10,
+      "sku": "1261090100095",
+      "name": "16PIN OBD Power Cable",
+      "group": "Power Cable,RS232",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 11,
+      "sku": "1261090100117",
+      "name": "9PIN OBD Power Cable",
+      "group": "Power Cable,RS232",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 12,
+      "sku": "1261090100120",
+      "name": "16PIN OBD Power Cable",
+      "group": "Power Cable,CAN",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 13,
+      "sku": "1261090100121",
+      "name": "9PIN OBD Power Cable",
+      "group": "Power Cable,CAN",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 14,
+      "sku": "1261010100067",
+      "name": "PBP Connection Cable",
+      "group": "PBP",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 15,
+      "sku": "1260011100208",
+      "name": "AHD Expansion Cable AHD 视频拓展线",
+      "group": "Video Output Expansion Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 16,
+      "sku": "1260010100356",
+      "name": "AHD Extension Cable 延长线",
+      "group": "AHD Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 17,
+      "sku": "1260010100357",
+      "name": "AHD Extension Cable 延长线",
+      "group": "AHD Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 18,
+      "sku": "1260010100358",
+      "name": "AHD Extension Cable 延长线",
+      "group": "AHD Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 19,
+      "sku": "1260010100359",
+      "name": "AHD Extension Cable 延长线",
+      "group": "AHD Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 20,
+      "sku": "5151047100028",
+      "name": "CA29P",
+      "group": "DMS,CA29P",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 21,
+      "sku": "5151036100003",
+      "name": "CA29M",
+      "group": "DMS,CA29M",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 22,
+      "sku": "5151003000006",
+      "name": "Square Camera",
+      "group": "Reverse Monitoring",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 23,
+      "sku": "5190067100051",
+      "name": "R-Watch",
+      "group": "In-vehicle notifier",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 2
+    },
+    {
+      "productLine": "c6lite20",
+      "sheetName": "C6 Lite 2_0",
+      "rowNumber": 24,
+      "sku": "Refer to specific part number in the device storage recommendation table",
+      "name": "Micro SD Card",
+      "group": "Storage",
+      "category": "storage",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 4,
+      "sku": "5110038100014",
+      "name": "M1N 2.0",
+      "group": "MDVR Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 5,
+      "sku": "1261050100344",
+      "name": "IPC Video Expansion Cable IPC/CAN2线",
+      "group": "Video Expansion Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 6,
+      "sku": "5190067100044",
+      "name": "R-Watch",
+      "group": "In-vehicle notifier",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 7,
+      "sku": "1210040000008",
+      "name": "Alarm Serial Port Connection Cable",
+      "group": "Serial Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 8,
+      "sku": "5190021100004",
+      "name": "Microphone 麦克风",
+      "group": "Microphone",
+      "category": "misc",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 9,
+      "sku": "1260040100057",
+      "name": "Microphone Adapter Cable 麦克风转接线",
+      "group": "Microphone",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 10,
+      "sku": "1630008100001",
+      "name": "惯导模块",
+      "group": "GPS",
+      "category": "gps",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 11,
+      "sku": "5152119100007",
+      "name": "C29N",
+      "group": "DMS,C29N",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 12,
+      "sku": "5151036100003",
+      "name": "CA29M",
+      "group": "DMS,CA29M",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 13,
+      "sku": "5151019100038",
+      "name": "CA20S",
+      "group": "ADAS,CA20S",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 14,
+      "sku": "5200007100101",
+      "name": "AD Kit 3.0",
+      "group": "DMS,ADAS,AD Kit 3.0,In-vehicle notifier",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 15,
+      "sku": "1120041000455",
+      "name": "DMS Riser Bracket DMS垫高支架",
+      "group": "DMS,ADAS,AD Kit 3.0,In-vehicle notifier",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 16,
+      "sku": "1160010100023",
+      "name": "Riser Bracket Screws DMS垫高支架螺丝",
+      "group": "DMS,ADAS,AD Kit 3.0,In-vehicle notifier",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 17,
+      "sku": "5151053100007",
+      "name": "CA46",
+      "group": "Four-way BSD,CA46",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 18,
+      "sku": "5090091100025",
+      "name": "B2",
+      "group": "Exterior Alarm",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 19,
+      "sku": "5090091100026",
+      "name": "B2",
+      "group": "Exterior Alarm",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 20,
+      "sku": "1262010000025",
+      "name": "B2 adapter cable B2转接线",
+      "group": "Exterior Alarm",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 21,
+      "sku": "1262010100031",
+      "name": "B2 adapter cable B2转接线",
+      "group": "Exterior Alarm",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 22,
+      "sku": "5151003100126",
+      "name": "Square Camera 方型机",
+      "group": "Rear BSD,Square Camera",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 23,
+      "sku": "5151022100069",
+      "name": "New Metal Conch 新金属海螺",
+      "group": "In-vehicle surveillance",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 24,
+      "sku": "1260010100356",
+      "name": "AHD Extension Cable AHD延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 25,
+      "sku": "1260010100357",
+      "name": "AHD Extension Cable AHD延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 26,
+      "sku": "1260010100358",
+      "name": "AHD Extension Cable AHD延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 27,
+      "sku": "1260010100359",
+      "name": "AHD Extension Cable AHD延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 28,
+      "sku": "1260010000351",
+      "name": "IPC Extension Cable IPC 延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 29,
+      "sku": "1260010000352",
+      "name": "IPC Extension Cable IPC 延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 30,
+      "sku": "1260010000353",
+      "name": "IPC Extension Cable IPC 延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 31,
+      "sku": "5190012100075",
+      "name": "DP7S Overseas Version DP7S 海外货运版",
+      "group": "Screen",
+      "category": "screen",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 32,
+      "sku": "1210010100059",
+      "name": "AHD Signal Adapter Cable AHD信号转接线",
+      "group": "Screen",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 33,
+      "sku": "1261050000056",
+      "name": "Aviation Port Adapter Cable 航空头转接线",
+      "group": "Screen + Speaker",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 34,
+      "sku": "5190015100004",
+      "name": "12V Speaker 喇叭",
+      "group": "Speaker A",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 35,
+      "sku": "1260011000026",
+      "name": "Speaker Adapter Cable 喇叭转接线",
+      "group": "Speaker A",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 36,
+      "sku": "5190015100021",
+      "name": "Speaker 喇叭",
+      "group": "Speaker B",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 37,
+      "sku": "Specific Part Number Refer to Storage Device Recommendation List",
+      "name": "Micro SD Card",
+      "group": "Storage",
+      "category": "storage",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m1n20",
+      "sheetName": "M1N 2_0",
+      "rowNumber": 38,
+      "sku": "Specific Part Number Refer to Storage Device Recommendation List",
+      "name": "M.2 SSD",
+      "group": "Storage",
+      "category": "storage",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 3,
+      "sku": "5190076100018",
+      "name": "惯导模块",
+      "group": "GPS",
+      "category": "gps",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 4,
+      "sku": "5120121100005",
+      "name": "M3N",
+      "group": "MDVR Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 5,
+      "sku": "1261050100409",
+      "name": "20PIN Plug Signal Cable",
+      "group": "Video Expansion Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 6,
+      "sku": "5190067100044",
+      "name": "R-Watch",
+      "group": "In-vehicle notifier",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 7,
+      "sku": "1210040000008",
+      "name": "Alarm Serial Port Connection Cable",
+      "group": "Serial Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 8,
+      "sku": "5190021100004",
+      "name": "Microphone 麦克风",
+      "group": "Microphone",
+      "category": "misc",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 9,
+      "sku": "1260040100057",
+      "name": "Microphone Adapter Cable 麦克风转接线",
+      "group": "Microphone",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 10,
+      "sku": "5152119100007",
+      "name": "C29N",
+      "group": "DMS,C29N",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 11,
+      "sku": "5151036100003",
+      "name": "CA29M",
+      "group": "DMS,CA29M",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 12,
+      "sku": "5151019100038",
+      "name": "CA20S",
+      "group": "ADAS,CA20S",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 13,
+      "sku": "5200007100101",
+      "name": "AD Kit 3.0",
+      "group": "DMS,ADAS,AD Kit 3.0,In-vehicle notifier",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 14,
+      "sku": "1120041000455",
+      "name": "DMS Riser Bracket DMS垫高支架",
+      "group": "DMS,ADAS,AD Kit 3.0,In-vehicle notifier",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 15,
+      "sku": "1160010100023",
+      "name": "Riser Bracket Screws DMS垫高支架螺丝",
+      "group": "DMS,ADAS,AD Kit 3.0,In-vehicle notifier",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 16,
+      "sku": "5151053100002",
+      "name": "CA46",
+      "group": "Four-way BSD,CA46",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 17,
+      "sku": "5151053100007",
+      "name": "CA46",
+      "group": "Four-way BSD,CA46",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 18,
+      "sku": "5090091100025",
+      "name": "B2",
+      "group": "Exterior Alarm",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 19,
+      "sku": "5090091100026",
+      "name": "B2",
+      "group": "Exterior Alarm",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 20,
+      "sku": "1262010000025",
+      "name": "B2 adapter cable B2转接线",
+      "group": "Exterior Alarm",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 21,
+      "sku": "1262010100031",
+      "name": "B2 adapter cable B2转接线",
+      "group": "Exterior Alarm",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 22,
+      "sku": "5151003100126",
+      "name": "Square Camera 方型机",
+      "group": "Rear BSD,Square Camera",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 23,
+      "sku": "5151022100069",
+      "name": "New Metal Conch 新金属海螺",
+      "group": "In-vehicle surveillance",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 24,
+      "sku": "1260010100356",
+      "name": "AHD Extension Cable AHD延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 25,
+      "sku": "1260010100357",
+      "name": "AHD Extension Cable AHD延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 26,
+      "sku": "1260010100358",
+      "name": "AHD Extension Cable AHD延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 27,
+      "sku": "1260010100359",
+      "name": "AHD Extension Cable AHD延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 28,
+      "sku": "1260010000351",
+      "name": "IPC Extension Cable IPC 延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 29,
+      "sku": "1260010000352",
+      "name": "IPC Extension Cable IPC 延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 30,
+      "sku": "1260010000353",
+      "name": "IPC Extension Cable IPC 延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 31,
+      "sku": "5190012100075",
+      "name": "DP7S Overseas Version DP7S 海外货运版",
+      "group": "Screen",
+      "category": "screen",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 32,
+      "sku": "1210010100059",
+      "name": "AHD Signal Adapter Cable AHD信号转接线",
+      "group": "Screen",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 33,
+      "sku": "1261050000056",
+      "name": "Aviation Port Adapter Cable 航空头转接线",
+      "group": "Screen + Speaker",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 34,
+      "sku": "5190015100004",
+      "name": "12V Speaker 喇叭",
+      "group": "Speaker A",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 35,
+      "sku": "1260011000026",
+      "name": "Speaker Adapter Cable 喇叭转接线",
+      "group": "Speaker A",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 36,
+      "sku": "5190015100021",
+      "name": "Speaker 喇叭",
+      "group": "Speaker B",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 37,
+      "sku": "Specific Part Number Refer to Storage Device Recommendation List",
+      "name": "Micro SD Card",
+      "group": "Storage",
+      "category": "storage",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "m3n",
+      "sheetName": "M3N",
+      "rowNumber": 38,
+      "sku": "Specific Part Number Refer to Storage Device Recommendation List",
+      "name": "M.2 SSD",
+      "group": "Storage",
+      "category": "storage",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 2,
+      "sku": "5152132100019",
+      "name": "C53-L",
+      "group": "C53 Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 3,
+      "sku": "5152132100060",
+      "name": "C53-L",
+      "group": "C53 Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 4,
+      "sku": "5152132100055",
+      "name": "C53-L",
+      "group": "C53 Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 5,
+      "sku": "5152132100021",
+      "name": "C53-R",
+      "group": "C53 Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 6,
+      "sku": "5152132100062",
+      "name": "C53-R",
+      "group": "C53 Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 7,
+      "sku": "5152132100056",
+      "name": "C53-R",
+      "group": "C53 Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 8,
+      "sku": "5190108100001",
+      "name": "B3 Alarm Device",
+      "group": "C53 Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 9,
+      "sku": "1122042100107",
+      "name": "Short Bracket",
+      "group": "C53 Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 10,
+      "sku": "1122042100096",
+      "name": "Short Bracket",
+      "group": "C53 Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 11,
+      "sku": "3390000100032",
+      "name": "Power Box",
+      "group": "C53 Kit",
+      "category": "power",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 12,
+      "sku": "1261010100043",
+      "name": "C53 Video Output Cable",
+      "group": "C53 Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 13,
+      "sku": "1261080100078",
+      "name": "Serial Port Input Cable",
+      "group": "C53 Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 14,
+      "sku": "1160060100011",
+      "name": "Hex Screwdriver",
+      "group": "C53 Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 15,
+      "sku": "3380000100078",
+      "name": "Extension Bracket",
+      "group": "Extension Bracket",
+      "category": "mount",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 16,
+      "sku": "3380000100079",
+      "name": "Extension Bracket",
+      "group": "Extension Bracket",
+      "category": "mount",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 17,
+      "sku": "3380000100094",
+      "name": "Extension Bracket",
+      "group": "Extension Bracket",
+      "category": "mount",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 18,
+      "sku": "3380000100093",
+      "name": "Extension Bracket",
+      "group": "Extension Bracket",
+      "category": "mount",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 19,
+      "sku": "3130000100046",
+      "name": "External Inertial GPS Module",
+      "group": "GPS",
+      "category": "gps",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 20,
+      "sku": "3130000100047",
+      "name": "External Inertial GPS Module",
+      "group": "GPS",
+      "category": "gps",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 21,
+      "sku": "1210060100001",
+      "name": "External Standard GPS Module",
+      "group": "GPS",
+      "category": "gps",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 22,
+      "sku": "5151077100038",
+      "name": "CA51-A",
+      "group": "Front BSD",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 23,
+      "sku": "5151077100039",
+      "name": "CA51-A",
+      "group": "Front BSD",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 24,
+      "sku": "1260010100268",
+      "name": "Audio-Video Extension Cable",
+      "group": "Front BSD",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 25,
+      "sku": "3380000100089",
+      "name": "Camera Bracket",
+      "group": "Front BSD",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 26,
+      "sku": "5190012100059",
+      "name": "7-inch Screen",
+      "group": "Screen",
+      "category": "screen",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 27,
+      "sku": "5190012100030",
+      "name": "7-inch Screen",
+      "group": "Screen",
+      "category": "screen",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 28,
+      "sku": "1210030000162",
+      "name": "Screen Extension Cable",
+      "group": "Screen",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 29,
+      "sku": "1210040000204",
+      "name": "B3 Extension Cable",
+      "group": "B3 Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 30,
+      "sku": "1260040000149",
+      "name": "B3 Extension Cable",
+      "group": "B3 Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 31,
+      "sku": "1260010100265",
+      "name": "C53 to CA51 Extension Cable",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 32,
+      "sku": "1260010100266",
+      "name": "C53 to CA51 Extension Cable",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 33,
+      "sku": "1260010100267",
+      "name": "C53 to CA51 Extension Cable",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 34,
+      "sku": "1260010100268",
+      "name": "C53 to CA51 Extension Cable",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 35,
+      "sku": "5090091100025",
+      "name": "B2-R",
+      "group": "B2",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 36,
+      "sku": "5090091100026",
+      "name": "B2-L",
+      "group": "B2",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 37,
+      "sku": "1260010000351",
+      "name": "B2 Extension Cable",
+      "group": "B2",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 38,
+      "sku": "1260010000352",
+      "name": "B2 Extension Cable",
+      "group": "B2",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 39,
+      "sku": "1260010000353",
+      "name": "B2 Extension Cable",
+      "group": "B2",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 40,
+      "sku": "1261010000013",
+      "name": "Router Adapter Cable",
+      "group": "Maintenance",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 41,
+      "sku": "5196011100008",
+      "name": "X3NPRO-H0404",
+      "group": "MDVR",
+      "category": "mdvr",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 42,
+      "sku": "5196009100018",
+      "name": "X3N-H0404",
+      "group": "MDVR",
+      "category": "mdvr",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 43,
+      "sku": "5195004100007",
+      "name": "M1N-TKH0401",
+      "group": "MDVR",
+      "category": "mdvr",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 44,
+      "sku": "5194003100009",
+      "name": "X1N-H0401",
+      "group": "MDVR",
+      "category": "mdvr",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 45,
+      "sku": "5110038100028",
+      "name": "M1N-2.0",
+      "group": "MDVR",
+      "category": "mdvr",
+      "quantity": "",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 49,
+      "sku": "1260011100181",
+      "name": "AVOUT Adapter Cable",
+      "group": "AVOUT Adapter Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "960c53",
+      "sheetName": "960C53",
+      "rowNumber": 50,
+      "sku": "1261020100108",
+      "name": "AVOUT Adapter Cable",
+      "group": "AVOUT Adapter Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 2,
+      "sku": "5152178100017",
+      "name": "966C46-IPC kit",
+      "group": "966C46-IPCkit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 3,
+      "sku": "1261010100072",
+      "name": "adapter cable",
+      "group": "966C46-IPCkit",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 4,
+      "sku": "1120041100679",
+      "name": "Rainproof Bracket",
+      "group": "966C46-IPCkit",
+      "category": "mount",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 5,
+      "sku": "1160060100013",
+      "name": "Wrench",
+      "group": "966C46-IPCkit",
+      "category": "mount",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 6,
+      "sku": "1260010000351",
+      "name": "C46-IPC-Extension cable",
+      "group": "Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 7,
+      "sku": "1260010000352",
+      "name": "C46-IPC-Extension cable",
+      "group": "Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 8,
+      "sku": "1260010000353",
+      "name": "C46-IPC-Extension cable",
+      "group": "Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 9,
+      "sku": "1260010000357",
+      "name": "C46-IPC-Extension cable",
+      "group": "Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 10,
+      "sku": "5110038100228",
+      "name": "M1N-2.0",
+      "group": "MDVR",
+      "category": "mdvr",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 11,
+      "sku": "5110038100004",
+      "name": "M1N-2.0",
+      "group": "MDVR",
+      "category": "mdvr",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 12,
+      "sku": "5110038100014",
+      "name": "M1N-2.0",
+      "group": "MDVR",
+      "category": "mdvr",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 13,
+      "sku": "5164003100002",
+      "name": "BA5-O",
+      "group": "External Speaker",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 14,
+      "sku": "5164002100002",
+      "name": "BA5-I",
+      "group": "Internal Speaker",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 15,
+      "sku": "3380000100102",
+      "name": "Magnetic Mounting Bracket",
+      "group": "Accessories",
+      "category": "mount",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 16,
+      "sku": "3380000100124",
+      "name": "Extension Bracket",
+      "group": "Accessories",
+      "category": "mount",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 17,
+      "sku": "1261010100061",
+      "name": "Adapt cable",
+      "group": "Accessories",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 18,
+      "sku": "5146026100001",
+      "name": "DP7S-With Streamax Logo",
+      "group": "Screen",
+      "category": "screen",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 19,
+      "sku": "5190012100084",
+      "name": "DP7S-Without Streamax Logo",
+      "group": "Screen",
+      "category": "screen",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 20,
+      "sku": "1130040100051",
+      "name": "Sunshade",
+      "group": "Screen",
+      "category": "screen",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 21,
+      "sku": "5173002100003",
+      "name": "Switch",
+      "group": "Accessories",
+      "category": "misc",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 22,
+      "sku": "1261020000036",
+      "name": "Switch cable",
+      "group": "Accessories",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 23,
+      "sku": "1210010100070",
+      "name": "8 IOoutput Extension Box",
+      "group": "Accessories",
+      "category": "misc",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 24,
+      "sku": "1261050100448",
+      "name": "",
+      "group": "Accessories",
+      "category": "misc",
+      "quantity": "",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 25,
+      "sku": "1260040100052",
+      "name": "BA5 serial extension cable",
+      "group": "Accessories",
+      "category": "cable",
+      "quantity": "",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "966c46ipc",
+      "sheetName": "966C46-IPC",
+      "rowNumber": 26,
+      "sku": "1260040100267",
+      "name": "",
+      "group": "Accessories",
+      "category": "misc",
+      "quantity": "",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 2,
+      "sku": "5110037100001",
+      "name": "F6N-H0401",
+      "group": "MDVR Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 3,
+      "sku": "5110037100002",
+      "name": "F6N-H0401",
+      "group": "MDVR Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 4,
+      "sku": "5110037100003",
+      "name": "F6N-H0401",
+      "group": "MDVR Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 5,
+      "sku": "5110037100004",
+      "name": "F6N-H0401",
+      "group": "MDVR Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 6,
+      "sku": "1261030100120",
+      "name": "Power Cable 电源线",
+      "group": "MDVR Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 7,
+      "sku": "1210050100055",
+      "name": "3G/4G Antenna",
+      "group": "MDVR Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 8,
+      "sku": "1210050100111",
+      "name": "GNSS Antenna",
+      "group": "MDVR Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 9,
+      "sku": "1120041100282",
+      "name": "SIM Card Ejector Pin SIM卡取卡针",
+      "group": "MDVR Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 10,
+      "sku": "1160060100010",
+      "name": "Hex Screwdriver 内六角螺丝刀",
+      "group": "MDVR Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 11,
+      "sku": "1261080100093",
+      "name": "I/O Serial Cable I/O串口线",
+      "group": "Serial Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 12,
+      "sku": "1260011000023",
+      "name": "IPC Port to Network Port Cable IPC口转网口线材",
+      "group": "Maintenance",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 13,
+      "sku": "5190001000009",
+      "name": "Veyes Maintenance Tool 运维宝",
+      "group": "Maintenance",
+      "category": "mount",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 14,
+      "sku": "5151047100025",
+      "name": "CA29P",
+      "group": "DMS",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 15,
+      "sku": "5151047100028",
+      "name": "CA29P",
+      "group": "DMS",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 16,
+      "sku": "5151047100029",
+      "name": "CA29P",
+      "group": "DMS",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 17,
+      "sku": "5151047100030",
+      "name": "CA29P",
+      "group": "DMS",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 18,
+      "sku": "5151021100011",
+      "name": "New Metal Conch 新金属海螺",
+      "group": "In-vehicle surveillance",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 19,
+      "sku": "5151021100017",
+      "name": "New Metal Conch 新金属海螺",
+      "group": "In-vehicle surveillance",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 20,
+      "sku": "5151022100067",
+      "name": "New Metal Conch 新金属海螺",
+      "group": "In-vehicle surveillance",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 21,
+      "sku": "5151022100069",
+      "name": "New Metal Conch 新金属海螺",
+      "group": "In-vehicle surveillance",
+      "category": "camera",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 22,
+      "sku": "1260010100356",
+      "name": "AHD Extension Cable",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 23,
+      "sku": "1260010100357",
+      "name": "AHD Extension Cable",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 24,
+      "sku": "1260010100358",
+      "name": "AHD Extension Cable",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 25,
+      "sku": "1260010100359",
+      "name": "AHD Extension Cable",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 26,
+      "sku": "1210030000163",
+      "name": "AHD Extension Cable",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 27,
+      "sku": "1210030000164",
+      "name": "AHD Extension Cable",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 28,
+      "sku": "1210030000165",
+      "name": "AHD Extension Cable",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 29,
+      "sku": "1260010000351",
+      "name": "IPC Extension Cable",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 30,
+      "sku": "1260010000352",
+      "name": "IPC Extension Cable",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 31,
+      "sku": "1260010000353",
+      "name": "IPC Extension Cable",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 32,
+      "sku": "5190012100066",
+      "name": "DP7S Standard Version DP7S 标准版",
+      "group": "Screen",
+      "category": "screen",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 33,
+      "sku": "5190012100075",
+      "name": "DP7S Overseas Version DP7S 海外货运版",
+      "group": "Screen",
+      "category": "screen",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 34,
+      "sku": "1210010100059",
+      "name": "AHD Signal Adapter Cable AHD信号转接线",
+      "group": "Screen",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 35,
+      "sku": "1210010100058",
+      "name": "AHD Signal Adapter Cable AHD信号转接线",
+      "group": "Screen",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 36,
+      "sku": "1261050000056",
+      "name": "Aviation Port Adapter Cable 航空头转接线",
+      "group": "Screen+Speaker",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 37,
+      "sku": "5190015100004",
+      "name": "12V Speaker 喇叭",
+      "group": "Speaker A",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 38,
+      "sku": "1260011000026",
+      "name": "Speaker Adapter Cable 喇叭转接线",
+      "group": "Speaker A",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 39,
+      "sku": "5190015100021",
+      "name": "Speaker 喇叭",
+      "group": "Speaker B",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "f6n",
+      "sheetName": "F6N",
+      "rowNumber": 40,
+      "sku": "Specific Part Number Refer to Storage Device Recommendation List",
+      "name": "Micro SD Card",
+      "group": "Storage",
+      "category": "storage",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "avm",
+      "sheetName": "AVM",
+      "rowNumber": 6,
+      "sku": "5170004100001",
+      "name": "AVM",
+      "group": "AVM Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "avm",
+      "sheetName": "AVM",
+      "rowNumber": 7,
+      "sku": "1261020100108",
+      "name": "Audio-Video Adapter Cable 音视频转接线",
+      "group": "Adapter Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "avm",
+      "sheetName": "AVM",
+      "rowNumber": 8,
+      "sku": "1260010000130",
+      "name": "Cascading Mode Adapter Cable 级联模式转接线",
+      "group": "Adapter Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "avm",
+      "sheetName": "AVM",
+      "rowNumber": 9,
+      "sku": "1260011100152",
+      "name": "Audio-Video Extension Cable 音视频延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "avm",
+      "sheetName": "AVM",
+      "rowNumber": 10,
+      "sku": "1260011100153",
+      "name": "Audio-Video Extension Cable 音视频延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "avm",
+      "sheetName": "AVM",
+      "rowNumber": 11,
+      "sku": "1260011100154",
+      "name": "Audio-Video Extension Cable 音视频延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "avm",
+      "sheetName": "AVM",
+      "rowNumber": 12,
+      "sku": "1260011100155",
+      "name": "Audio-Video Extension Cable 音视频延长线",
+      "group": "Video Extension Cable",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "avm",
+      "sheetName": "AVM",
+      "rowNumber": 13,
+      "sku": "5151097100002",
+      "name": "CA51D",
+      "group": "CA51D",
+      "category": "camera",
+      "quantity": "4",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "avm",
+      "sheetName": "AVM",
+      "rowNumber": 14,
+      "sku": "5190074100007",
+      "name": "Calibration Cloth 标定布",
+      "group": "Calibration",
+      "category": "maintain",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "avm",
+      "sheetName": "AVM",
+      "rowNumber": 15,
+      "sku": "5190012100075",
+      "name": "DP7S - Streamax 7-inch Screen 锐明7寸屏：DP7S",
+      "group": "Screen",
+      "category": "screen",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "avm",
+      "sheetName": "AVM",
+      "rowNumber": 16,
+      "sku": "1210010100059",
+      "name": "AHD Signal Adapter Cable AHD信号转接线",
+      "group": "Screen",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "avm",
+      "sheetName": "AVM",
+      "rowNumber": 17,
+      "sku": "5090091100025",
+      "name": "B2",
+      "group": "Exterior Alarm Device",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "avm",
+      "sheetName": "AVM",
+      "rowNumber": 18,
+      "sku": "5090091100026",
+      "name": "B2",
+      "group": "Exterior Alarm Device",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "avm",
+      "sheetName": "AVM",
+      "rowNumber": 19,
+      "sku": "1262010000025",
+      "name": "B2 Adapter Cable B2转接线",
+      "group": "Exterior Alarm Device",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "avm",
+      "sheetName": "AVM",
+      "rowNumber": 20,
+      "sku": "1262010100031",
+      "name": "B2 Adapter Cable B2转接线",
+      "group": "Exterior Alarm Device",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "z5",
+      "sheetName": "Z5",
+      "rowNumber": 2,
+      "sku": "5210056100004",
+      "name": "Z5",
+      "group": "Z5 Kit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 3
+    },
+    {
+      "productLine": "z5",
+      "sheetName": "Z5",
+      "rowNumber": 3,
+      "sku": "5190005100063",
+      "name": "Micro SD Card",
+      "group": "Storage",
+      "category": "storage",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "z5",
+      "sheetName": "Z5",
+      "rowNumber": 4,
+      "sku": "5190005100062",
+      "name": "Micro SD Card",
+      "group": "Storage",
+      "category": "storage",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "z5",
+      "sheetName": "Z5",
+      "rowNumber": 5,
+      "sku": "5190005100060",
+      "name": "Micro SD Card",
+      "group": "Storage",
+      "category": "storage",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "z5",
+      "sheetName": "Z5",
+      "rowNumber": 6,
+      "sku": "5190005100083",
+      "name": "Micro SD Card",
+      "group": "Storage",
+      "category": "storage",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "accessories",
+      "sheetName": "Accessories",
+      "rowNumber": 2,
+      "sku": "5181001100001",
+      "name": "座椅振动器",
+      "group": "座椅振动器",
+      "category": "alarm",
+      "quantity": "",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "accessories",
+      "sheetName": "Accessories",
+      "rowNumber": 3,
+      "sku": "1260020100165",
+      "name": "座椅振动器连接线",
+      "group": "座椅振动器",
+      "category": "cable",
+      "quantity": "",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "accessories",
+      "sheetName": "Accessories",
+      "rowNumber": 4,
+      "sku": "5190060100044",
+      "name": "电源盒",
+      "group": "座椅振动器",
+      "category": "power",
+      "quantity": "",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "accessories",
+      "sheetName": "Accessories",
+      "rowNumber": 5,
+      "sku": "5190121100001",
+      "name": "酒精测试仪",
+      "group": "酒测仪",
+      "category": "misc",
+      "quantity": "",
+      "isDiagram": false,
+      "images": 0
+    },
+    {
+      "productLine": "accessories",
+      "sheetName": "Accessories",
+      "rowNumber": 6,
+      "sku": "1130082100045",
+      "name": "酒测吹嘴",
+      "group": "酒测仪",
+      "category": "misc",
+      "quantity": "",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "accessories",
+      "sheetName": "Accessories",
+      "rowNumber": 7,
+      "sku": "1130082100046",
+      "name": "酒测吹嘴",
+      "group": "酒测仪",
+      "category": "misc",
+      "quantity": "",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 2,
+      "sku": "5152178100018",
+      "name": "966C46-IPC kit",
+      "group": "966C46-IPCkit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 3,
+      "sku": "1260040100434",
+      "name": "adapter cable",
+      "group": "966C46-IPCkit",
+      "category": "cable",
+      "quantity": "",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 4,
+      "sku": "1120041100679",
+      "name": "Rainproof Bracket",
+      "group": "966C46-IPCkit",
+      "category": "mount",
+      "quantity": "",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 5,
+      "sku": "1160060100013",
+      "name": "Wrench",
+      "group": "966C46-IPCkit",
+      "category": "mount",
+      "quantity": "",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 6,
+      "sku": "5152178100020",
+      "name": "966C46-AHD kit",
+      "group": "966C46-AHDkit",
+      "category": "kit",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 7,
+      "sku": "1260010100206",
+      "name": "C46-IPC-Extension cable",
+      "group": "Extension Cable-IPC",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 8,
+      "sku": "1260010100217",
+      "name": "C46-IPC-Extension cable",
+      "group": "Extension Cable-IPC",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 9,
+      "sku": "1261010100077",
+      "name": "C46-AHD-Maintenance cable",
+      "group": "Accessories",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 10,
+      "sku": "5190001000009",
+      "name": "Easy Check Dongle",
+      "group": "Accessories",
+      "category": "maintain",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 11,
+      "sku": "1260010100265",
+      "name": "C46-AHD-Extension cable",
+      "group": "Extension Cable-C46-AHD",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 12,
+      "sku": "1260010100266",
+      "name": "C46-AHD-Extension cable",
+      "group": "Extension Cable-C46-AHD",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 13,
+      "sku": "1260010100267",
+      "name": "C46-AHD-Extension cable",
+      "group": "Extension Cable-C46-AHD",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 14,
+      "sku": "1260010100268",
+      "name": "C46-AHD-Extension cable",
+      "group": "Extension Cable-C46-AHD",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 15,
+      "sku": "5110039100020",
+      "name": "F1N-V1.2",
+      "group": "MDVR",
+      "category": "mdvr",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 16,
+      "sku": "5110039100023",
+      "name": "F1N-V1.2",
+      "group": "MDVR",
+      "category": "mdvr",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 17,
+      "sku": "5110039100024",
+      "name": "F1N-V1.2",
+      "group": "MDVR",
+      "category": "mdvr",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 18,
+      "sku": "5110039100025",
+      "name": "F1N-V1.2",
+      "group": "MDVR",
+      "category": "mdvr",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 19,
+      "sku": "5164003100004",
+      "name": "BA5-O",
+      "group": "External Speaker",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 20,
+      "sku": "5164002100004",
+      "name": "BA5-I",
+      "group": "Internal Speaker",
+      "category": "alarm",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 21,
+      "sku": "3380000100102",
+      "name": "Magnetic Mounting Bracket",
+      "group": "Accessories-C46",
+      "category": "mount",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 22,
+      "sku": "3380000100124",
+      "name": "Extension Bracket",
+      "group": "Accessories-C46",
+      "category": "mount",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 23,
+      "sku": "5163001100003",
+      "name": "wheel speed sensor",
+      "group": "Accessories-C46",
+      "category": "misc",
+      "quantity": "",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 24,
+      "sku": "5152214100004",
+      "name": "C29N-P",
+      "group": "Accessories-C46",
+      "category": "camera",
+      "quantity": "",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 25,
+      "sku": "1260011100296",
+      "name": "Adapt cable",
+      "group": "966C46-AHDkit",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 26,
+      "sku": "1261010100086",
+      "name": "Adapt cable",
+      "group": "966C46-AHDkit",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 27,
+      "sku": "1120041100679",
+      "name": "Rainproof Bracket",
+      "group": "966C46-AHDkit",
+      "category": "mount",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 28,
+      "sku": "1160060100013",
+      "name": "Wrench",
+      "group": "966C46-AHDkit",
+      "category": "mount",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 29,
+      "sku": "1261050100490",
+      "name": "RS485 adapt cable",
+      "group": "Accessories",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 30,
+      "sku": "1260011100157",
+      "name": "adapt cable for normal AHD camera",
+      "group": "Accessories",
+      "category": "cable",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    },
+    {
+      "productLine": "forkliftsolutionwaterproofc4",
+      "sheetName": "Forklift Solution-Waterproof C4",
+      "rowNumber": 31,
+      "sku": "5146054100001",
+      "name": "Display with waterproof",
+      "group": "Screen",
+      "category": "screen",
+      "quantity": "1",
+      "isDiagram": false,
+      "images": 1
+    }
+  ],
+  "skuIndex": {
+    "5154021100049": [
+      "adplus20#row14"
+    ],
+    "5154021100054": [
+      "adplus20#row15"
+    ],
+    "5151053100007": [
+      "adplus20#row16",
+      "gt1prodcmax#row50",
+      "m1n20#row17",
+      "m3n#row17"
+    ],
+    "5154021100086": [
+      "adplus20#row17"
+    ],
+    "5154021100090": [
+      "adplus20#row18"
+    ],
+    "5154021100098": [
+      "adplus20#row19"
+    ],
+    "5154021100103": [
+      "adplus20#row20"
+    ],
+    "1261020100065": [
+      "adplus20#row21"
+    ],
+    "1261080100075": [
+      "adplus20#row22"
+    ],
+    "1261080100072": [
+      "adplus20#row23"
+    ],
+    "1260060100012": [
+      "adplus20#row24"
+    ],
+    "1260040100236": [
+      "adplus20#row25"
+    ],
+    "1261090100044": [
+      "adplus20#row26"
+    ],
+    "1261090100061": [
+      "adplus20#row27"
+    ],
+    "1260010000351": [
+      "adplus20#row28",
+      "gt1prodcmax#row67",
+      "m1n20#row28",
+      "m3n#row28",
+      "960c53#row37",
+      "966c46ipc#row6",
+      "f6n#row29"
+    ],
+    "1260010000352": [
+      "adplus20#row29",
+      "gt1prodcmax#row68",
+      "m1n20#row29",
+      "m3n#row29",
+      "960c53#row38",
+      "966c46ipc#row7",
+      "f6n#row30"
+    ],
+    "1260010000353": [
+      "adplus20#row30",
+      "gt1prodcmax#row69",
+      "m1n20#row30",
+      "m3n#row30",
+      "960c53#row39",
+      "966c46ipc#row8",
+      "f6n#row31"
+    ],
+    "1210030000163": [
+      "adplus20#row31",
+      "f6n#row26"
+    ],
+    "1210030000164": [
+      "adplus20#row32",
+      "f6n#row27"
+    ],
+    "1210030000165": [
+      "adplus20#row33",
+      "f6n#row28"
+    ],
+    "5152119100007": [
+      "adplus20#row34",
+      "m1n20#row11",
+      "m3n#row10"
+    ],
+    "5051043100003": [
+      "adplus20#row35"
+    ],
+    "5200027100004": [
+      "adplus20#row36"
+    ],
+    "1260010100201": [
+      "adplus20#row37"
+    ],
+    "1260010100204": [
+      "adplus20#row38"
+    ],
+    "1260010100216": [
+      "adplus20#row39"
+    ],
+    "5190012100075": [
+      "adplus20#row40",
+      "gt1prodcmax#row71",
+      "m1n20#row31",
+      "m3n#row31",
+      "f6n#row33",
+      "avm#row15"
+    ],
+    "1210010100059": [
+      "adplus20#row41",
+      "gt1prodcmax#row72",
+      "m1n20#row32",
+      "m3n#row32",
+      "f6n#row34",
+      "avm#row16"
+    ],
+    "5190067100051": [
+      "adplus20#row42",
+      "c6lite20#row23"
+    ],
+    "5090091100025": [
+      "adplus20#row43",
+      "gt1prodcmax#row53",
+      "m1n20#row18",
+      "m3n#row18",
+      "960c53#row35",
+      "avm#row17"
+    ],
+    "5090091100026": [
+      "adplus20#row44",
+      "gt1prodcmax#row54",
+      "m1n20#row19",
+      "m3n#row19",
+      "960c53#row36",
+      "avm#row18"
+    ],
+    "1262010000025": [
+      "adplus20#row45",
+      "gt1prodcmax#row55",
+      "m1n20#row20",
+      "m3n#row20",
+      "avm#row19"
+    ],
+    "1262010100031": [
+      "adplus20#row46",
+      "gt1prodcmax#row56",
+      "m1n20#row21",
+      "m3n#row21",
+      "avm#row20"
+    ],
+    "5190108100003": [
+      "adplus20#row47"
+    ],
+    "1260040100038": [
+      "adplus20#row48"
+    ],
+    "1260040000149": [
+      "adplus20#row49",
+      "960c53#row30"
+    ],
+    "1210040000204": [
+      "adplus20#row50",
+      "960c53#row29"
+    ],
+    "For specific part numbers, refer to the memory device recommendation table 具体料号参考存储器件推荐表": [
+      "adplus20#row51"
+    ],
+    "5190115100001": [
+      "gt1prodcmax#row21"
+    ],
+    "5190114100001": [
+      "gt1prodcmax#row22"
+    ],
+    "5190067100044": [
+      "gt1prodcmax#row23",
+      "m1n20#row6",
+      "m3n#row6"
+    ],
+    "5190067100045": [
+      "gt1prodcmax#row24"
+    ],
+    "5190021100004": [
+      "gt1prodcmax#row26",
+      "m1n20#row8",
+      "m3n#row8"
+    ],
+    "1260040100057": [
+      "gt1prodcmax#row27",
+      "m1n20#row9",
+      "m3n#row9"
+    ],
+    "5151019100038": [
+      "gt1prodcmax#row40",
+      "m1n20#row13",
+      "m3n#row12"
+    ],
+    "5151019100070": [
+      "gt1prodcmax#row41"
+    ],
+    "5200007100101": [
+      "gt1prodcmax#row42",
+      "m1n20#row14",
+      "m3n#row13"
+    ],
+    "1120041000455": [
+      "gt1prodcmax#row43",
+      "m1n20#row15",
+      "m3n#row14"
+    ],
+    "1160010100023": [
+      "gt1prodcmax#row44",
+      "m1n20#row16",
+      "m3n#row15"
+    ],
+    "5151029100026": [
+      "gt1prodcmax#row45"
+    ],
+    "5151029100027": [
+      "gt1prodcmax#row46"
+    ],
+    "5151029100022": [
+      "gt1prodcmax#row47"
+    ],
+    "5151029100023": [
+      "gt1prodcmax#row48"
+    ],
+    "5151053100002": [
+      "gt1prodcmax#row49",
+      "m3n#row16"
+    ],
+    "5151014100091": [
+      "gt1prodcmax#row51"
+    ],
+    "5051014100110": [
+      "gt1prodcmax#row52"
+    ],
+    "5151003100126": [
+      "gt1prodcmax#row57",
+      "m1n20#row22",
+      "m3n#row22"
+    ],
+    "5151072100008": [
+      "gt1prodcmax#row58"
+    ],
+    "5151021100011": [
+      "gt1prodcmax#row59",
+      "f6n#row18"
+    ],
+    "5151021100017": [
+      "gt1prodcmax#row60",
+      "f6n#row19"
+    ],
+    "5151022100067": [
+      "gt1prodcmax#row61",
+      "f6n#row20"
+    ],
+    "5151022100069": [
+      "gt1prodcmax#row62",
+      "m1n20#row23",
+      "m3n#row23",
+      "f6n#row21"
+    ],
+    "1260010100356": [
+      "gt1prodcmax#row63",
+      "c6lite20#row16",
+      "m1n20#row24",
+      "m3n#row24",
+      "f6n#row22"
+    ],
+    "1260010100357": [
+      "gt1prodcmax#row64",
+      "c6lite20#row17",
+      "m1n20#row25",
+      "m3n#row25",
+      "f6n#row23"
+    ],
+    "1260010100358": [
+      "gt1prodcmax#row65",
+      "c6lite20#row18",
+      "m1n20#row26",
+      "m3n#row26",
+      "f6n#row24"
+    ],
+    "1260010100359": [
+      "gt1prodcmax#row66",
+      "c6lite20#row19",
+      "m1n20#row27",
+      "m3n#row27",
+      "f6n#row25"
+    ],
+    "5190012100066": [
+      "gt1prodcmax#row70",
+      "f6n#row32"
+    ],
+    "1210010100058": [
+      "gt1prodcmax#row73",
+      "f6n#row35"
+    ],
+    "1261050000056": [
+      "gt1prodcmax#row74",
+      "m1n20#row33",
+      "m3n#row33",
+      "f6n#row36"
+    ],
+    "5190015100004": [
+      "gt1prodcmax#row75",
+      "m1n20#row34",
+      "m3n#row34",
+      "f6n#row37"
+    ],
+    "1260011000026": [
+      "gt1prodcmax#row76",
+      "m1n20#row35",
+      "m3n#row35",
+      "f6n#row38"
+    ],
+    "5190015100021": [
+      "gt1prodcmax#row78",
+      "m1n20#row36",
+      "m3n#row36",
+      "f6n#row39"
+    ],
+    "Specific Part Number Refer to Storage Device Recommendation List": [
+      "gt1prodcmax#row79",
+      "m1n20#row37",
+      "m1n20#row38",
+      "m3n#row37",
+      "m3n#row38",
+      "f6n#row40"
+    ],
+    "5154022100006": [
+      "c6lite20#row7"
+    ],
+    "5154022100020": [
+      "c6lite20#row8"
+    ],
+    "1260040100326": [
+      "c6lite20#row9"
+    ],
+    "1261090100095": [
+      "c6lite20#row10"
+    ],
+    "1261090100117": [
+      "c6lite20#row11"
+    ],
+    "1261090100120": [
+      "c6lite20#row12"
+    ],
+    "1261090100121": [
+      "c6lite20#row13"
+    ],
+    "1261010100067": [
+      "c6lite20#row14"
+    ],
+    "1260011100208": [
+      "c6lite20#row15"
+    ],
+    "5151047100028": [
+      "c6lite20#row20",
+      "f6n#row15"
+    ],
+    "5151036100003": [
+      "c6lite20#row21",
+      "m1n20#row12",
+      "m3n#row11"
+    ],
+    "5151003000006": [
+      "c6lite20#row22"
+    ],
+    "Refer to specific part number in the device storage recommendation table": [
+      "c6lite20#row24"
+    ],
+    "5110038100014": [
+      "m1n20#row4",
+      "966c46ipc#row12"
+    ],
+    "1261050100344": [
+      "m1n20#row5"
+    ],
+    "1210040000008": [
+      "m1n20#row7",
+      "m3n#row7"
+    ],
+    "1630008100001": [
+      "m1n20#row10"
+    ],
+    "5190076100018": [
+      "m3n#row3"
+    ],
+    "5120121100005": [
+      "m3n#row4"
+    ],
+    "1261050100409": [
+      "m3n#row5"
+    ],
+    "5152132100019": [
+      "960c53#row2"
+    ],
+    "5152132100060": [
+      "960c53#row3"
+    ],
+    "5152132100055": [
+      "960c53#row4"
+    ],
+    "5152132100021": [
+      "960c53#row5"
+    ],
+    "5152132100062": [
+      "960c53#row6"
+    ],
+    "5152132100056": [
+      "960c53#row7"
+    ],
+    "5190108100001": [
+      "960c53#row8"
+    ],
+    "1122042100107": [
+      "960c53#row9"
+    ],
+    "1122042100096": [
+      "960c53#row10"
+    ],
+    "3390000100032": [
+      "960c53#row11"
+    ],
+    "1261010100043": [
+      "960c53#row12"
+    ],
+    "1261080100078": [
+      "960c53#row13"
+    ],
+    "1160060100011": [
+      "960c53#row14"
+    ],
+    "3380000100078": [
+      "960c53#row15"
+    ],
+    "3380000100079": [
+      "960c53#row16"
+    ],
+    "3380000100094": [
+      "960c53#row17"
+    ],
+    "3380000100093": [
+      "960c53#row18"
+    ],
+    "3130000100046": [
+      "960c53#row19"
+    ],
+    "3130000100047": [
+      "960c53#row20"
+    ],
+    "1210060100001": [
+      "960c53#row21"
+    ],
+    "5151077100038": [
+      "960c53#row22"
+    ],
+    "5151077100039": [
+      "960c53#row23"
+    ],
+    "1260010100268": [
+      "960c53#row24",
+      "960c53#row34",
+      "forkliftsolutionwaterproofc4#row14"
+    ],
+    "3380000100089": [
+      "960c53#row25"
+    ],
+    "5190012100059": [
+      "960c53#row26"
+    ],
+    "5190012100030": [
+      "960c53#row27"
+    ],
+    "1210030000162": [
+      "960c53#row28"
+    ],
+    "1260010100265": [
+      "960c53#row31",
+      "forkliftsolutionwaterproofc4#row11"
+    ],
+    "1260010100266": [
+      "960c53#row32",
+      "forkliftsolutionwaterproofc4#row12"
+    ],
+    "1260010100267": [
+      "960c53#row33",
+      "forkliftsolutionwaterproofc4#row13"
+    ],
+    "1261010000013": [
+      "960c53#row40"
+    ],
+    "5196011100008": [
+      "960c53#row41"
+    ],
+    "5196009100018": [
+      "960c53#row42"
+    ],
+    "5195004100007": [
+      "960c53#row43"
+    ],
+    "5194003100009": [
+      "960c53#row44"
+    ],
+    "5110038100028": [
+      "960c53#row45"
+    ],
+    "1260011100181": [
+      "960c53#row49"
+    ],
+    "1261020100108": [
+      "960c53#row50",
+      "avm#row7"
+    ],
+    "5152178100017": [
+      "966c46ipc#row2"
+    ],
+    "1261010100072": [
+      "966c46ipc#row3"
+    ],
+    "1120041100679": [
+      "966c46ipc#row4",
+      "forkliftsolutionwaterproofc4#row4",
+      "forkliftsolutionwaterproofc4#row27"
+    ],
+    "1160060100013": [
+      "966c46ipc#row5",
+      "forkliftsolutionwaterproofc4#row5",
+      "forkliftsolutionwaterproofc4#row28"
+    ],
+    "1260010000357": [
+      "966c46ipc#row9"
+    ],
+    "5110038100228": [
+      "966c46ipc#row10"
+    ],
+    "5110038100004": [
+      "966c46ipc#row11"
+    ],
+    "5164003100002": [
+      "966c46ipc#row13"
+    ],
+    "5164002100002": [
+      "966c46ipc#row14"
+    ],
+    "3380000100102": [
+      "966c46ipc#row15",
+      "forkliftsolutionwaterproofc4#row21"
+    ],
+    "3380000100124": [
+      "966c46ipc#row16",
+      "forkliftsolutionwaterproofc4#row22"
+    ],
+    "1261010100061": [
+      "966c46ipc#row17"
+    ],
+    "5146026100001": [
+      "966c46ipc#row18"
+    ],
+    "5190012100084": [
+      "966c46ipc#row19"
+    ],
+    "1130040100051": [
+      "966c46ipc#row20"
+    ],
+    "5173002100003": [
+      "966c46ipc#row21"
+    ],
+    "1261020000036": [
+      "966c46ipc#row22"
+    ],
+    "1210010100070": [
+      "966c46ipc#row23"
+    ],
+    "1261050100448": [
+      "966c46ipc#row24"
+    ],
+    "1260040100052": [
+      "966c46ipc#row25"
+    ],
+    "1260040100267": [
+      "966c46ipc#row26"
+    ],
+    "5110037100001": [
+      "f6n#row2"
+    ],
+    "5110037100002": [
+      "f6n#row3"
+    ],
+    "5110037100003": [
+      "f6n#row4"
+    ],
+    "5110037100004": [
+      "f6n#row5"
+    ],
+    "1261030100120": [
+      "f6n#row6"
+    ],
+    "1210050100055": [
+      "f6n#row7"
+    ],
+    "1210050100111": [
+      "f6n#row8"
+    ],
+    "1120041100282": [
+      "f6n#row9"
+    ],
+    "1160060100010": [
+      "f6n#row10"
+    ],
+    "1261080100093": [
+      "f6n#row11"
+    ],
+    "1260011000023": [
+      "f6n#row12"
+    ],
+    "5190001000009": [
+      "f6n#row13",
+      "forkliftsolutionwaterproofc4#row10"
+    ],
+    "5151047100025": [
+      "f6n#row14"
+    ],
+    "5151047100029": [
+      "f6n#row16"
+    ],
+    "5151047100030": [
+      "f6n#row17"
+    ],
+    "5170004100001": [
+      "avm#row6"
+    ],
+    "1260010000130": [
+      "avm#row8"
+    ],
+    "1260011100152": [
+      "avm#row9"
+    ],
+    "1260011100153": [
+      "avm#row10"
+    ],
+    "1260011100154": [
+      "avm#row11"
+    ],
+    "1260011100155": [
+      "avm#row12"
+    ],
+    "5151097100002": [
+      "avm#row13"
+    ],
+    "5190074100007": [
+      "avm#row14"
+    ],
+    "5210056100004": [
+      "z5#row2"
+    ],
+    "5190005100063": [
+      "z5#row3"
+    ],
+    "5190005100062": [
+      "z5#row4"
+    ],
+    "5190005100060": [
+      "z5#row5"
+    ],
+    "5190005100083": [
+      "z5#row6"
+    ],
+    "5181001100001": [
+      "accessories#row2"
+    ],
+    "1260020100165": [
+      "accessories#row3"
+    ],
+    "5190060100044": [
+      "accessories#row4"
+    ],
+    "5190121100001": [
+      "accessories#row5"
+    ],
+    "1130082100045": [
+      "accessories#row6"
+    ],
+    "1130082100046": [
+      "accessories#row7"
+    ],
+    "5152178100018": [
+      "forkliftsolutionwaterproofc4#row2"
+    ],
+    "1260040100434": [
+      "forkliftsolutionwaterproofc4#row3"
+    ],
+    "5152178100020": [
+      "forkliftsolutionwaterproofc4#row6"
+    ],
+    "1260010100206": [
+      "forkliftsolutionwaterproofc4#row7"
+    ],
+    "1260010100217": [
+      "forkliftsolutionwaterproofc4#row8"
+    ],
+    "1261010100077": [
+      "forkliftsolutionwaterproofc4#row9"
+    ],
+    "5110039100020": [
+      "forkliftsolutionwaterproofc4#row15"
+    ],
+    "5110039100023": [
+      "forkliftsolutionwaterproofc4#row16"
+    ],
+    "5110039100024": [
+      "forkliftsolutionwaterproofc4#row17"
+    ],
+    "5110039100025": [
+      "forkliftsolutionwaterproofc4#row18"
+    ],
+    "5164003100004": [
+      "forkliftsolutionwaterproofc4#row19"
+    ],
+    "5164002100004": [
+      "forkliftsolutionwaterproofc4#row20"
+    ],
+    "5163001100003": [
+      "forkliftsolutionwaterproofc4#row23"
+    ],
+    "5152214100004": [
+      "forkliftsolutionwaterproofc4#row24"
+    ],
+    "1260011100296": [
+      "forkliftsolutionwaterproofc4#row25"
+    ],
+    "1261010100086": [
+      "forkliftsolutionwaterproofc4#row26"
+    ],
+    "1261050100490": [
+      "forkliftsolutionwaterproofc4#row29"
+    ],
+    "1260011100157": [
+      "forkliftsolutionwaterproofc4#row30"
+    ],
+    "5146054100001": [
+      "forkliftsolutionwaterproofc4#row31"
+    ]
+  }
+}
