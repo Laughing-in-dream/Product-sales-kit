@@ -14,7 +14,7 @@
 | `North America Sales List.xlsx` | 物料清单源数据（钉钉导出） | 数据源 |
 | `North America Sales List-FILE/` | 各产品线图片库 | 资源 |
 | `docs/knowledge/` | **产品需求知识库（唯一需求真相）** | ✅ 规则变更必须先改这里 |
-| `data/products.json` | 产品主数据（全部 12 产品线 338 物料，统一分类），由脚本生成 | ❌ 生成物 |
+| `data/products.json` | 产品主数据库：205 个产品（SKU 去重），含分类/线长/分辨率/图片路径/usedBy（哪些产品线在用） | ❌ 生成物 |
 | `docs/product-index.md` | 产品主数据的人可读索引 | ❌ 生成物 |
 | `scripts/build_product_db.js` | catalog-data.js → 产品主数据 生成脚本（分类规则在这里改） | ✅ |
 
