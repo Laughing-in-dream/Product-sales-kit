@@ -4,7 +4,7 @@
 
 > 📚 **产品需求知识库在 [docs/knowledge/](docs/README.md)** —— 所有产品限制规则
 > （如 AD Plus 2.0 的摄像头路数上限）以知识库为准，改规则前先看那里。
-> 开发约定见 [CLAUDE.md](CLAUDE.md)。
+> 开发约定见 [AGENTS.md](AGENTS.md)（所有 AI 工具共同遵守）。
 
 ## 当前能力
 
