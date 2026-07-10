@@ -161,13 +161,12 @@
 - **Micro SD card**（最多 2 个）
   - 强行设置数量 7 → 实际 2 ✅ 钳制生效
 
-### Power Box Max（可见 4 项）
+### Power Box Max（可见 5 项）
 - **R-Watch**
-- **B2 sound and light alarm**（最多 2 个）
-  - 勾选后自动带出必配件: B2 Power and Adapter Cable（SKU 1262010000025）
+- **B2 sound and light alarm**
   - 延长线共 3 种（3M / 5M / 7M），可任选长度
-  - 强行设置数量 7 → 实际 2 ✅ 钳制生效
-  - 2 个 B2 的转接线: 1262010100031（应为 1262010100031）
+- **B2 sound and light alarm**
+  - 延长线共 3 种（3M / 5M / 7M），可任选长度
 - **B3 sound and light alarm**（最多 2 个）
   - 延长线共 3 种（3M / 7.5M / 2M），可任选长度
   - 强行设置数量 7 → 实际 2 ✅ 钳制生效
@@ -179,7 +178,7 @@
 
 ## 步骤 7 · 清单汇总与导出（满配 PBM 方案）
 
-满配方案共 13 行物料：
+满配方案共 14 行物料：
 
 - 5154021100086 × 1 — AD Plus 2.0+PBM Kit
 - 1260040100236 × 1 — 16PIN OBD Extension Cable
@@ -187,15 +186,16 @@
 - 1210010100059 × 1 — AHD Signal Adapter Cable
 - 1210030000163 × 2 — AHD Extension Cable
 - 5152119100007 × 1 — C29N
-- 1260010000351 × 2 — IPC Extension Cable
+- 1260010000351 × 3 — IPC Extension Cable
 - 5051043100003 × 1 — CA38
 - 5090091100025 × 1 — B2 Sound and Light Alarm
-- 1262010000025 × 1 — B2 Power and Adapter Cable
+- 5090091100026 × 1 — B2
 - 5190108100003 × 1 — B3 Sound and Light Alarm
 - 1260040100038 × 1 — B3 Extension Cable
 - 1610002100008 × 1 — Micro SD 128GB
+- 1262010100031 × 1 — B2 Power and Adapter Cable
 
-CSV 导出：13 行数据（清单 13 行）✅ 一致
+CSV 导出：14 行数据（清单 14 行）✅ 一致
 
 ## 疑似 Bug / 需要注意的问题（8 条）
 

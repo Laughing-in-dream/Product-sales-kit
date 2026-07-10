@@ -395,7 +395,7 @@ function renderCustomOptionalStep() {
     <div class="group-list accessory-vertical-list">
       ${optionals
         .map((def) => {
-          const item = findItemByRow(def.itemRow);
+          const item = def.sourceProductId ? findCatalogItem(def.sourceProductId, def.itemRow) : findItemByRow(def.itemRow);
           const blockState = ensureOptionalState(def.id);
           const quantity = Number(blockState.quantity || 0);
           const isMultiQty = Number(def.maxQuantity || 0) > 1;

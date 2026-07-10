@@ -161,15 +161,26 @@ const customCatalog = {
       allowedPowerBoxes: ["standard", "plus", "max"],
     },
     {
-      id: "b2",
+      // Keep the M3N-style independent B2 choices: each selected alarm owns one IPC extension cable.
+      id: "b2_right",
       ...skuInfo("5090091100025"),
       itemRow: 43,
+      b2Group: true,
       allowedPowerBoxes: ["max"],
-      requiredRowsByQuantity: { 1: [45], 2: [46] },
       extensionRows: [28, 29, 30],
       extensionLabel: { zh: "6PIN IPC 延长线", en: "6PIN IPC extension cable" },
       requiredExtension: true,
-      maxQuantity: 2,
+    },
+    {
+      id: "b2_left",
+      ...skuInfo("5090091100026"),
+      sourceProductId: "m3n",
+      itemRow: 19,
+      b2Group: true,
+      allowedPowerBoxes: ["max"],
+      extensionRows: [28, 29, 30],
+      extensionLabel: { zh: "6PIN IPC 延长线", en: "6PIN IPC extension cable" },
+      requiredExtension: true,
     },
     {
       id: "b3",
@@ -193,6 +204,7 @@ const customCatalog = {
   ],
   helperRows: {
     videoOutputCable: 21,
+    b2AdapterRowsByQuantity: { 1: 45, 2: 46 },
   },
 };
 

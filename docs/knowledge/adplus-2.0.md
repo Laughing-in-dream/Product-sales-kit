@@ -21,7 +21,7 @@
 | 1 | Standard / Plus 电源盒：最大支持 **1 路外接 IPC + 1 路 AHD** | ✅ 已确认 | 产品方案（用户 2026-07-10 口头确认） | `js/05-selection-logic.js: cameraCapacityRule()` |
 | 2 | Power Box Max：最大 **1 路 IPC + 3 路 AHD**，或 **4 路 AHD（不带 IPC）** | ✅ 已确认 | 用户 2026-07-10 确认 | `js/05-selection-logic.js: cameraCapacityRule()` |
 | 3 | CA46（AHD 摄像头，SKU 5151053100007）可搭配 Standard / PBP / PBM，计入 AHD 路数；Standard / PBP **各最多 1 个**，PBM 按规则 2 的 AHD 总路数限制 | ✅ 已确认 | 用户 2026-07-10 确认 | `js/03-data-adplus.js: customCatalog.accessories` |
-| 4 | B2 声光报警器：**只能搭配 PBM**，最多 2 个；选 1 个时必带单 B2 电源及转接线（row 45 / SKU 1262010000025），选 2 个时改带双 B2 三合一转接线（row 46 / SKU 1262010100031）；每个 B2 必须带一条可选长度的 6PIN IPC 延长线（rows 28/29/30） | ✅ 已确认 | 用户 2026-07-10 确认 | `js/03-data-adplus.js: customCatalog.optionals → b2` |
+| 4 | B2 声光报警器：**只能搭配 PBM**，最多 2 个；按 M3N 模式以两个独立 B2 卡片选择（不使用数量步进器）。选 1 个时必带单 B2 电源及转接线（row 45 / SKU 1262010000025），选 2 个时改带双 B2 三合一转接线（row 46 / SKU 1262010100031）；每个 B2 必须带一条可选长度的 6PIN IPC 延长线（rows 28/29/30） | ✅ 已确认 | 用户 2026-07-10 确认 | `js/03-data-adplus.js: customCatalog.optionals → b2` |
 | 5 | B3 报警器：**只能搭配 PBM**，最多 2 个；每个 B3 必须带一条延长线，**三种长度均可选** | ✅ 已确认 | 用户 2026-07-10 确认 | `js/03-data-adplus.js: customCatalog.optionals → b3` |
 | 6 | Micro SD 卡最多选 2 张 | ✅ 已确认 | 用户 2026-07-10 确认 | `js/03-data-adplus.js: customCatalog.optionals → micro_sd` |
 | 7 | R-Watch 与 **Standard 电源盒 + CA42 拖挂转接** 的组合互斥（选了后者不能选 R-Watch） | ✅ 已确认 | 用户 2026-07-10 确认 | `js/05-selection-logic.js: ca42TrailerAdapterBlocksRwatch()` |
@@ -51,7 +51,7 @@
 | 可选件 | 电源盒限制 | 数量上限 | 备注 |
 | --- | --- | --- | --- |
 | R-Watch | 全部 | 1 | 见规则 7 的互斥关系 |
-| B2 | 仅 PBM | 2 | 1 个配 row 45 单 B2 转接线；2 个配 row 46 双 B2 三合一转接线；每个 B2 均需一条 6PIN IPC 延长线（3M / 5M / 7M 可选） |
+| B2 | 仅 PBM | 2（两个独立卡片） | 1 个配 row 45 单 B2 转接线；2 个配 row 46 双 B2 三合一转接线；每个 B2 均需一条 6PIN IPC 延长线（3M / 5M / 7M 可选） |
 | B3 | 仅 PBM | 2 | 每个 B3 均需一条延长线，3 种长度可选 |
 | Micro SD | 全部 | 2 | 128GB / 256GB / 512GB / 1TB |
 

@@ -275,8 +275,8 @@ for (const pb of powerBoxes) {
     if (opt.extensionRows?.length) {
       const options = checkRows(opt.extensionRows, `步骤6-${pb.id}-${opt.id}-延长线`);
       say(`  - 延长线共 ${options.length} 种（${options.map(cableLen).join(" / ")}）${opt.lockExtension ? "，默认锁定第一种" : "，可任选长度"}`);
-      if (opt.id === "b2" && options.length !== 3) flag("bug", "步骤6-b2", `B2 应提供 3 种 6PIN IPC 延长线，实际为 ${options.length} 种`);
-      if ((opt.id === "b2" || opt.id === "b3") && !opt.requiredExtension) flag("bug", `步骤6-${opt.id}`, `${opt.id.toUpperCase()} 延长线应为必选项`);
+      if (opt.b2Group && options.length !== 3) flag("bug", "步骤6-b2", `B2 应提供 3 种 6PIN IPC 延长线，实际为 ${options.length} 种`);
+      if ((opt.b2Group || opt.id === "b3") && !opt.requiredExtension) flag("bug", `步骤6-${opt.id}`, `${opt.id.toUpperCase()} 延长线应为必选项`);
       if (opt.id === "b3" && opt.lockExtension) flag("bug", "步骤6-b3", "B3 延长线不应被锁定，应允许选择三种长度");
     }
     if (opt.maxQuantity) {
@@ -285,12 +285,6 @@ for (const pb of powerBoxes) {
       const qty = Number(g(`ensureOptionalState('${opt.id}')`).quantity);
       say(`  - 强行设置数量 ${opt.maxQuantity + 5} → 实际 ${qty} ${qty <= opt.maxQuantity ? "✅ 钳制生效" : "❌ 未钳制"}`);
       if (qty > opt.maxQuantity) flag("bug", `步骤6-${pb.id}-${opt.id}`, `数量上限 ${opt.maxQuantity} 未生效，可设为 ${qty}`);
-      if (opt.id === "b2") {
-        const b2AdapterSkus = g("selectedCustomItems().filter(item => ['1262010000025', '1262010100031'].includes(item.partNumber)).map(item => item.partNumber)");
-        const expectedAdapterSku = qty === 2 ? "1262010100031" : "1262010000025";
-        say(`  - ${qty} 个 B2 的转接线: ${b2AdapterSkus.join(", ") || "未带出"}（应为 ${expectedAdapterSku}）`);
-        if (b2AdapterSkus.length !== 1 || b2AdapterSkus[0] !== expectedAdapterSku) flag("bug", `步骤6-${pb.id}-b2`, `${qty} 个 B2 应带出转接线 ${expectedAdapterSku}`);
-      }
       if (opt.requiredExtension) {
         g(`setOptionalExtension('${opt.id}', 'none', 0)`);
         const extensionId = g(`ensureOptionalState('${opt.id}')`).extensions?.[0] || g(`ensureOptionalState('${opt.id}')`).extension;
@@ -298,6 +292,17 @@ for (const pb of powerBoxes) {
       }
       g(`toggleCustomOptional('${opt.id}', false)`);
     }
+  }
+  if (pb.id === "max") {
+    const b2Options = visible.filter((opt) => opt.b2Group);
+    g(`toggleCustomOptional('${b2Options[0].id}', true)`);
+    g(`setOptionalExtension('${b2Options[0].id}', 'none')`);
+    if (!g(`ensureOptionalState('${b2Options[0].id}')`).extension) flag("bug", "步骤6-max-b2", "B2 必配延长线可被清空");
+    let b2AdapterSkus = g("selectedCustomItems().filter(item => ['1262010000025', '1262010100031'].includes(item.partNumber)).map(item => item.partNumber)");
+    if (b2AdapterSkus.length !== 1 || b2AdapterSkus[0] !== "1262010000025") flag("bug", "步骤6-max-b2", "单个 B2 应带出转接线 1262010000025");
+    g(`toggleCustomOptional('${b2Options[1].id}', true)`);
+    b2AdapterSkus = g("selectedCustomItems().filter(item => ['1262010000025', '1262010100031'].includes(item.partNumber)).map(item => item.partNumber)");
+    if (b2AdapterSkus.length !== 1 || b2AdapterSkus[0] !== "1262010100031") flag("bug", "步骤6-max-b2", "两个 B2 应带出转接线 1262010100031");
   }
   say("");
 }
@@ -316,7 +321,7 @@ say(`## 步骤 7 · 清单汇总与导出（满配 PBM 方案）`);
 say("");
 g("resetCustomState(); setCustomHost('dual'); setCustomPowerBox('max')");
 g("toggleCustomAccessory('c29n', true); toggleCustomAccessory('ca38', true); toggleCustomAccessory('screen', true)");
-g("toggleCustomOptional('b2', true); toggleCustomOptional('b3', true); toggleCustomOptional('micro_sd', true)");
+g("toggleCustomOptional('b2_right', true); toggleCustomOptional('b2_left', true); toggleCustomOptional('b3', true); toggleCustomOptional('micro_sd', true)");
 g("state.step = 7");
 renderOk("步骤7-清单");
 const items = g("selectedCustomItems()");

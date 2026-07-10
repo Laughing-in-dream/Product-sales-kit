@@ -282,7 +282,7 @@ function selectedCustomItems() {
     }
     const stateBlock = ensureOptionalState(def.id);
     const quantity = Math.max(1, Number(stateBlock.quantity || 1));
-    const item = findItemByRow(def.itemRow);
+    const item = def.sourceProductId ? findCatalogItem(def.sourceProductId, def.itemRow) : findItemByRow(def.itemRow);
     if (item) rows.push({ ...item, quantity: String(quantity) });
     const requiredRows = def.requiredRowsByQuantity?.[quantity] || def.requiredRows || [];
     for (const requiredRow of requiredRows) {
@@ -302,6 +302,13 @@ function selectedCustomItems() {
         if (extensionItem) rows.push(extensionItem);
       }
     }
+  }
+
+  const selectedB2Defs = selectedCustomOptionalDefs().filter((def) => def.b2Group);
+  const b2AdapterRow = customCatalog.helperRows.b2AdapterRowsByQuantity?.[selectedB2Defs.length];
+  if (b2AdapterRow) {
+    const b2Adapter = findItemByRow(b2AdapterRow);
+    if (b2Adapter) rows.push({ ...b2Adapter, quantity: "1" });
   }
 
   const mergedRows = Array.from(
