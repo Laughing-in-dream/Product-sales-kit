@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AD Plus 2.0 Solution Builder</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <div class="hero-main">
+          <div class="topbar">
+            <p id="hero-eyebrow" class="eyebrow">AD Plus 2.0</p>
+            <div class="lang-switch" aria-label="Language switch">
+              <button id="lang-zh" type="button" class="lang-chip">CN</button>
+              <button id="lang-en" type="button" class="lang-chip active">EN</button>
+            </div>
+          </div>
+          <h1 id="hero-title">一步一步生成 AD Plus 2.0 方案</h1>
+          <p id="hero-intro" class="intro">
+            只聚焦一个产品，让销售或客户按步骤完成选型，自动生成完整清单。
+          </p>
+          <div class="hero-highlights">
+            <div class="highlight-pill" id="highlight-1">只展示当前需要决策的内容</div>
+            <div class="highlight-pill" id="highlight-2">自动带出必选线材与关联件</div>
+            <div class="highlight-pill" id="highlight-3">最终可直接导出给销售或技术支持</div>
+          </div>
+        </div>
+
+        <div class="hero-note">
+          <span id="hero-note-label" class="step">What This Does</span>
+          <strong id="hero-note-title">面向客户的 AD Plus 2.0 选型向导</strong>
+          <p id="hero-note-body">
+            这不是内部物料表视图，而是把复杂的产品清单拆成可以一步一步完成的选择流程。
+          </p>
+        </div>
+      </header>
+
+      <main class="wizard-shell">
+        <section class="wizard-main panel">
+          <div class="wizard-top">
+            <div id="step-pills" class="step-pills"></div>
+            <div id="step-copy" class="step-copy"></div>
+          </div>
+
+          <section id="wizard-stage" class="wizard-stage"></section>
+
+          <footer class="wizard-actions">
+            <button id="prev-step" class="secondary" type="button">上一步</button>
+            <button id="next-step" class="primary" type="button">下一步</button>
+          </footer>
+        </section>
+
+        <aside class="summary panel">
+          <div class="panel-head">
+            <span id="summary-step" class="step">Summary</span>
+            <h2 id="summary-title">当前方案清单</h2>
+          </div>
+          <div id="summary-meta" class="summary-meta"></div>
+          <div id="cart-list" class="cart-list"></div>
+          <div class="cart-actions">
+            <button id="export-csv" class="primary" type="button">导出 CSV</button>
+            <button id="export-json" class="secondary" type="button">导出 JSON</button>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="./catalog-data.js?v=20260705-8"></script>
+    <script src="./app.js?v=20260705-8"></script>
+  </body>
+</html>
