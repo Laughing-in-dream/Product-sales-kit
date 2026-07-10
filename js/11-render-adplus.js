@@ -410,7 +410,7 @@ function renderCustomOptionalStep() {
                 </div>
                 <div class="accessory-row-copy">
                   <h4>${localizedText(def.title)}</h4>
-                  <div class="sku">${item?.partNumber || t().noPartNumber}</div>
+                  <div class="sku">${item?.partNumber || (def.id === "micro_sd" ? "Multiple storage options" : t().noPartNumber)}</div>
                   <p>${optionalDetailText(def)}</p>
                 </div>
                 <div class="accessory-row-control">
@@ -430,29 +430,33 @@ function renderCustomOptionalStep() {
               ${
                 quantity > 0 && def.id === "micro_sd"
                   ? `
-                    <div class="extension-picker accessory-qty-picker">
+                    <div class="extension-picker accessory-qty-picker storage-picker">
                       <div class="extension-picker-head">
-                        <strong>${t().labels.capacity}</strong>
-                        <span>1 - ${Number(def.maxQuantity || 2)}</span>
+                        <strong>Choose Micro SD cards</strong>
+                        <span>Up to ${Number(def.maxQuantity || 2)} cards</span>
                       </div>
-                      <label>
-                        <span>${t().labels.card1} ${t().labels.capacity}</span>
-                        <select data-optional-variant="${def.id}" data-slot="1">
-                          ${SD_CARD_VARIANTS.map((variant) => `<option value="${variant.partNumber}" ${blockState.variant1 === variant.partNumber ? "selected" : ""}>${localizedText(variant.name)} | ${variant.partNumber}</option>`).join("")}
-                        </select>
-                      </label>
-                      ${
-                        Number(blockState.quantity || 1) === 2
-                          ? `
-                            <label>
-                              <span>${t().labels.card2} ${t().labels.capacity}</span>
-                              <select data-optional-variant="${def.id}" data-slot="2">
-                                ${SD_CARD_VARIANTS.map((variant) => `<option value="${variant.partNumber}" ${blockState.variant2 === variant.partNumber ? "selected" : ""}>${localizedText(variant.name)} | ${variant.partNumber}</option>`).join("")}
-                              </select>
-                            </label>
-                          `
-                          : ""
-                      }
+                      <div class="storage-card-grid">
+                        <label class="storage-card">
+                          <span class="storage-card-label">First card</span>
+                          <select data-optional-variant="${def.id}" data-slot="1">
+                            ${SD_CARD_VARIANTS.map((variant) => `<option value="${variant.partNumber}" ${blockState.variant1 === variant.partNumber ? "selected" : ""}>${localizedText(variant.name)}</option>`).join("")}
+                          </select>
+                          <span class="storage-card-sku">SKU ${blockState.variant1}</span>
+                        </label>
+                        ${
+                          Number(blockState.quantity || 1) === 2
+                            ? `
+                              <label class="storage-card">
+                                <span class="storage-card-label">Second card</span>
+                                <select data-optional-variant="${def.id}" data-slot="2">
+                                  ${SD_CARD_VARIANTS.map((variant) => `<option value="${variant.partNumber}" ${blockState.variant2 === variant.partNumber ? "selected" : ""}>${localizedText(variant.name)}</option>`).join("")}
+                                </select>
+                                <span class="storage-card-sku">SKU ${blockState.variant2}</span>
+                              </label>
+                            `
+                            : ""
+                        }
+                      </div>
                     </div>
                   `
                   : ""
