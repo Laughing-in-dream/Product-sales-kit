@@ -143,7 +143,7 @@ say("## 步骤 4 · 可选件与联动配件");
 say("");
 g("state.step = 4");
 renderOk("步骤4-可选件");
-const optionalRows = [6, 8, 10, 18, 19, 31, 34, 36, 37, 38];
+const optionalRows = [6, 8, 10, 18, 19, 31, 34, 37, 38];
 for (const row of optionalRows) {
   const item = rows.get(row);
   if (!item) continue;
@@ -156,6 +156,12 @@ for (const row of optionalRows) {
     say(`  - 自动带出 ${fmtItem(child)}：${checked ? "是" : "否"}`);
     if (!checked) flag("bug", `步骤4-${row}`, `${child.partNumber} 未随 ${item.partNumber} 自动带出`);
   }
+  const optionalExtensionRows = g(`m3nOptionalExtensionRows(product.items.find(entry => entry.id === ${JSON.stringify(item.id)}))`);
+  if (optionalExtensionRows.length) {
+    const block = g(`state.selections[${JSON.stringify(item.id)}]`);
+    say(`  - 延长线：${optionalExtensionRows.map((extensionRow) => cableLen(itemByRow(extensionRow))).join(" / ")}；默认=${block.extensionId ? "已选" : "未选"}`);
+    if (!block.extensionId) flag("bug", `步骤4-${row}`, "勾选后未默认选择必配延长线");
+  }
   const variants = g(`presetVariantOptions(product.items.find(entry => entry.id === ${JSON.stringify(item.id)}))`);
   if (variants?.length) say(`  - 可选规格：${variants.map((entry) => `${entry.name.en} / ${entry.partNumber}`).join("；")}`);
   g(`setM3nPresetSelection(${JSON.stringify(item.id)}, false)`);
@@ -167,9 +173,11 @@ const b2Left = rows.get(19);
 g(`setM3nPresetSelection(${JSON.stringify(b2Right.id)}, true)`);
 say(`- 选 1 个 B2：${hasPart("1262010000025") ? "带出 1262010000025 ✅" : "未带出 1262010000025 ❌"}`);
 if (!hasPart("1262010000025") || hasPart("1262010100031")) flag("bug", "步骤4-B2", "单个 B2 的适配线映射错误");
+if (Number(g("selectedPresetItems().filter(item => item.partNumber === '1260010000351').length")) !== 1) flag("bug", "步骤4-B2", "单个 B2 未带出一条 IPC 延长线");
 g(`setM3nPresetSelection(${JSON.stringify(b2Left.id)}, true)`);
 say(`- 选 2 个 B2：${hasPart("1262010100031") ? "带出 1262010100031 ✅" : "未带出 1262010100031 ❌"}`);
 if (!hasPart("1262010100031") || hasPart("1262010000025")) flag("bug", "步骤4-B2", "两个 B2 的适配线映射错误");
+if (Number(g("selectedPresetItems().filter(item => item.partNumber === '1260010000351').length")) !== 2) flag("bug", "步骤4-B2", "两个 B2 未各自带出一条 IPC 延长线");
 g("state.selections = {}; seedPresetSelections()");
 say("");
 

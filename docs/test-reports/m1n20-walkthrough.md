@@ -39,13 +39,14 @@
   - 自动带出 Microphone Adapter Cable（SKU 1260040100057）：是
 - 惯导模块（SKU 1630008100001）
 - B2（SKU 5090091100025）
+  - 延长线：3M / 5M / 7M；默认=已选
 - B2（SKU 5090091100026）
+  - 延长线：3M / 5M / 7M；默认=已选
 - DP7S Overseas Version（SKU 5190012100075）
   - 自动带出 AHD Signal Adapter Cable（SKU 1210010100059）：是
+  - 延长线：3M / 5M / 7M / 9M；默认=已选
 - 12V Speaker（SKU 5190015100004）
   - 自动带出 Speaker Adapter Cable（SKU 1260011000026）：是
-- Speaker（SKU 5190015100021）
-  - 自动带出 Aviation Port Adapter Cable（SKU 1261050000056）：是
 - Micro SD Card（SKU Specific Part Number Refer to Storage Device Recommendation List）
   - 可选规格：Micro SD 128GB / 1610002100008；Micro SD 256GB / 1610002100007；Micro SD 512GB / 1610002100006；Micro SD 1TB / 1610002100005
 - M.2 SSD（SKU Specific Part Number Refer to Storage Device Recommendation List）
@@ -55,7 +56,7 @@
 
 ## 步骤 5 · 清单汇总与导出
 
-满配抽样方案共 13 行物料：
+满配抽样方案共 15 行物料：
 
 - 5110038100014 × 1 — M1N 2.0
 - 1261050100344 × 1 — IPC Video Expansion Cable
@@ -70,8 +71,10 @@
 - 1260010100356 × 1 — AHD Extension Cable
 - 1260010100356 × 1 — AHD Extension Cable
 - 1260010100356 × 1 — AHD Extension Cable
+- 1260010000351 × 1 — IPC Extension Cable
+- 1260010000351 × 1 — IPC Extension Cable
 
-CSV 导出：13 行数据（清单 13 行） ✅ 一致
+CSV 导出：15 行数据（清单 15 行） ✅ 一致
 
 ## 疑似 Bug / 需要注意的问题（0 条）
 

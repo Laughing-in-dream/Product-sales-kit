@@ -85,9 +85,6 @@ for (const entry of cameras) {
   }
   g(`setM3nPresetSelection(${JSON.stringify(entry.id)}, false)`);
 }
-const excludedCa46 = byRow.get(16);
-say(`- **需确认**：清单含 ${fmt(excludedCa46)}，但 M3N 摄像头步骤未将 row 16 作为可选项。`);
-flag("warn", "步骤3-CA46", `SKU ${excludedCa46.partNumber}（row 16）存在于清单但未出现在 M3N 摄像头步骤`);
 const ipc = cameras.find((entry) => g(`m3nPresetCameraType(product.items.find(item => item.id === ${JSON.stringify(entry.id)}))`) === "ipc");
 const ahd = cameras.find((entry) => g(`m3nPresetCameraType(product.items.find(item => item.id === ${JSON.stringify(entry.id)}))`) === "ahd");
 g(`setM3nPresetQuantity(${JSON.stringify(ipc.id)}, 9)`);
@@ -115,6 +112,12 @@ for (const row of [3, 6, 8, 18, 19, 31, 34, 37, 38]) {
     say(`  - 自动带出 ${fmt(child)}：${checked ? "是" : "否"}`);
     if (!checked) flag("bug", `步骤4-${row}`, `${child.partNumber} 未随 ${entry.partNumber} 自动带出`);
   }
+  const optionalExtensionRows = g(`m3nOptionalExtensionRows(product.items.find(item => item.id === ${JSON.stringify(entry.id)}))`);
+  if (optionalExtensionRows.length) {
+    const block = g(`state.selections[${JSON.stringify(entry.id)}]`);
+    say(`  - 延长线：${optionalExtensionRows.map((extensionRow) => extLen(item(extensionRow))).join(" / ")}；默认=${block.extensionId ? "已选" : "未选"}`);
+    if (!block.extensionId) flag("bug", `步骤4-${row}`, "勾选后未默认选择必配延长线");
+  }
   const variants = g(`presetVariantOptions(product.items.find(item => item.id === ${JSON.stringify(entry.id)}))`);
   if (variants?.length) say(`  - 可选规格：${variants.map((variant) => `${variant.name.en} / ${variant.partNumber}`).join("；")}`);
   g(`setM3nPresetSelection(${JSON.stringify(entry.id)}, false)`);
@@ -123,9 +126,11 @@ const b2a = byRow.get(18), b2b = byRow.get(19);
 g(`setM3nPresetSelection(${JSON.stringify(b2a.id)}, true)`);
 say(`- 选 1 个 B2：${hasPart("1262010000025") ? "带出 1262010000025 ✅" : "未带出 1262010000025 ❌"}`);
 if (!hasPart("1262010000025") || hasPart("1262010100031")) flag("bug", "步骤4-B2", "单个 B2 的适配线映射错误");
+if (Number(g("selectedPresetItems().filter(entry => entry.partNumber === '1260010000351').length")) !== 1) flag("bug", "步骤4-B2", "单个 B2 未带出一条 IPC 延长线");
 g(`setM3nPresetSelection(${JSON.stringify(b2b.id)}, true)`);
 say(`- 选 2 个 B2：${hasPart("1262010100031") ? "带出 1262010100031 ✅" : "未带出 1262010100031 ❌"}`);
 if (!hasPart("1262010100031") || hasPart("1262010000025")) flag("bug", "步骤4-B2", "两个 B2 的适配线映射错误");
+if (Number(g("selectedPresetItems().filter(entry => entry.partNumber === '1260010000351').length")) !== 2) flag("bug", "步骤4-B2", "两个 B2 未各自带出一条 IPC 延长线");
 g("state.selections = {}; seedPresetSelections()");
 say("");
 

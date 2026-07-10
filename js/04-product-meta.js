@@ -72,7 +72,7 @@ function productEntries() {
 const M1N_STEP_ROWS = {
   wiring: new Set([5, 7]),
   cameras: new Set([11, 12, 13, 14, 15, 16, 17, 22, 23]),
-  optionals: new Set([6, 8, 10, 18, 19, 31, 34, 36, 37, 38]),
+  optionals: new Set([6, 8, 10, 18, 19, 31, 34, 37, 38]),
 };
 
 const M3N_STEP_ROWS = {
@@ -197,4 +197,3 @@ const PRODUCT_META = {
                  presetPackage: true, steps: IPC966_STEPS, kit: "core",
                  selectable: { rows: IPC966_STEP_ROWS, map: { 2: "extension", 3: "host", 4: "display", 5: "optionals" } } },
 };
-

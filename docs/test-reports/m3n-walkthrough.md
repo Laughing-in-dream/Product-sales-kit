@@ -22,7 +22,6 @@
 - **CA46（SKU 5151053100007）**（AHD；延长线 3M / 5M / 7M / 9M）
 - **Square Camera（SKU 5151003100126）**（AHD；延长线 3M / 5M / 7M / 9M）
 - **New Metal Conch（SKU 5151022100069）**（AHD；延长线 3M / 5M / 7M / 9M）
-- **需确认**：清单含 CA46（SKU 5151053100002），但 M3N 摄像头步骤未将 row 16 作为可选项。
 - 强行设置 IPC 为 9：实际 4（上限 4） ✅
 - 强行设置 AHD 为 9：实际 4（上限 4） ✅
 
@@ -33,8 +32,12 @@
 - Microphone（SKU 5190021100004）
   - 自动带出 Microphone Adapter Cable（SKU 1260040100057）：是
 - B2（SKU 5090091100025）
+  - 延长线：3M / 5M / 7M；默认=已选
 - B2（SKU 5090091100026）
+  - 延长线：3M / 5M / 7M；默认=已选
 - DP7S Overseas Version（SKU 5190012100075）
+  - 自动带出 AHD Signal Adapter Cable（SKU 1210010100059）：是
+  - 延长线：3M / 5M / 7M / 9M；默认=已选
 - 12V Speaker（SKU 5190015100004）
   - 自动带出 Speaker Adapter Cable（SKU 1260011000026）：是
 - Micro SD Card（SKU Specific Part Number Refer to Storage Device Recommendation List）
@@ -46,7 +49,7 @@
 
 ## 步骤 5 · 清单汇总与导出
 
-满配抽样方案共 15 行物料：
+满配抽样方案共 17 行物料：
 
 - 5120121100005 × 1 — M3N
 - 1261050100409 × 1 — 20PIN Plug Signal Cable
@@ -63,11 +66,11 @@
 - 1260010100356 × 1 — AHD Extension Cable
 - 1260010100356 × 1 — AHD Extension Cable
 - 1260010100356 × 1 — AHD Extension Cable
+- 1260010000351 × 1 — IPC Extension Cable
+- 1260010000351 × 1 — IPC Extension Cable
 
-CSV 导出：15 行数据（清单 15 行） ✅ 一致
+CSV 导出：17 行数据（清单 17 行） ✅ 一致
 
-## 疑似 Bug / 需要注意的问题（1 条）
+## 疑似 Bug / 需要注意的问题（0 条）
 
-### 🟡 提醒（1）
-
-1. **[步骤3-CA46]** SKU 5151053100002（row 16）存在于清单但未出现在 M3N 摄像头步骤
+本次遍历未发现问题。

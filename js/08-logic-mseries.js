@@ -91,7 +91,9 @@ function setM3nPresetSelection(itemId, checked) {
     block.quantity = checked ? "1" : "0";
   }
   if (checked) {
-    const extensionRows = m3nCameraExtensionRowsForMSeries(item);
+    const extensionRows = m3nCameraExtensionRowsForMSeries(item).length
+      ? m3nCameraExtensionRowsForMSeries(item)
+      : m3nOptionalExtensionRows(item);
     if (extensionRows.length && !block.extensionId) {
       block.extensionId = findItemByRow(extensionRows[0])?.id || "";
     }
@@ -167,16 +169,23 @@ function m3nOptionalChildRows(item) {
     if (item.rowNumber === 8) return [9];
     if (item.rowNumber === 31) return [32];
     if (item.rowNumber === 34) return [35];
-    if (item.rowNumber === 36) return [33];
     return [];
   }
   if (isM3nProduct()) {
     if (item.rowNumber === 8) return [9];
+    if (item.rowNumber === 31) return [32];
     if (item.rowNumber === 34) return [35];
     return [];
   }
   if (item.rowNumber === 34) return [35];
   if (item.rowNumber === 36) return [33];
+  return [];
+}
+
+function m3nOptionalExtensionRows(item) {
+  if (!item) return [];
+  if ([18, 19].includes(item.rowNumber)) return M3N_CAMERA_EXTENSION_ROWS.ipc;
+  if (item.rowNumber === 31) return M3N_CAMERA_EXTENSION_ROWS.ahd;
   return [];
 }
 
@@ -314,4 +323,3 @@ function renderM1nSelectableStep(items, summaryLabel) {
     });
   });
 }
-

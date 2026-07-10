@@ -159,7 +159,9 @@ function selectedPresetItems() {
   }
 
   const extensionRows = [];
-  for (const item of itemsForFamily().filter((entry) => m3nPresetItemSelected(entry))) {
+  for (const item of itemsForFamily().filter((entry) =>
+    m3nPresetItemSelected(entry) && (isM3nPresetCameraItem(entry) || m3nOptionalExtensionRows(entry).length)
+  )) {
     const block = state.selections[item.id] || {};
     const extensionIds =
       isM3nPresetCameraItem(item) && Array.isArray(block.extensions) && block.extensions.length

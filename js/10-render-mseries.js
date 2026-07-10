@@ -223,6 +223,7 @@ function renderM3nOptionalStep() {
     const checked = block.checked ? "checked" : "";
     const selected = block.checked ? "selected" : "";
     const childRows = m3nOptionalChildRows(item);
+    const extensionRows = m3nOptionalExtensionRows(item);
     const display = m3nOptionalDisplay(item);
     // Storage rows (SD / SSD) carry several part numbers by capacity; let the user pick one.
     const variantOptions = presetVariantOptions(item);
@@ -299,6 +300,30 @@ function renderM3nOptionalStep() {
             `
             : ""
         }
+        ${
+          block.checked && extensionRows.length
+            ? `
+              <div class="extension-picker">
+                <div class="extension-picker-head">
+                  <strong>${item.rowNumber === 31 ? "AHD extension cable" : "IPC extension cable"}</strong>
+                  <span>${t().chooseLength}</span>
+                </div>
+                <label>
+                  <span>${t().lengthAndPart}</span>
+                  <select data-m3n-optional-extension="${item.id}">
+                    ${extensionRows
+                      .map((rowNumber) => {
+                        const extension = findItemByRow(rowNumber);
+                        const selectedOption = block.extensionId === extension?.id ? "selected" : "";
+                        return `<option value="${rowNumber}" ${selectedOption}>${formatExtensionOptionLabel(extension)}</option>`;
+                      })
+                      .join("")}
+                  </select>
+                </label>
+              </div>
+            `
+            : ""
+        }
       </section>
     `;
   };
@@ -349,9 +374,13 @@ function renderM3nOptionalStep() {
       setPresetVariant(node.dataset.presetVariant, event.target.value);
     });
   });
+  wizardStageEl.querySelectorAll("[data-m3n-optional-extension]").forEach((node) => {
+    node.addEventListener("change", (event) => {
+      setM3nPresetCameraExtension(node.dataset.m3nOptionalExtension, event.target.value);
+    });
+  });
 }
 
 function renderM1nOptionalStep() {
   renderM3nOptionalStep();
 }
-
