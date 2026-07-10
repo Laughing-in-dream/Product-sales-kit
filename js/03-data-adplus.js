@@ -165,7 +165,10 @@ const customCatalog = {
       itemRow: 43,
       allowedPowerBoxes: ["max"],
       requiredRows: [45],
-      maxQuantity: 4,
+      extensionRows: [28, 29, 30],
+      extensionLabel: { zh: "6PIN IPC 延长线", en: "6PIN IPC extension cable" },
+      requiredExtension: true,
+      maxQuantity: 2,
     },
     {
       id: "b3",
@@ -174,8 +177,8 @@ const customCatalog = {
       allowedPowerBoxes: ["max"],
       extensionRows: [48, 49, 50],
       extensionLabel: { zh: "B3 extension cable", en: "B3 extension cable" },
-      lockExtension: true,
-      maxQuantity: 4,
+      requiredExtension: true,
+      maxQuantity: 2,
     },
     {
       id: "micro_sd",
@@ -199,9 +202,9 @@ const SD_CARD_VARIANTS = [
   { partNumber: "1610002100005", name: { zh: "Micro SD 1TB", en: "Micro SD 1TB" } },
 ];
 
+
 const M2_SSD_VARIANTS = [
   { partNumber: "1610004100014", name: { zh: "M.2 SSD 512GB", en: "M.2 SSD 512GB" } },
   { partNumber: "1610004100013", name: { zh: "M.2 SSD 1TB", en: "M.2 SSD 1TB" } },
   { partNumber: "1610004100012", name: { zh: "M.2 SSD 2TB", en: "M.2 SSD 2TB" } },
 ];
-

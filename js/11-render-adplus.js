@@ -464,13 +464,13 @@ function renderCustomOptionalStep() {
                         def,
                         blockState,
                         "optional",
-                        true,
+                        !def.requiredExtension,
                         index,
                         `${localizedText(def.extensionLabel)} ${index + 1}`
                       ).replace(t().lockedCable, t().labels.b3Hint)
                     ).join("")
                   : blockState.checked && def.extensionRows?.length
-                    ? renderExtensionBlock(def, blockState, "optional", true).replace(t().lockedCable, t().labels.b3Hint)
+                    ? renderExtensionBlock(def, blockState, "optional", !def.requiredExtension).replace(t().lockedCable, t().labels.b3Hint)
                     : ""
               }
             </section>
@@ -499,4 +499,3 @@ function renderCustomOptionalStep() {
     });
   });
 }
-

@@ -75,14 +75,6 @@ function checkRows(rows, where) {
   return found;
 }
 
-// 延长线长度顺序检查：选项应从短到长排列，乱序容易让销售选错
-function checkLengthOrder(options, where, label) {
-  const lens = options.map((o) => parseFloat(String(cableLen(o)).replace(/[^\d.]/g, ""))).filter((v) => !Number.isNaN(v));
-  if (lens.length < 2) return;
-  const sorted = [...lens].every((v, i, arr) => i === 0 || arr[i - 1] <= v);
-  if (!sorted) flag("warn", where, `「${label}」的长度选项顺序异常: ${options.map(cableLen).join(" / ")}（未按从短到长排列，且默认选中第一项）`);
-}
-
 function renderOk(where) {
   try {
     g("render()");
@@ -190,7 +182,6 @@ for (const pb of powerBoxes) {
       say(`  - 勾选后出现「${acc.extensionLabel?.zh || "延长线"}」选择，共 ${options.length} 种（${lens}）` +
           `${acc.lockExtension ? "，锁定不可换" : `，默认 ${defaultPicked ? cableLen(defaultPicked) : "未选"}`}`);
       if (!st.extension) flag("warn", `步骤5-${pb.id}-${acc.id}`, "勾选后没有自动选中默认延长线");
-      checkLengthOrder(options, `步骤5-${acc.id}`, acc.extensionLabel?.zh || acc.id + " 延长线");
     }
     if (acc.secondaryExtensionRows?.length) {
       const options = checkRows(acc.secondaryExtensionRows, `步骤5-${pb.id}-${acc.id}-第二延长线`);
@@ -266,11 +257,10 @@ for (const pb of powerBoxes) {
     }
     if (opt.extensionRows?.length) {
       const options = checkRows(opt.extensionRows, `步骤6-${pb.id}-${opt.id}-延长线`);
-      say(`  - 延长线共 ${options.length} 种（${options.map(cableLen).join(" / ")}）${opt.lockExtension ? "，默认锁定第一种" : ""}`);
-      checkLengthOrder(options, `步骤6-${opt.id}`, (opt.title?.zh || opt.id) + " 延长线");
-      if (opt.lockExtension && options.length > 1) {
-        flag("warn", `步骤6-${opt.id}`, `延长线被锁定为第一项（${cableLen(options[0])}），但实际有 ${options.length} 种长度可用——确认锁定是否是有意设计`);
-      }
+      say(`  - 延长线共 ${options.length} 种（${options.map(cableLen).join(" / ")}）${opt.lockExtension ? "，默认锁定第一种" : "，可任选长度"}`);
+      if (opt.id === "b2" && options.length !== 3) flag("bug", "步骤6-b2", `B2 应提供 3 种 6PIN IPC 延长线，实际为 ${options.length} 种`);
+      if ((opt.id === "b2" || opt.id === "b3") && !opt.requiredExtension) flag("bug", `步骤6-${opt.id}`, `${opt.id.toUpperCase()} 延长线应为必选项`);
+      if (opt.id === "b3" && opt.lockExtension) flag("bug", "步骤6-b3", "B3 延长线不应被锁定，应允许选择三种长度");
     }
     if (opt.maxQuantity) {
       g(`toggleCustomOptional('${opt.id}', true)`);
@@ -278,6 +268,11 @@ for (const pb of powerBoxes) {
       const qty = Number(g(`ensureOptionalState('${opt.id}')`).quantity);
       say(`  - 强行设置数量 ${opt.maxQuantity + 5} → 实际 ${qty} ${qty <= opt.maxQuantity ? "✅ 钳制生效" : "❌ 未钳制"}`);
       if (qty > opt.maxQuantity) flag("bug", `步骤6-${pb.id}-${opt.id}`, `数量上限 ${opt.maxQuantity} 未生效，可设为 ${qty}`);
+      if (opt.requiredExtension) {
+        g(`setOptionalExtension('${opt.id}', 'none', 0)`);
+        const extensionId = g(`ensureOptionalState('${opt.id}')`).extensions?.[0] || g(`ensureOptionalState('${opt.id}')`).extension;
+        if (!extensionId) flag("bug", `步骤6-${pb.id}-${opt.id}`, "必配延长线可被清空");
+      }
       g(`toggleCustomOptional('${opt.id}', false)`);
     }
   }

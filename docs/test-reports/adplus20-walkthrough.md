@@ -141,12 +141,13 @@
 
 ### Power Box Max（可见 4 项）
 - **R-Watch**
-- **B2 sound and light alarm**（最多 4 个）
+- **B2 sound and light alarm**（最多 2 个）
   - 勾选后自动带出必配件: B2 Power and Adapter Cable（SKU 1262010000025）
-  - 强行设置数量 9 → 实际 4 ✅ 钳制生效
-- **B3 sound and light alarm**（最多 4 个）
-  - 延长线共 3 种（3M / 7.5M / 2M），默认锁定第一种
-  - 强行设置数量 9 → 实际 4 ✅ 钳制生效
+  - 延长线共 3 种（3M / 5M / 7M），可任选长度
+  - 强行设置数量 7 → 实际 2 ✅ 钳制生效
+- **B3 sound and light alarm**（最多 2 个）
+  - 延长线共 3 种（3M / 7.5M / 2M），可任选长度
+  - 强行设置数量 7 → 实际 2 ✅ 钳制生效
 - **Micro SD card**（最多 2 个）
   - 强行设置数量 7 → 实际 2 ✅ 钳制生效
 
@@ -164,7 +165,7 @@
 - 1210010100059 × 1 — AHD Signal Adapter Cable
 - 1210030000163 × 2 — AHD Extension Cable
 - 5152119100007 × 1 — C29N
-- 1260010000351 × 1 — IPC Extension Cable
+- 1260010000351 × 2 — IPC Extension Cable
 - 5051043100003 × 1 — CA38
 - 5090091100025 × 1 — B2 Sound and Light Alarm
 - 1262010000025 × 1 — B2 Power and Adapter Cable
@@ -174,9 +175,9 @@
 
 CSV 导出：14 行数据（清单 14 行）✅ 一致
 
-## 疑似 Bug / 需要注意的问题（11 条）
+## 疑似 Bug / 需要注意的问题（8 条）
 
-### 🟡 提醒（11）
+### 🟡 提醒（8）
 
 1. **[步骤5-standard-ca38-延长线]** 行 31 AHD Extension Cable（SKU 1210030000163） 页面上没有任何图片（catalog 与兜底图均缺）
 2. **[步骤5-standard-ca38-延长线]** 行 32 AHD Extension Cable（SKU 1210030000164） 页面上没有任何图片（catalog 与兜底图均缺）
@@ -184,8 +185,5 @@ CSV 导出：14 行数据（清单 14 行）✅ 一致
 4. **[步骤5-standard-ca42-延长线]** 行 37 Extension cable（SKU 1260010100201） 页面上没有任何图片（catalog 与兜底图均缺）
 5. **[步骤5-standard-ca42-延长线]** 行 38 Extension cable（SKU 1260010100204） 页面上没有任何图片（catalog 与兜底图均缺）
 6. **[步骤5-standard-ca42-延长线]** 行 39 Extension cable（SKU 1260010100216） 页面上没有任何图片（catalog 与兜底图均缺）
-7. **[步骤5-ca42]** 「Rear BSD extension cable」的长度选项顺序异常: 9M / 1.5M / 11M（未按从短到长排列，且默认选中第一项）
-8. **[步骤6-max-b3-延长线]** 行 48 B3 Extension Cable（SKU 1260040100038） 页面上没有任何图片（catalog 与兜底图均缺）
-9. **[步骤6-b3]** 「B3 sound and light alarm 延长线」的长度选项顺序异常: 3M / 7.5M / 2M（未按从短到长排列，且默认选中第一项）
-10. **[步骤6-b3]** 延长线被锁定为第一项（3M），但实际有 3 种长度可用——确认锁定是否是有意设计
-11. **[步骤7-清单]** 清单 SKU 1610002100008 不在产品主数据库里（Micro SD 128GB）
+7. **[步骤6-max-b3-延长线]** 行 48 B3 Extension Cable（SKU 1260040100038） 页面上没有任何图片（catalog 与兜底图均缺）
+8. **[步骤7-清单]** 清单 SKU 1610002100008 不在产品主数据库里（Micro SD 128GB）

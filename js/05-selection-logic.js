@@ -673,7 +673,9 @@ function setOptionalExtension(optionalId, nextValue, slot = 0) {
   const optionalDef = customCatalog.optionals.find((item) => item.id === optionalId);
   const optionalState = ensureOptionalState(optionalId);
   const matchedItem = findItemByRow(Number(nextValue));
-  const matchedId = matchedItem?.id || "";
+  const matchedId = matchedItem?.id || (optionalDef?.requiredExtension
+    ? findItemByRow(optionalDef.extensionRows?.[0])?.id || ""
+    : "");
   if (optionalDef?.maxQuantity && optionalDef.extensionRows?.length) {
     optionalState.extensions[slot] = matchedId;
     if (slot === 0) optionalState.extension = matchedId;
@@ -723,4 +725,3 @@ function wiringSummaryText() {
     .filter(Boolean)
     .join(" / ");
 }
-
