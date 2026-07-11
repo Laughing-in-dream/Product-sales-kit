@@ -14,6 +14,7 @@ const check = (ok, text) => { report.push(`- ${ok ? "✅" : "❌"} ${text}`); if
 g("chooseProduct('z5'); state.productPickerOpen = false; state.step = 1; render()");
 const kit = g("z5CoreItem()");
 check(Boolean(kit && kit.partNumber === '5210056100004' && g("state.packageId") === kit.id), "核心 Z5 Kit 自动固定为 5210056100004");
+check(g("Boolean(z5SystemDiagram()?.images?.[0])"), "核心套装页提供系统连接图资源入口");
 g("state.step = 2; render()");
 const storage = g("z5StorageItems()");
 check(storage.length === 4 && storage.map(item => item.partNumber).join(',') === '5190005100063,5190005100062,5190005100060,5190005100083', "四个可选 SD 卡料号完整");

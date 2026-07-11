@@ -241,6 +241,10 @@ function z5StorageItems() {
   return product?.items?.filter((item) => Z5_STEP_ROWS.storage.has(item.rowNumber)) || [];
 }
 
+function z5SystemDiagram() {
+  return currentProduct()?.solutions?.find((solution) => solution.id === "S1") || null;
+}
+
 function setZ5StorageQuantity(itemId, nextQuantity) {
   const quantity = Math.max(0, Math.min(1, Number(nextQuantity || 0)));
   for (const item of z5StorageItems()) {
@@ -259,6 +263,7 @@ function renderZ5CoreStep() {
     ensurePresetSelectionState(kit.id, kit.quantity || "1").checked = true;
   }
   const preview = kit ? packagePreview(kit) : { src: "", fallback: false };
+  const diagram = z5SystemDiagram();
   wizardStageEl.innerHTML = `
     <div class="focus-banner">
       <div>
@@ -289,6 +294,7 @@ function renderZ5CoreStep() {
         </div>
       </button>
     </div>
+    ${diagram?.images?.[0] ? `<div class="c6-section"><h3 class="c6-section-title">${L("系统连接图", "System connection diagram")}</h3><a class="option-card z5-diagram-card" href="./${diagram.images[0]}" target="_blank" rel="noopener"><div class="tag">${L("安装参考", "Installation reference")}</div><h3>${displayCatalogText(diagram.title)}</h3><p>${L("查看 Z5 的系统连接图（不加入清单）。", "Open the Z5 system connection diagram (not included in the BOM).")}</p></a></div>` : ""}
   `;
 
   wizardStageEl.querySelectorAll("[data-package]").forEach((node) => {
@@ -309,7 +315,7 @@ function renderZ5StorageStep() {
         <p>${L("Z5 supports up to 1 Micro SD card.", "Z5 supports up to 1 Micro SD card.")}</p>
       </div>
     </div>
-    <div class="group-list accessory-vertical-list">
+    <div class="option-grid storage-option-grid">
       ${storageItems
         .map((item) => {
           const block = ensurePresetSelectionState(item.id, item.quantity || "1");
@@ -318,38 +324,23 @@ function renderZ5StorageStep() {
           const preview = skuInfo(item.partNumber)?.image || fallbackItemPreviewAsset(item);
           const capacity = displayCatalogText(item.note || item.name);
           return `
-            <section class="group-card accessory-row-group">
-              <div class="item-card accessory-row-card ${selected}">
-                <div class="accessory-row-media">
-                  ${preview ? `<img loading="lazy" decoding="async" class="thumb" src="./${preview}" alt="${capacity}" />` : `<div class="thumb"></div>`}
-                </div>
-                <div class="accessory-row-copy">
-                  <h4>Micro SD ${capacity}</h4>
-                  <div class="sku">${item.partNumber || t().noPartNumber}</div>
-                  <p>${L("Storage option for Z5. Each host supports up to 1 card.", "Storage option for Z5. Each host supports up to 1 card.")}</p>
-                </div>
-                <div class="accessory-row-control">
-                  <div class="qty-stepper" aria-label="Quantity">
-                    <button type="button" class="qty-btn" data-z5-storage="${item.id}" data-direction="-1" ${quantity <= 0 ? "disabled" : ""}>-</button>
-                    <span class="qty-value">${quantity}</span>
-                    <button type="button" class="qty-btn" data-z5-storage="${item.id}" data-direction="1" ${quantity >= 1 ? "disabled" : ""}>+</button>
-                  </div>
-                </div>
-              </div>
-            </section>
+            <button type="button" class="option-card storage-option-card ${selected}" data-z5-storage-choice="${item.id}" aria-pressed="${quantity > 0}">
+              ${preview ? `<img loading="lazy" decoding="async" class="host-photo" src="./${preview}" alt="${capacity}" />` : `<div class="host-photo host-photo-empty">${t().emptyPreview}</div>`}
+              <div class="tag">${quantity > 0 ? L("已选择", "Selected") : L("可选", "Optional")}</div>
+              <h3>Micro SD ${capacity}</h3><div class="sku">${item.partNumber || t().noPartNumber}</div>
+              <p>${L("Z5 supports one Micro SD card. Click again to remove.", "Z5 supports one Micro SD card. Click again to remove.")}</p>
+            </button>
           `;
         })
         .join("")}
     </div>
   `;
 
-  wizardStageEl.querySelectorAll("[data-z5-storage]").forEach((node) => {
+  wizardStageEl.querySelectorAll("[data-z5-storage-choice]").forEach((node) => {
     node.addEventListener("click", () => {
-      const itemId = node.dataset.z5Storage;
+      const itemId = node.dataset.z5StorageChoice;
       const block = ensurePresetSelectionState(itemId);
-      const currentQty = block.checked ? Number(block.quantity || 0) : 0;
-      const nextQty = currentQty + Number(node.dataset.direction || 0);
-      setZ5StorageQuantity(itemId, nextQty);
+      setZ5StorageQuantity(itemId, block.checked ? 0 : 1);
     });
   });
 }
@@ -409,4 +400,3 @@ function renderPresetAccessoryStep() {
     });
   });
 }
-

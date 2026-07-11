@@ -1836,6 +1836,20 @@ button.secondary {
   align-self: center;
 }
 
+.storage-option-grid {
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+
+.storage-option-card,
+.z5-diagram-card {
+  text-align: left;
+}
+
+.storage-option-card .host-photo {
+  height: 150px;
+  object-fit: contain;
+}
+
 .cart-list {
   display: grid;
   gap: 10px;
