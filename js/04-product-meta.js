@@ -71,13 +71,13 @@ function productEntries() {
 
 const M1N_STEP_ROWS = {
   wiring: new Set([5, 7]),
-  cameras: new Set([11, 12, 13, 14, 15, 16, 17, 22, 23]),
+  cameras: new Set([11, 12, 13, 14, 15, 16, 17, 22, 23, 39]),
   optionals: new Set([6, 8, 10, 18, 19, 31, 34, 37, 38]),
 };
 
 const M3N_STEP_ROWS = {
   wiring: new Set([5, 7]),
-  cameras: new Set([10, 11, 12, 13, 14, 15, 17, 22, 23]),
+  cameras: new Set([10, 11, 12, 13, 14, 15, 16, 17, 22, 23]),
   optionals: new Set([3, 6, 8, 18, 19, 31, 34, 37, 38]),
 };
 
@@ -117,8 +117,8 @@ const M3N_CAMERA_EXTENSION_ROWS = {
 };
 
 const M_SERIES_CHANNEL_RULES = {
-  m1n20: { ipc: 2, ahd: 4 },
-  m3n: { ipc: 4, ahd: 4 },
+  m1n20: { ipc: 2, ahd: 4, recording: 6 },
+  m3n: { ipc: 4, ahd: 4, recording: 8 },
 };
 
 const C6_STEPS = {

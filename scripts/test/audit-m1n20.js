@@ -100,7 +100,7 @@ say("## 步骤 3 · 摄像头与通道容量");
 say("");
 g("state.step = 3");
 renderOk("步骤3-摄像头");
-const cameraRows = [11, 12, 13, 14, 17, 22, 23];
+const cameraRows = [11, 12, 13, 14, 17, 22, 23, 39];
 const cameras = cameraRows.map((row) => rows.get(row)).filter(Boolean);
 for (const item of cameras) {
   const type = g(`m3nPresetCameraType(product.items.find(item => item.id === ${JSON.stringify(item.id)}))`);
@@ -135,6 +135,8 @@ g(`setM3nPresetQuantity(${JSON.stringify(ahd.id)}, 9)`);
 status = g("m3nPresetCameraStatus()");
 say(`- 强行设置 AHD 为 9：实际 ${status.ahd}（上限 4）${status.ahd === 4 ? " ✅" : " ❌"}`);
 if (status.ahd !== 4) flag("bug", "步骤3-容量", `AHD 数量未钳制为 4，实际 ${status.ahd}`);
+say(`- 总录像通道：${status.recording}/6${status.recording === 6 ? " ✅" : " ❌"}`);
+if (status.recording !== 6) flag("bug", "步骤3-容量", `录像通道未钳制为 6，实际 ${status.recording}`);
 g("state.selections = {}; seedPresetSelections()");
 
 const adkit = rows.get(14);
@@ -150,6 +152,12 @@ g("applyMSeriesAlgorithmPreset('adkit_ca46')");
 status = g("m3nPresetCameraStatus()");
 say(`- 4 AI 推荐方案：IPC ${status.ipc}/2，AHD ${status.ahd}/4，录像 ${status.recording}，内置算法 ${status.internalAlgorithms}/2，外置算法 ${status.externalAlgorithms}${status.ipc === 1 && status.ahd === 2 && status.recording === 4 && status.internalAlgorithms === 2 && status.externalAlgorithms === 2 ? " ✅" : " ❌"}`);
 if (status.ipc !== 1 || status.ahd !== 2 || status.recording !== 4 || status.internalAlgorithms !== 2 || status.externalAlgorithms !== 2) flag("bug", "步骤3-4AI方案", "ADKIT + 2×CA46 的资源占用不正确");
+g("state.selections = {}; seedPresetSelections()");
+
+g("applyMSeriesAlgorithmPreset('c46_ca20s_ca29m')");
+status = g("m3nPresetCameraStatus()");
+say(`- C46 4 AI 推荐方案：IPC ${status.ipc}/2，AHD ${status.ahd}/4，录像 ${status.recording}/6，内置算法 ${status.internalAlgorithms}/2，外置算法 ${status.externalAlgorithms}${status.ipc === 2 && status.ahd === 2 && status.recording === 4 && status.internalAlgorithms === 2 && status.externalAlgorithms === 2 ? " ✅" : " ❌"}`);
+if (status.ipc !== 2 || status.ahd !== 2 || status.recording !== 4 || status.internalAlgorithms !== 2 || status.externalAlgorithms !== 2) flag("bug", "步骤3-C46方案", "2×C46 + CA20S + CA29M 的资源占用不正确");
 g("state.selections = {}; seedPresetSelections()");
 say("");
 

@@ -1,7 +1,19 @@
 function renderM3nCameraStep() {
-  const items = m1nItemsByRows(currentMSeriesStepRows().cameras).filter((item) =>
-    isM1nProduct() ? ![15, 16].includes(item.rowNumber) : ![14, 15].includes(item.rowNumber)
-  );
+  const items = m1nItemsByRows(currentMSeriesStepRows().cameras)
+    .filter((item) => (isM1nProduct() ? ![15, 16].includes(item.rowNumber) : ![14, 15].includes(item.rowNumber)))
+    .sort((left, right) => {
+      const rank = (item) => {
+        const text = `${item.name || ""} ${item.group || ""}`.toLowerCase();
+        if (/c29n/.test(text)) return 1;
+        if (/c46/.test(text)) return 2;
+        if (/ca29m/.test(text)) return 3;
+        if (/ca20s/.test(text)) return 4;
+        if (/ad\s*kit/.test(text)) return 5;
+        if (/ca46/.test(text)) return 6;
+        return 10;
+      };
+      return rank(left) - rank(right);
+    });
   const cameraStatus = m3nPresetCameraStatus();
   const channelRule = currentMSeriesChannelRule();
   const productTitle = currentProduct()?.title || "M-series";
@@ -20,12 +32,12 @@ function renderM3nCameraStep() {
       <div class="algorithm-plan-head">
         <div>
           <strong>${L("算法与通道方案", "Algorithm & channel plan")}</strong>
-          <span>${L("接口数为硬限制；录像通道先展示用量，等待确认总上限。", "Interface counts are enforced. Recording-channel use is shown while its total limit is pending confirmation.")}</span>
+          <span>${L("IPC、AHD 与录像通道均为硬限制。", "IPC, AHD, and recording channels are enforced.")}</span>
         </div>
         <div class="resource-badge-list">
           <span>IPC ${cameraStatus.ipc}/${channelRule.ipc}</span>
           <span>AHD ${cameraStatus.ahd}/${channelRule.ahd}</span>
-          <span>${L("录像", "Recording")} ${cameraStatus.recording}</span>
+          <span>${L("录像", "Recording")} ${cameraStatus.recording}/${channelRule.recording}</span>
           <span>${L("内置算法", "Internal AI")} ${cameraStatus.internalAlgorithms}/2</span>
           <span>${L("外置算法", "External AI")} ${cameraStatus.externalAlgorithms}</span>
         </div>
@@ -36,15 +48,16 @@ function renderM3nCameraStep() {
           <span>ADAS + DMS ${L("（外置）", "(external)")} · ${L("左 BSD + 右 BSD（MDVR）", "Left BSD + Right BSD (MDVR)")}</span>
           <small>IPC 1 · AHD 2 · ${L("录像通道", "Recording")} 4</small>
         </button>
-        <div class="algorithm-preset-card unavailable" aria-disabled="true">
+        <button type="button" class="algorithm-preset-card" data-mseries-preset="c46_ca20s_ca29m">
           <strong>4 AI · 2 × C46 + CA20S + CA29M</strong>
-          <span>${L("待补独立 C46 摄像头的可售料号后启用。", "Enable after adding the sellable standalone C46 SKU.")}</span>
-        </div>
+          <span>${L("左 BSD + 右 BSD（外置）· ADAS + DMS（MDVR）", "Left BSD + Right BSD (external) · ADAS + DMS (MDVR)")}</span>
+          <small>IPC 2 · AHD 2 · ${L("录像通道", "Recording")} 4</small>
+        </button>
       </div>
     </section>
     <div class="capacity-note">
       <strong>${L("接口余量", "Interface remaining")}</strong>
-      <p>${productTitle}: ${cameraStatus.ipcRemaining} IPC / ${cameraStatus.ahdRemaining} AHD ${L("可用", "available")}.</p>
+      <p>${productTitle}: ${cameraStatus.ipcRemaining} IPC / ${cameraStatus.ahdRemaining} AHD / ${cameraStatus.recordingRemaining} ${L("路录像通道可用", "recording channels available")}.</p>
     </div>
     <div class="group-list accessory-vertical-list">
       ${items
@@ -64,7 +77,9 @@ function renderM3nCameraStep() {
                     const disabled =
                       !selected &&
                       Boolean(resource) &&
-                      ((resource.ipc > cameraStatus.ipcRemaining) || (resource.ahd > cameraStatus.ahdRemaining));
+                      ((resource.ipc > cameraStatus.ipcRemaining) ||
+                        (resource.ahd > cameraStatus.ahdRemaining) ||
+                        (resource.recording > cameraStatus.recordingRemaining));
                     const extensionRows = m3nCameraExtensionRowsForMSeries(item);
                     const childRows = m3nAdkitChildRows(item);
                     const extensionTitle =

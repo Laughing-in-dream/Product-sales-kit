@@ -10,7 +10,7 @@ function currentMSeriesStepRows() {
 }
 
 function currentMSeriesChannelRule() {
-  return M_SERIES_CHANNEL_RULES[state.productId] || { ipc: 1, ahd: 1 };
+  return M_SERIES_CHANNEL_RULES[state.productId] || { ipc: 1, ahd: 1, recording: 1 };
 }
 
 const M_SERIES_INTERNAL_ALGORITHMS = ["adas", "dms", "left_bsd", "right_bsd", "rear_bsd"];
@@ -20,6 +20,7 @@ function mSeriesCameraResource(item) {
   // AD Kit 的随附支架/螺丝同属 "AD Kit" 分组；只有套装主件才占用接口和录像通道。
   const isAdkit = (isM1nProduct() && item?.rowNumber === 14) || (isM3nProduct() && item?.rowNumber === 13);
   if (isAdkit) return { type: "ipc", ipc: 1, ahd: 0, recording: 2, bundle: true, externalAlgorithms: ["adas", "dms"] };
+  if (/c46/.test(text)) return { type: "ipc", ipc: 1, ahd: 0, recording: 1, bundle: false, externalAlgorithms: ["bsd"] };
   if (/ca20s|ca29m|ca46|square camera|方型机|metal conch|金属海螺|bsd|surveillance/.test(text)) {
     return { type: "ahd", ipc: 0, ahd: 1, recording: 1, bundle: false, externalAlgorithms: [] };
   }
@@ -96,7 +97,9 @@ function maxM3nPresetQuantity(item) {
   const block = state.selections[item.id];
   const currentQty = block?.checked ? Number(block.quantity || 0) : 0;
   const status = m3nPresetCameraStatus();
-  return currentQty + (resource.type === "ipc" ? status.ipcRemaining : status.ahdRemaining);
+  const interfaceRemaining = resource.type === "ipc" ? status.ipcRemaining : status.ahdRemaining;
+  const recordingRemaining = Math.floor(status.recordingRemaining / resource.recording);
+  return currentQty + Math.min(interfaceRemaining, recordingRemaining);
 }
 
 function presetVariantOptions(item) {
@@ -156,11 +159,8 @@ function setMSeriesInternalAlgorithm(itemId, slot, algorithm) {
 }
 
 function applyMSeriesAlgorithmPreset(presetId) {
-  if (presetId !== "adkit_ca46") return;
   const cameraItems = m1nItemsByRows(currentMSeriesStepRows().cameras);
-  const adkit = cameraItems.find((item) => mSeriesCameraResource(item)?.bundle);
-  const ca46 = cameraItems.find((item) => /ca46/i.test(`${item.name || ""} ${item.group || ""}`));
-  if (!adkit || !ca46) return;
+  const findCamera = (pattern) => cameraItems.find((item) => pattern.test(`${item.name || ""} ${item.group || ""}`));
   for (const item of cameraItems) {
     if (!mSeriesCameraResource(item)) continue;
     const block = ensurePresetSelectionState(item.id, item.quantity || "1");
@@ -170,20 +170,44 @@ function applyMSeriesAlgorithmPreset(presetId) {
     block.extensions = [];
     block.algorithms = [];
   }
-  const adkitBlock = ensurePresetSelectionState(adkit.id, adkit.quantity || "1");
-  adkitBlock.checked = true;
-  adkitBlock.quantity = 1;
-  for (const childRow of m3nAdkitChildRows(adkit)) {
-    const childItem = findItemByRow(childRow);
-    if (childItem) ensurePresetSelectionState(childItem.id, childItem.quantity || "1").checked = true;
+  if (presetId === "adkit_ca46") {
+    const adkit = cameraItems.find((item) => mSeriesCameraResource(item)?.bundle);
+    const ca46 = findCamera(/ca46/i);
+    if (!adkit || !ca46) return;
+    const adkitBlock = ensurePresetSelectionState(adkit.id, adkit.quantity || "1");
+    adkitBlock.checked = true;
+    adkitBlock.quantity = 1;
+    for (const childRow of m3nAdkitChildRows(adkit)) {
+      const childItem = findItemByRow(childRow);
+      if (childItem) ensurePresetSelectionState(childItem.id, childItem.quantity || "1").checked = true;
+    }
+    const ca46Block = ensurePresetSelectionState(ca46.id, ca46.quantity || "1");
+    const extensionId = findItemByRow(M3N_CAMERA_EXTENSION_ROWS.ahd[0])?.id || "";
+    ca46Block.checked = true;
+    ca46Block.quantity = 2;
+    ca46Block.extensions = [extensionId, extensionId];
+    ca46Block.extensionId = extensionId;
+    ca46Block.algorithms = ["left_bsd", "right_bsd"];
+  } else if (presetId === "c46_ca20s_ca29m") {
+    const c46 = findCamera(/c46(?!.*ca46)/i);
+    const ca20s = findCamera(/ca20s/i);
+    const ca29m = findCamera(/ca29m/i);
+    if (!c46 || !ca20s || !ca29m) return;
+    const c46Block = ensurePresetSelectionState(c46.id, c46.quantity || "1");
+    c46Block.checked = true;
+    c46Block.quantity = 2;
+    const extensionId = findItemByRow(M3N_CAMERA_EXTENSION_ROWS.ahd[0])?.id || "";
+    for (const [item, algorithm] of [[ca20s, "adas"], [ca29m, "dms"]]) {
+      const block = ensurePresetSelectionState(item.id, item.quantity || "1");
+      block.checked = true;
+      block.quantity = 1;
+      block.extensionId = extensionId;
+      block.extensions = [extensionId];
+      block.algorithms = [algorithm];
+    }
+  } else {
+    return;
   }
-  const ca46Block = ensurePresetSelectionState(ca46.id, ca46.quantity || "1");
-  const extensionId = findItemByRow(M3N_CAMERA_EXTENSION_ROWS.ahd[0])?.id || "";
-  ca46Block.checked = true;
-  ca46Block.quantity = 2;
-  ca46Block.extensions = [extensionId, extensionId];
-  ca46Block.extensionId = extensionId;
-  ca46Block.algorithms = ["left_bsd", "right_bsd"];
   render();
 }
 
@@ -299,6 +323,7 @@ function m3nPresetCameraStatus() {
     ...totals,
     ipcRemaining: Math.max(0, channelRule.ipc - totals.ipc),
     ahdRemaining: Math.max(0, channelRule.ahd - totals.ahd),
+    recordingRemaining: Math.max(0, channelRule.recording - totals.recording),
     internalAlgorithmsRemaining: Math.max(0, 2 - totals.internalAlgorithms),
   };
 }

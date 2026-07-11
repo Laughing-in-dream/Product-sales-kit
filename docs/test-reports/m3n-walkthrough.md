@@ -19,13 +19,16 @@
 - **AD Kit 3.0（SKU 5200007100101）**（IPC；延长线 ）
   - AD Kit 配件 DMS Riser Bracket（SKU 1120041000455）：自动勾选
   - AD Kit 配件 Riser Bracket Screws（SKU 1160010100023）：自动勾选
+- **C46（SKU 5152178100017）**（IPC；延长线 3M / 5M / 7M / 9M）
 - **CA46（SKU 5151053100007）**（AHD；延长线 3M / 5M / 7M / 9M）
 - **Square Camera（SKU 5151003100126）**（AHD；延长线 3M / 5M / 7M / 9M）
 - **New Metal Conch（SKU 5151022100069）**（AHD；延长线 3M / 5M / 7M / 9M）
 - 强行设置 IPC 为 9：实际 4（上限 4） ✅
 - 强行设置 AHD 为 9：实际 4（上限 4） ✅
+- 总录像通道：8/8 ✅
 - ADKIT + 1 路 IPC：IPC 2/4，录像 3（应为 2 路 IPC、3 路录像） ✅
 - 4 AI 推荐方案：IPC 1/4，AHD 2/4，录像 4，内置算法 2/2，外置算法 2 ✅
+- C46 4 AI 推荐方案：IPC 2/4，AHD 2/4，录像 4/8，内置算法 2/2，外置算法 2 ✅
 
 ## 步骤 4 · 可选件与联动配件
 
