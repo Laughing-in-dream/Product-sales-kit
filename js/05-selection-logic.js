@@ -130,6 +130,16 @@ function resetScenarioState() {
   state.packageId = null;
   state.selections = {};
   resetCustomState();
+  if (isAvmProduct()) {
+    state.avm = {
+      mode: "standalone",
+      cascadeHost: "adplus20",
+      ahdRoute: "direct",
+      cameraExtensions: [9, 9, 9, 9],
+      storageQuantity: 0,
+      storageVariants: [SD_CARD_VARIANTS[0].partNumber, SD_CARD_VARIANTS[0].partNumber],
+    };
+  }
   if (isMSeriesProduct()) {
     state.packageId = packageCandidates()[0]?.id || null;
     if (state.packageId) {

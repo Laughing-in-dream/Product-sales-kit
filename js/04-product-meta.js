@@ -139,6 +139,16 @@ const Z5_STEPS = {
   ],
 };
 
+const AVM_FLOW_STEPS = {
+  zh: null, en: [
+    { id: 1, title: "Choose Mode & Base Kit", description: "Select standalone or cascade, then confirm the required AVM kit." },
+    { id: 2, title: "Cameras & Calibration", description: "Four surround cameras, four individual extension cables, and the calibration cloth are required." },
+    { id: 3, title: "Host Connection & Screen", description: "Configure cascade wiring and the AVM bird's-eye AHD output." },
+    { id: 4, title: "Alerts & Storage", description: "Add left/right B2 alarms and up to two Micro SD cards." },
+    { id: 5, title: "Review & Export", description: "Check the complete AVM list and export the selected SKUs." },
+  ],
+};
+
 const C53_STEPS = {
   zh: null, en: [
     { id: 1, title: "Choose Core Kit", description: "Start by selecting the C53-L or C53-R base kit." },
@@ -185,7 +195,7 @@ const PRODUCT_META = {
                  presetPackage: true, steps: C6_STEPS, kit: "core",
                  selectable: { rows: C6_STEP_ROWS, map: { 2: "wiring", 3: "cameras", 4: "optionals" } } },
   avm:         { entryImage: "North America Sales List-FILE/AVM/Image/5-AVM-image.png",
-                 presetPackage: true, steps: AVM_STEPS, kit: "base",
+                 presetPackage: true, steps: AVM_FLOW_STEPS, kit: "base",
                  selectable: { rows: AVM_STEP_ROWS, map: { 2: "cameras", 3: "wiring", 4: "optionals" } } },
   z5:          { entryImage: "North America Sales List-FILE/Z5/Image/Z5/1-Z5-Z5主视图1.png",
                  presetPackage: true, steps: Z5_STEPS, kit: "core",

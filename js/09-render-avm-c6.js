@@ -1,6 +1,143 @@
 function c6Items(rows) {
   return (product?.items || []).filter((item) => rows.includes(item.rowNumber));
 }
+
+// AVM 2.0 flow. These helpers deliberately construct the fixed AVM BOM instead
+// of relying on generic checkbox state: every AVM always has four cameras,
+// four camera leads and one calibration-cloth set.
+function avmState() {
+  state.avm = state.avm || {};
+  state.avm.mode = state.avm.mode || "standalone";
+  state.avm.cascadeHost = state.avm.cascadeHost || "adplus20";
+  state.avm.ahdRoute = state.avm.ahdRoute || "direct";
+  state.avm.cameraExtensions = state.avm.cameraExtensions?.length === 4 ? state.avm.cameraExtensions : [9, 9, 9, 9];
+  state.avm.storageVariants = state.avm.storageVariants?.length === 2 ? state.avm.storageVariants : [SD_CARD_VARIANTS[0].partNumber, SD_CARD_VARIANTS[0].partNumber];
+  state.avm.storageQuantity = Math.max(0, Math.min(2, Number(state.avm.storageQuantity || 0)));
+  return state.avm;
+}
+
+function avmItemByRow(row) {
+  return c6Items([row])[0] || null;
+}
+
+function avmDisplayName(item) {
+  return skuInfo(item?.partNumber)?.title ? localizedText(skuInfo(item.partNumber).title) : displayCatalogText(item?.name || "");
+}
+
+function avmBomLine(item, quantity = "1") {
+  return {
+    product: product.title,
+    scenario: "",
+    family: "",
+    group: displayCatalogText(item.group),
+    name: avmDisplayName(item),
+    partNumber: item.partNumber,
+    quantity: String(quantity),
+    note: displayCatalogText(item.note),
+    description: displayCatalogText(item.description),
+  };
+}
+
+function avmSelectableCard(item, key, checked, detailOverride = "") {
+  const preview = skuInfo(item.partNumber)?.image || fallbackItemPreviewAsset(item);
+  return `
+    <section class="group-card accessory-row-group">
+      <label class="item-card accessory-row-card ${checked ? "selected" : ""}">
+        <div class="accessory-row-media">${preview ? `<img loading="lazy" decoding="async" class="thumb" src="./${preview}" alt="${avmDisplayName(item)}" />` : `<div class="thumb"></div>`}</div>
+        <div class="accessory-row-copy"><h4>${avmDisplayName(item)}</h4><div class="sku">${item.partNumber}</div><p>${detailOverride || displayCatalogText(item.note || item.description || "")}</p></div>
+        <div class="accessory-row-control"><input type="checkbox" ${key} ${checked ? "checked" : ""} /></div>
+      </label>
+    </section>`;
+}
+
+function renderAvm2BaseStep() {
+  const avm = avmState();
+  const kit = avmItemByRow(6);
+  const active = state.packageId === kit?.id;
+  const kitPreview = skuInfo(kit?.partNumber)?.image || fallbackItemPreviewAsset(kit);
+  wizardStageEl.innerHTML = `
+    <div class="c6-section">
+      <h3 class="c6-section-title">${L("方案模式", "Solution mode")}</h3>
+      <div class="option-grid two-col">
+        <button type="button" class="option-card ${avm.mode === "standalone" ? "active" : ""}" data-avm2-mode="standalone"><div class="tag">${L("单机", "Standalone")}</div><h3>${L("独立单机", "Standalone AVM")}</h3><p>${L("AVM 直接向 DP7S 输出鸟瞰图。", "AVM sends its bird's-eye AHD output directly to DP7S.")}</p></button>
+        <button type="button" class="option-card ${avm.mode === "cascade" ? "active" : ""}" data-avm2-mode="cascade"><div class="tag">${L("级联", "Cascade")}</div><h3>${L("级联从机", "Cascade slave")}</h3><p>${L("AVM 通过 IPC 接入 AD Plus 2.0、M1N 2.0 或 M3N。", "AVM connects through IPC to AD Plus 2.0, M1N 2.0, or M3N.")}</p></button>
+      </div>
+    </div>
+    <div class="c6-section">
+      <h3 class="c6-section-title">${L("必选 AVM Kit", "Required AVM kit")}</h3>
+      <button class="option-card avm-kit-card ${active ? "active" : ""}" data-package="${kit?.id || ""}">
+        ${kitPreview ? `<img loading="lazy" decoding="async" class="host-photo" src="./${kitPreview}" alt="AVM" />` : ""}
+        <div class="tag">${L("必选", "Required")}</div><h3>${avmDisplayName(kit)}</h3><div class="sku">${kit?.partNumber || ""}</div><p>${displayCatalogText(kit?.note || "")}</p>
+      </button>
+    </div>`;
+  wizardStageEl.querySelectorAll("[data-avm2-mode]").forEach((node) => node.addEventListener("click", () => { avm.mode = node.dataset.avm2Mode; render(); }));
+  wizardStageEl.querySelectorAll("[data-package]").forEach((node) => node.addEventListener("click", () => choosePackage(node.dataset.package)));
+}
+
+function renderAvm2CameraStep() {
+  const avm = avmState();
+  const camera = avmItemByRow(13);
+  const calibration = avmItemByRow(14);
+  const extensions = [9, 10, 11, 12].map(avmItemByRow).filter(Boolean);
+  const cameraPreview = skuInfo(camera?.partNumber)?.image || fallbackItemPreviewAsset(camera);
+  wizardStageEl.innerHTML = `
+    <div class="focus-banner"><div><strong>${L("固定配置", "Fixed configuration")}</strong><p>${L("4 个环视摄像机 + 4 条独立延长线 + 标定布", "4 surround cameras + 4 individual extension cables + calibration cloth")}</p></div></div>
+    <section class="group-card accessory-row-group"><div class="item-card accessory-row-card selected"><div class="accessory-row-media">${cameraPreview ? `<img class="thumb" src="./${cameraPreview}" alt="${avmDisplayName(camera)}" />` : ""}</div><div class="accessory-row-copy"><h4>${avmDisplayName(camera)} × 4</h4><div class="sku">${camera?.partNumber || ""}</div><p>${L("每套 AVM 必带四个同制式 CA51D 摄像机。", "Every AVM requires four CA51D cameras of the same standard.")}</p></div><div class="accessory-row-control"><span class="tag">${L("必选", "Required")}</span></div></div></section>
+    <div class="extension-picker"><div class="extension-picker-head"><strong>${L("四条摄像机延长线", "Four camera extension cables")}</strong><span>${L("分别按安装距离选择", "Choose each by installation distance")}</span></div>${[0, 1, 2, 3].map((slot) => `<label><span>${L("摄像机", "Camera")} ${slot + 1}</span><select data-avm2-camera-extension="${slot}">${extensions.map((item) => `<option value="${item.rowNumber}" ${Number(avm.cameraExtensions[slot]) === item.rowNumber ? "selected" : ""}>${formatExtensionOptionLabel(item)}</option>`).join("")}</select></label>`).join("")}</div>
+    <section class="group-card accessory-row-group"><div class="item-card accessory-row-card selected"><div class="accessory-row-copy"><h4>${avmDisplayName(calibration)}</h4><div class="sku">${calibration?.partNumber || ""}</div><p>${L("一套 4 块，默认带出。", "One set of four, included by default.")}</p></div><div class="accessory-row-control"><span class="tag">${L("必选", "Required")}</span></div></div></section>`;
+  wizardStageEl.querySelectorAll("[data-avm2-camera-extension]").forEach((node) => node.addEventListener("change", () => { avm.cameraExtensions[Number(node.dataset.avm2CameraExtension)] = Number(node.value); render(); }));
+}
+
+function renderAvm2WiringStep() {
+  const avm = avmState();
+  const screen = avmItemByRow(15);
+  const screenChecked = Boolean(state.selections[screen?.id]?.checked);
+  const hostNames = { adplus20: "AD Plus 2.0", m1n20: "M1N 2.0", m3n: "M3N" };
+  wizardStageEl.innerHTML = `
+    <div class="c6-section">
+      <h3 class="c6-section-title">${L("上级主机连接", "Host connection")}</h3>
+      ${avm.mode === "cascade" ? `<p class="c6-section-hint">${L("级联线会自动加入。主机侧占用 1 路 IPC 与 1 路录像通道，画面为四分屏。", "The cascade IPC cable is included automatically. The host uses 1 IPC and 1 recording channel for a four-way split view.")}</p><label class="extension-picker"><span>${L("级联目标主机", "Cascade host")}</span><select data-avm2-host>${Object.entries(hostNames).map(([id, name]) => `<option value="${id}" ${avm.cascadeHost === id ? "selected" : ""}>${name}</option>`).join("")}</select></label>` : `<p class="c6-section-hint">${L("单机模式不接上级 MDVR。", "Standalone mode does not connect to an upstream MDVR.")}</p>`}
+    </div>
+    <div class="c6-section"><h3 class="c6-section-title">${L("司机屏幕与俯瞰图输出", "Driver screen & bird's-eye output")}</h3>${avmSelectableCard(screen, `data-avm2-screen="${screen.id}"`, screenChecked)}
+      ${screenChecked ? `<div class="option-grid two-col"><button type="button" class="option-card ${avm.ahdRoute === "direct" ? "active" : ""}" data-avm2-route="direct"><h3>${L("直接到屏幕", "Direct to screen")}</h3><p>${L("带 AHD 信号转接线，仅供司机查看。", "Includes the AHD signal adapter; for driver viewing only.")}</p></button>${avm.mode === "cascade" ? `<button type="button" class="option-card ${avm.ahdRoute === "split" ? "active" : ""}" data-avm2-route="split"><h3>${L("屏幕 + MDVR 录制", "Screen + MDVR recording")}</h3><p>${L("带一拖二线，同时接屏幕和主机 AHD 输入。", "Includes the splitter cable to feed both screen and host AHD input.")}</p></button>` : ""}</div>` : ""}
+    </div>`;
+  wizardStageEl.querySelectorAll("[data-avm2-host]").forEach((node) => node.addEventListener("change", () => { avm.cascadeHost = node.value; render(); }));
+  wizardStageEl.querySelectorAll("[data-avm2-screen]").forEach((node) => node.addEventListener("change", (event) => { state.selections[screen.id] = { checked: event.target.checked, quantity: "1" }; render(); }));
+  wizardStageEl.querySelectorAll("[data-avm2-route]").forEach((node) => node.addEventListener("click", () => { avm.ahdRoute = node.dataset.avm2Route; render(); }));
+}
+
+function renderAvm2AccessoriesStep() {
+  const avm = avmState();
+  const b2s = [avmItemByRow(17), avmItemByRow(18)];
+  const b2Extensions = [28, 29, 30].map((row) => findCatalogItem("m3n", row)).filter(Boolean);
+  wizardStageEl.innerHTML = `
+    <div class="c6-section"><h3 class="c6-section-title">${L("B2 声光报警器", "B2 sound and light alarms")}</h3><p class="c6-section-hint">${L("左右独立选择。每个 B2 默认带 6PIN IPC 延长线；转接线按数量自动匹配。", "Choose left/right independently. Each B2 includes a default 6PIN IPC extension; the adapter is matched by quantity.")}</p>
+      <div class="group-list accessory-vertical-list">${b2s.map((item) => { const block = state.selections[item.id] || {}; const selected = Boolean(block.checked); const ext = Number(block.b2ExtensionRow || 28); return `${avmSelectableCard(item, `data-avm2-b2="${item.id}"`, selected)}${selected ? `<div class="extension-picker"><label><span>${L("B2 IPC 延长线", "B2 IPC extension cable")}</span><select data-avm2-b2-extension="${item.id}">${b2Extensions.map((cable) => `<option value="${cable.rowNumber}" ${ext === cable.rowNumber ? "selected" : ""}>${formatExtensionOptionLabel(cable)}</option>`).join("")}</select></label></div>` : ""}`; }).join("")}</div>
+    </div>
+    <div class="c6-section"><h3 class="c6-section-title">${L("Micro SD 卡", "Micro SD cards")}</h3><div class="qty-stepper"><button type="button" class="qty-btn" data-avm2-storage-step="-1" ${avm.storageQuantity === 0 ? "disabled" : ""}>-</button><span class="qty-value">${avm.storageQuantity}</span><button type="button" class="qty-btn" data-avm2-storage-step="1" ${avm.storageQuantity >= 2 ? "disabled" : ""}>+</button></div>${Array.from({ length: avm.storageQuantity }, (_, index) => `<div class="extension-picker"><label><span>${L("SD 卡", "SD card")} ${index + 1}</span><select data-avm2-storage-variant="${index}">${SD_CARD_VARIANTS.map((variant) => `<option value="${variant.partNumber}" ${avm.storageVariants[index] === variant.partNumber ? "selected" : ""}>${localizedText(variant.name)} | ${variant.partNumber}</option>`).join("")}</select></label></div>`).join("")}</div>`;
+  wizardStageEl.querySelectorAll("[data-avm2-b2]").forEach((node) => node.addEventListener("change", (event) => { const block = state.selections[node.dataset.avm2B2] || { quantity: "1" }; block.checked = event.target.checked; block.b2ExtensionRow = block.b2ExtensionRow || 28; state.selections[node.dataset.avm2B2] = block; render(); }));
+  wizardStageEl.querySelectorAll("[data-avm2-b2-extension]").forEach((node) => node.addEventListener("change", () => { state.selections[node.dataset.avm2B2Extension].b2ExtensionRow = Number(node.value); render(); }));
+  wizardStageEl.querySelectorAll("[data-avm2-storage-step]").forEach((node) => node.addEventListener("click", () => { avm.storageQuantity = Math.max(0, Math.min(2, avm.storageQuantity + Number(node.dataset.avm2StorageStep))); render(); }));
+  wizardStageEl.querySelectorAll("[data-avm2-storage-variant]").forEach((node) => node.addEventListener("change", () => { avm.storageVariants[Number(node.dataset.avm2StorageVariant)] = node.value; render(); }));
+}
+
+function selectedAvmItems() {
+  const avm = avmState();
+  const rows = [avmBomLine(avmItemByRow(6)), avmBomLine(avmItemByRow(13), 4), avmBomLine(avmItemByRow(14))];
+  avm.cameraExtensions.forEach((row) => { const item = avmItemByRow(Number(row)); if (item) rows.push(avmBomLine(item)); });
+  if (avm.mode === "cascade") { const cascadeCable = avmItemByRow(8); if (cascadeCable) rows.push(avmBomLine(cascadeCable)); }
+  const screen = avmItemByRow(15);
+  if (state.selections[screen?.id]?.checked) {
+    rows.push(avmBomLine(screen));
+    const ahdCable = avmItemByRow(avm.mode === "cascade" && avm.ahdRoute === "split" ? 7 : 16);
+    if (ahdCable) rows.push(avmBomLine(ahdCable));
+  }
+  const selectedB2 = [avmItemByRow(17), avmItemByRow(18)].filter((item) => state.selections[item?.id]?.checked);
+  selectedB2.forEach((item) => { rows.push(avmBomLine(item)); const extension = findCatalogItem("m3n", Number(state.selections[item.id]?.b2ExtensionRow || 28)); if (extension) rows.push(avmBomLine(extension)); });
+  if (selectedB2.length) { const adapter = avmItemByRow(selectedB2.length === 1 ? 19 : 20); if (adapter) rows.push(avmBomLine(adapter)); }
+  for (let index = 0; index < avm.storageQuantity; index += 1) { const variant = SD_CARD_VARIANTS.find((item) => item.partNumber === avm.storageVariants[index]) || SD_CARD_VARIANTS[0]; rows.push({ product: product.title, scenario: "", family: "", group: "Storage", name: localizedText(variant.name), partNumber: variant.partNumber, quantity: "1", note: "AVM storage", description: "AVM Micro SD card" }); }
+  return rows;
+}
 function c6PowerModelOf(item) {
   return /CAN/i.test(item.group?.en || item.group || "") ? "can" : "rs232";
 }
@@ -583,4 +720,3 @@ function renderC6AccessoryStep() {
     });
   });
 }
-

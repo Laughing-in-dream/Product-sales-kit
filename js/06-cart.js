@@ -1,4 +1,5 @@
 function selectedPresetItems() {
+  if (isAvmProduct()) return selectedAvmItems();
   const rows = itemsForFamily()
     .filter((item) => {
       // C6: AHD extension cables are chosen per-camera (nested); the AHD expansion cable (r15) is auto-added.
@@ -352,12 +353,13 @@ function updateStepControls() {
 function validateCurrentStep() {
   if (state.productPickerOpen) return Boolean(state.productId);
   if (!isCustomFlow()) {
-    if (state.step === 1) return (isC6Product() || isAvmProduct()) ? Boolean(state.packageId) : Boolean(state.scenarioId);
+    if (state.step === 1) {
+      if (isAvmProduct()) return Boolean(state.packageId) && Boolean(state.avm?.mode);
+      return isC6Product() ? Boolean(state.packageId) : Boolean(state.scenarioId);
+    }
     if (state.step === 2) {
       // C6 requires a power cable (RS232/CAN model + connector) before moving on.
       if (isC6Product()) return c6Items([10, 11, 12, 13]).some((it) => state.selections[it.id]?.checked);
-      // AVM requires a connection mode.
-      if (isAvmProduct()) return Boolean(state.avm?.mode);
       return Boolean(state.packageId);
     }
     return true;
