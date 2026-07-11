@@ -16,27 +16,55 @@ function renderM3nCameraStep() {
         <p>${currentPackage() ? displayCatalogText(currentPackage().name) : "-"}</p>
       </div>
     </div>
+    <section class="algorithm-plan-panel">
+      <div class="algorithm-plan-head">
+        <div>
+          <strong>${L("算法与通道方案", "Algorithm & channel plan")}</strong>
+          <span>${L("接口数为硬限制；录像通道先展示用量，等待确认总上限。", "Interface counts are enforced. Recording-channel use is shown while its total limit is pending confirmation.")}</span>
+        </div>
+        <div class="resource-badge-list">
+          <span>IPC ${cameraStatus.ipc}/${channelRule.ipc}</span>
+          <span>AHD ${cameraStatus.ahd}/${channelRule.ahd}</span>
+          <span>${L("录像", "Recording")} ${cameraStatus.recording}</span>
+          <span>${L("内置算法", "Internal AI")} ${cameraStatus.internalAlgorithms}/2</span>
+          <span>${L("外置算法", "External AI")} ${cameraStatus.externalAlgorithms}</span>
+        </div>
+      </div>
+      <div class="algorithm-preset-grid">
+        <button type="button" class="algorithm-preset-card" data-mseries-preset="adkit_ca46">
+          <strong>4 AI · ADKIT + 2 × CA46</strong>
+          <span>ADAS + DMS ${L("（外置）", "(external)")} · ${L("左 BSD + 右 BSD（MDVR）", "Left BSD + Right BSD (MDVR)")}</span>
+          <small>IPC 1 · AHD 2 · ${L("录像通道", "Recording")} 4</small>
+        </button>
+        <div class="algorithm-preset-card unavailable" aria-disabled="true">
+          <strong>4 AI · 2 × C46 + CA20S + CA29M</strong>
+          <span>${L("待补独立 C46 摄像头的可售料号后启用。", "Enable after adding the sellable standalone C46 SKU.")}</span>
+        </div>
+      </div>
+    </section>
     <div class="capacity-note">
-      <strong>Channel rule</strong>
-      <p>${productTitle} supports up to ${channelRule.ipc} IPC channels and ${channelRule.ahd} AHD channels. Remaining: ${cameraStatus.ipcRemaining} IPC / ${cameraStatus.ahdRemaining} AHD.</p>
+      <strong>${L("接口余量", "Interface remaining")}</strong>
+      <p>${productTitle}: ${cameraStatus.ipcRemaining} IPC / ${cameraStatus.ahdRemaining} AHD ${L("可用", "available")}.</p>
     </div>
     <div class="group-list accessory-vertical-list">
       ${items
         .map((item) => {
                     const block = ensurePresetSelectionState(item.id, item.quantity || "1");
-                    const quantity = isM3nPresetCameraItem(item) ? (block.checked ? Number(block.quantity || 0) : 0) : (block.checked ? 1 : 0);
-                    const maxQty = isM3nPresetCameraItem(item) ? Math.max(0, maxM3nPresetQuantity(item)) : 1;
+                    const resource = mSeriesCameraResource(item);
+                    const quantitySelectable = Boolean(resource && !resource.bundle);
+                    const quantity = resource ? mSeriesSelectionQuantity(item) : (block.checked ? 1 : 0);
+                    const maxQty = quantitySelectable ? Math.max(0, maxM3nPresetQuantity(item)) : 1;
                     const checked = block.checked ? "checked" : "";
                     const selected = (isM3nPresetCameraItem(item) ? quantity > 0 : block.checked) ? "selected" : "";
                     const info = skuInfo(item.partNumber);
                     const preview = info?.image || fallbackItemPreviewAsset(item);
                     const displayName = info?.title ? localizedText(info.title) : displayCatalogText(item.name);
                     const displayDetail = info?.detail !== undefined ? L(info.detail, info.detailEn) : displayCatalogText(item.note || item.description || "");
-                    const cameraType = m3nPresetCameraType(item);
+                    const cameraType = resource?.type || null;
                     const disabled =
                       !selected &&
-                      ((cameraType === "ipc" && cameraStatus.ipcRemaining <= 0) ||
-                        (cameraType === "ahd" && cameraStatus.ahdRemaining <= 0));
+                      Boolean(resource) &&
+                      ((resource.ipc > cameraStatus.ipcRemaining) || (resource.ahd > cameraStatus.ahdRemaining));
                     const extensionRows = m3nCameraExtensionRowsForMSeries(item);
                     const childRows = m3nAdkitChildRows(item);
                     const extensionTitle =
@@ -53,10 +81,15 @@ function renderM3nCameraStep() {
                             <h4>${displayName}</h4>
                             <div class="sku">${item.partNumber || t().noPartNumber}</div>
                             <p>${displayDetail}</p>
+                            ${
+                              resource
+                                ? `<div class="camera-resource-line">IPC ${resource.ipc} · AHD ${resource.ahd} · ${L("录像", "Recording")} ${resource.recording}${resource.externalAlgorithms.length ? ` · ${resource.externalAlgorithms.map(mSeriesAlgorithmLabel).join(" + ")} ${L("外置", "external")}` : ""}</div>`
+                                : ""
+                            }
                           </div>
                           <div class="accessory-row-control">
                             ${
-                              cameraType
+                              quantitySelectable
                                 ? `
                                   <div class="qty-stepper" data-m3n-camera-stepper="${item.id}">
                                     <button type="button" class="qty-btn" data-m3n-camera-step="${item.id}" data-direction="-1" ${quantity <= 0 ? "disabled" : ""}>-</button>
@@ -69,7 +102,7 @@ function renderM3nCameraStep() {
                           </div>
                         </label>
                         ${
-                          cameraType && quantity > 0
+                          resource && quantity > 0 && extensionRows.length
                             ? Array.from({ length: quantity }, (_, index) => {
                                 const selectedExtensionId = block.extensions?.[index] || block.extensionId || "";
                                 return `
@@ -94,6 +127,27 @@ function renderM3nCameraStep() {
                                   </div>
                                 `;
                               }).join("")
+                            : ""
+                        }
+                        ${
+                          resource?.ahd && quantity > 0
+                            ? `
+                              <div class="algorithm-assignment-grid">
+                                ${Array.from({ length: quantity }, (_, index) => {
+                                  const selectedAlgorithm = block.algorithms?.[index] || "";
+                                  const otherAlgorithms = cameraStatus.internalAlgorithms - (selectedAlgorithm ? 1 : 0);
+                                  return `
+                                    <label class="algorithm-assignment">
+                                      <span>${L("MDVR 算法", "MDVR algorithm")} ${index + 1}</span>
+                                      <select data-mseries-algorithm="${item.id}" data-mseries-algorithm-slot="${index}">
+                                        <option value="" ${selectedAlgorithm ? "" : "selected"}>${L("仅录像，不启用算法", "Recording only")}</option>
+                                        ${M_SERIES_INTERNAL_ALGORITHMS.map((algorithm) => `<option value="${algorithm}" ${selectedAlgorithm === algorithm ? "selected" : ""} ${!selectedAlgorithm && otherAlgorithms >= 2 ? "disabled" : ""}>${mSeriesAlgorithmLabel(algorithm)}</option>`).join("")}
+                                      </select>
+                                    </label>
+                                  `;
+                                }).join("")}
+                              </div>
+                            `
                             : ""
                         }
                         ${
@@ -167,6 +221,18 @@ function renderM3nCameraStep() {
     node.addEventListener("change", (event) => {
       setM3nPresetChildSelection(node.dataset.m3nCameraChild, event.target.checked);
     });
+  });
+  wizardStageEl.querySelectorAll("[data-mseries-algorithm]").forEach((node) => {
+    node.addEventListener("change", (event) => {
+      setMSeriesInternalAlgorithm(
+        node.dataset.mseriesAlgorithm,
+        Number(node.dataset.mseriesAlgorithmSlot || 0),
+        event.target.value
+      );
+    });
+  });
+  wizardStageEl.querySelectorAll("[data-mseries-preset]").forEach((node) => {
+    node.addEventListener("click", () => applyMSeriesAlgorithmPreset(node.dataset.mseriesPreset));
   });
 }
 

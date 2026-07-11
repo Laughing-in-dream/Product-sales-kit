@@ -1050,6 +1050,110 @@ button.secondary {
   margin: 0;
 }
 
+.algorithm-plan-panel {
+  margin-bottom: 16px;
+  padding: 16px;
+  border: 1px solid rgba(15, 118, 110, 0.2);
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(15, 118, 110, 0.11), rgba(255, 255, 255, 0.82));
+}
+
+.algorithm-plan-head {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.algorithm-plan-head strong,
+.algorithm-plan-head span {
+  display: block;
+}
+
+.algorithm-plan-head span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.resource-badge-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.resource-badge-list span,
+.camera-resource-line {
+  color: var(--accent-deep);
+  font-size: 0.76rem;
+  font-weight: 750;
+}
+
+.resource-badge-list span {
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(15, 118, 110, 0.13);
+}
+
+.camera-resource-line {
+  margin-top: 8px;
+}
+
+.algorithm-preset-grid,
+.algorithm-assignment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+}
+
+.algorithm-preset-card {
+  display: grid;
+  gap: 5px;
+  padding: 13px;
+  text-align: left;
+  color: var(--ink);
+  border: 1px solid rgba(15, 118, 110, 0.24);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.88);
+  cursor: pointer;
+}
+
+.algorithm-preset-card:not(.unavailable):hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 20px rgba(15, 118, 110, 0.1);
+}
+
+.algorithm-preset-card span,
+.algorithm-preset-card small {
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.algorithm-preset-card.unavailable {
+  opacity: 0.58;
+  cursor: not-allowed;
+}
+
+.algorithm-assignment-grid {
+  margin-top: 10px;
+}
+
+.algorithm-assignment {
+  display: grid;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.algorithm-assignment select {
+  width: 100%;
+}
+
 .item-card {
   display: grid;
   grid-template-columns: auto 1fr;

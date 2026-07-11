@@ -109,7 +109,7 @@ for (const item of cameras) {
   const block = g(`state.selections[${JSON.stringify(item.id)}]`);
   const extensions = Array.isArray(block.extensions) ? block.extensions : [block.extensionId];
   const extensionRows = g(`m3nCameraExtensionRowsForMSeries(product.items.find(item => item.id === ${JSON.stringify(item.id)}))`);
-  if (type) {
+  if (type && extensionRows.length) {
     const options = checkRows(extensionRows, `步骤3-${item.rowNumber}-延长线`);
     say(`  - 延长线：${options.map(cableLen).join(" / ")}；默认=${extensions[0] ? "已选" : "未选"}`);
     if (!extensions[0]) flag("bug", `步骤3-${item.rowNumber}`, "摄像头勾选后未默认选择延长线");
@@ -135,6 +135,21 @@ g(`setM3nPresetQuantity(${JSON.stringify(ahd.id)}, 9)`);
 status = g("m3nPresetCameraStatus()");
 say(`- 强行设置 AHD 为 9：实际 ${status.ahd}（上限 4）${status.ahd === 4 ? " ✅" : " ❌"}`);
 if (status.ahd !== 4) flag("bug", "步骤3-容量", `AHD 数量未钳制为 4，实际 ${status.ahd}`);
+g("state.selections = {}; seedPresetSelections()");
+
+const adkit = rows.get(14);
+const c29n = rows.get(11);
+g(`setM3nPresetSelection(${JSON.stringify(adkit.id)}, true)`);
+g(`setM3nPresetSelection(${JSON.stringify(c29n.id)}, true)`);
+status = g("m3nPresetCameraStatus()");
+say(`- ADKIT + 1 路 IPC：IPC ${status.ipc}/2，录像 ${status.recording}（应为 2 路 IPC、3 路录像）${status.ipc === 2 && status.recording === 3 ? " ✅" : " ❌"}`);
+if (status.ipc !== 2 || status.recording !== 3) flag("bug", "步骤3-ADKIT", "ADKIT 与额外 IPC 的接口/录像通道占用错误");
+g("state.selections = {}; seedPresetSelections()");
+
+g("applyMSeriesAlgorithmPreset('adkit_ca46')");
+status = g("m3nPresetCameraStatus()");
+say(`- 4 AI 推荐方案：IPC ${status.ipc}/2，AHD ${status.ahd}/4，录像 ${status.recording}，内置算法 ${status.internalAlgorithms}/2，外置算法 ${status.externalAlgorithms}${status.ipc === 1 && status.ahd === 2 && status.recording === 4 && status.internalAlgorithms === 2 && status.externalAlgorithms === 2 ? " ✅" : " ❌"}`);
+if (status.ipc !== 1 || status.ahd !== 2 || status.recording !== 4 || status.internalAlgorithms !== 2 || status.externalAlgorithms !== 2) flag("bug", "步骤3-4AI方案", "ADKIT + 2×CA46 的资源占用不正确");
 g("state.selections = {}; seedPresetSelections()");
 say("");
 
