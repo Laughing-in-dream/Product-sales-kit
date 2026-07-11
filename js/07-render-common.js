@@ -241,6 +241,10 @@ function z5StorageItems() {
   return product?.items?.filter((item) => Z5_STEP_ROWS.storage.has(item.rowNumber)) || [];
 }
 
+function z5AccessoryItems() {
+  return product?.items?.filter((item) => Z5_STEP_ROWS.accessories.has(item.rowNumber)) || [];
+}
+
 function z5SystemDiagram() {
   return currentProduct()?.solutions?.find((solution) => solution.id === "S1") || null;
 }
@@ -304,6 +308,7 @@ function renderZ5CoreStep() {
 
 function renderZ5StorageStep() {
   const storageItems = z5StorageItems();
+  const accessories = z5AccessoryItems();
   wizardStageEl.innerHTML = `
     <div class="focus-banner">
       <div>
@@ -334,6 +339,17 @@ function renderZ5StorageStep() {
         })
         .join("")}
     </div>
+    <div class="c6-section">
+      <h3 class="c6-section-title">${L("可选附件", "Optional accessories")}</h3>
+      <div class="group-list accessory-vertical-list">
+        ${accessories.map((item) => {
+          const block = ensurePresetSelectionState(item.id, item.quantity || "1");
+          const preview = skuInfo(item.partNumber)?.image || fallbackItemPreviewAsset(item);
+          const name = skuInfo(item.partNumber)?.title ? localizedText(skuInfo(item.partNumber).title) : displayCatalogText(item.name);
+          return `<section class="group-card accessory-row-group"><label class="item-card accessory-row-card ${block.checked ? "selected" : ""}"><div class="accessory-row-media">${preview ? `<img loading="lazy" decoding="async" class="thumb" src="./${preview}" alt="${name}" />` : `<div class="thumb"></div>`}</div><div class="accessory-row-copy"><h4>${name}</h4><div class="sku">${item.partNumber}</div><p>${displayCatalogText(item.note || item.description || "")}</p></div><div class="accessory-row-control"><input type="checkbox" data-z5-accessory="${item.id}" ${block.checked ? "checked" : ""} /></div></label></section>`;
+        }).join("")}
+      </div>
+    </div>
   `;
 
   wizardStageEl.querySelectorAll("[data-z5-storage-choice]").forEach((node) => {
@@ -341,6 +357,14 @@ function renderZ5StorageStep() {
       const itemId = node.dataset.z5StorageChoice;
       const block = ensurePresetSelectionState(itemId);
       setZ5StorageQuantity(itemId, block.checked ? 0 : 1);
+    });
+  });
+  wizardStageEl.querySelectorAll("[data-z5-accessory]").forEach((node) => {
+    node.addEventListener("change", (event) => {
+      const block = ensurePresetSelectionState(node.dataset.z5Accessory, "1");
+      block.checked = event.target.checked;
+      block.quantity = event.target.checked ? "1" : "0";
+      render();
     });
   });
 }

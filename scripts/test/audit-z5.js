@@ -25,6 +25,12 @@ for (const item of storage) {
   g(`setZ5StorageQuantity(${JSON.stringify(item.id)}, 9)`);
   check(g(`Number(state.selections[${JSON.stringify(item.id)}].quantity)`) === 1, `${item.partNumber} 数量被限制为 1`);
 }
+const accessories = g("z5AccessoryItems()");
+check(accessories.map(item => item.partNumber).join(',') === '1262010100136,5163020100001', "Z5 延长线与有线门磁可选附件完整");
+for (const accessory of accessories) {
+  g(`state.selections[${JSON.stringify(accessory.id)}] = { checked: true, quantity: '1' }`);
+  check(g(`selectedPresetItems().some(item => item.partNumber === ${JSON.stringify(accessory.partNumber)})`), `${accessory.partNumber} 选择后进入清单`);
+}
 g("state.step = 3; render()");
 check(g("selectedPresetItems().some(item => item.partNumber === '5210056100004')"), "导出清单始终包含 Z5 Kit");
 report.push("", `审计完成：🔴 ${issues.length} 个疑似 bug`);

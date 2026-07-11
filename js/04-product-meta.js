@@ -95,6 +95,7 @@ const AVM_STEP_ROWS = {
 
 const Z5_STEP_ROWS = {
   storage: new Set([3, 4, 5, 6]),
+  accessories: new Set([8, 9]),
 };
 
 const C53_STEP_ROWS = {
