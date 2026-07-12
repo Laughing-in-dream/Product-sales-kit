@@ -75,10 +75,20 @@ function extractResolution(...sources) {
 
 // ---- 以 SKU 为主键聚合 ----
 const products = new Map();
+const skuAnomalies = []; // SKU 列填了说明文字等非料号内容的行
 for (const line of catalog.productLines) {
   for (const it of line.items) {
-    const sku = it.partNumber;
+    const sku = String(it.partNumber || "").trim();
     if (!sku) continue;
+    if (!/^\d{8,}$/.test(sku)) {
+      skuAnomalies.push({
+        productLine: line.id,
+        rowNumber: it.rowNumber,
+        name: clean(it.name).slice(0, 40),
+        skuCell: sku.slice(0, 60),
+      });
+      continue;
+    }
     if (!products.has(sku)) {
       products.set(sku, {
         sku,
@@ -187,6 +197,7 @@ const db = {
     solutionCount: (p.solutions || []).length,
   })),
   productCount: productList.length,
+  skuAnomalies,
   stats: {
     withImage: productList.filter((p) => p.hasImage).length,
     withoutImage: productList.filter((p) => !p.hasImage).length,
@@ -261,6 +272,17 @@ for (const t of TAXONOMY) {
     const img = p.hasImage ? `✅ ${p.images.length}张` : "❌";
     lines.push(`| ${p.sku} | ${name} | ${specText(p)} | ${img} | ${usedByText(p)} |`);
   }
+  lines.push("");
+}
+
+if (skuAnomalies.length) {
+  lines.push("## SKU 列异常的行（Excel 数据质量问题）");
+  lines.push("");
+  lines.push("以下行的 SKU 单元格填的不是料号（多为\"参考推荐表\"类说明文字），未收入产品库，需回源头补真实料号：");
+  lines.push("");
+  lines.push("| 产品线 | 行号 | 名称 | SKU 单元格内容 |");
+  lines.push("| --- | --- | --- | --- |");
+  for (const a of skuAnomalies) lines.push(`| ${a.productLine} | ${a.rowNumber} | ${a.name} | ${a.skuCell} |`);
   lines.push("");
 }
 

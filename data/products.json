@@ -1,7 +1,7 @@
 {
   "generatedFrom": "catalog-data.js（源头是 North America Sales List.xlsx）",
   "generatedBy": "scripts/build_product_db.js",
-  "generatedAt": "2026-07-10T18:28:52.018Z",
+  "generatedAt": "2026-07-12T01:38:28.493Z",
   "organizedBy": "product（SKU 去重；产品线/方案是产品的 usedBy 字段）",
   "taxonomy": [
     {
@@ -69,13 +69,13 @@
     {
       "id": "c6lite20",
       "sheetName": "C6 Lite 2_0",
-      "itemCount": 18,
+      "itemCount": 20,
       "solutionCount": 5
     },
     {
       "id": "m1n20",
       "sheetName": "M1N 2_0",
-      "itemCount": 35,
+      "itemCount": 36,
       "solutionCount": 2
     },
     {
@@ -111,7 +111,7 @@
     {
       "id": "z5",
       "sheetName": "Z5",
-      "itemCount": 5,
+      "itemCount": 7,
       "solutionCount": 1
     },
     {
@@ -128,12 +128,74 @@
     }
   ],
   "productCount": 205,
+  "skuAnomalies": [
+    {
+      "productLine": "adplus20",
+      "rowNumber": 51,
+      "name": "Micro SD Card",
+      "skuCell": "For specific part numbers, refer to the memory device recomm"
+    },
+    {
+      "productLine": "gt1prodcmax",
+      "rowNumber": 79,
+      "name": "Micro SD Card",
+      "skuCell": "Specific Part Number Refer to Storage Device Recommendation "
+    },
+    {
+      "productLine": "c6lite20",
+      "rowNumber": 20,
+      "name": "CA29P",
+      "skuCell": "​5151047100028"
+    },
+    {
+      "productLine": "c6lite20",
+      "rowNumber": 24,
+      "name": "Micro SD Card",
+      "skuCell": "Refer to specific part number in the device storage recommen"
+    },
+    {
+      "productLine": "m1n20",
+      "rowNumber": 37,
+      "name": "Micro SD Card",
+      "skuCell": "Specific Part Number Refer to Storage Device Recommendation "
+    },
+    {
+      "productLine": "m1n20",
+      "rowNumber": 38,
+      "name": "M.2 SSD",
+      "skuCell": "Specific Part Number Refer to Storage Device Recommendation "
+    },
+    {
+      "productLine": "m3n",
+      "rowNumber": 37,
+      "name": "Micro SD Card",
+      "skuCell": "Specific Part Number Refer to Storage Device Recommendation "
+    },
+    {
+      "productLine": "m3n",
+      "rowNumber": 38,
+      "name": "M.2 SSD",
+      "skuCell": "Specific Part Number Refer to Storage Device Recommendation "
+    },
+    {
+      "productLine": "f6n",
+      "rowNumber": 15,
+      "name": "CA29P",
+      "skuCell": "​5151047100028"
+    },
+    {
+      "productLine": "f6n",
+      "rowNumber": 40,
+      "name": "Micro SD Card",
+      "skuCell": "Specific Part Number Refer to Storage Device Recommendation "
+    }
+  ],
   "stats": {
-    "withImage": 146,
-    "withoutImage": 59,
-    "sharedAcrossLines": 55,
-    "cablesWithLength": 68,
-    "cablesTotal": 68
+    "withImage": 147,
+    "withoutImage": 58,
+    "sharedAcrossLines": 53,
+    "cablesWithLength": 69,
+    "cablesTotal": 70
   },
   "products": [
     {
@@ -228,32 +290,6 @@
           "sheetName": "Forklift Solution-Waterproof C4",
           "rowNumber": 6,
           "group": "966C46-AHDkit",
-          "quantity": "1",
-          "solutions": []
-        }
-      ],
-      "hasImage": true
-    },
-    {
-      "sku": "5152178100017",
-      "name": "966C46-IPC kit",
-      "nameAliases": [],
-      "category": "kit",
-      "lengthM": null,
-      "resolution": "1080P",
-      "notes": [
-        "966C46-IPC kit"
-      ],
-      "description": "Network camera • C46 | V1.0 | I0A0M17P23T1C1 | E0000 | AX620U+SC200AI | 1080P | No infrared | No audio | No SD card | 1.9mm | PON power supply | 12-core - M12 head | Black | No | No LOGO | Comes with independent packaging | Universal | Comes with M12-12-core male adapter cable | Comes with sunshade cover | Lens coated with hydrophobic film\n\n整机-网络摄像机 • C46|V1.0|I0A0S0M17P23T1C1|E0000|AX620U+SC200AI|1080P|无红外|不带音频|无SD卡|1.9mm|PON供电|12芯-M12头|黑色|无|不带LOGO|带独立包装|通用|带M12-12芯公头转接线|带遮阳罩|镜头镀疏水膜",
-      "images": [
-        "North America Sales List-FILE/966C46-IPC/图片/1-966C46-IPC kit-image.png"
-      ],
-      "usedBy": [
-        {
-          "productLine": "966c46ipc",
-          "sheetName": "966C46-IPC",
-          "rowNumber": 2,
-          "group": "966C46-IPCkit",
           "quantity": "1",
           "solutions": []
         }
@@ -549,6 +585,52 @@
       "hasImage": true
     },
     {
+      "sku": "5152178100017",
+      "name": "C46 966C46-IPC kit",
+      "nameAliases": [
+        "966C46-IPC kit"
+      ],
+      "category": "kit",
+      "lengthM": null,
+      "resolution": "1080P",
+      "notes": [
+        "IPC, 1080P, PON power supply. Includes M12-12-core male adapter cable. IPC，1080P，PON供电；自带 M12-12芯公头转接线。",
+        "966C46-IPC kit"
+      ],
+      "description": "Network camera • C46 | V1.0 | I0A0M17P23T1C1 | E0000 | AX620U+SC200AI | 1080P | No infrared | No audio | No SD card | 1.9mm | PON power supply | 12-core - M12 head | Black | No | No LOGO | Comes with independent packaging | Universal | Comes with M12-12-core male adapter cable | Comes with sunshade cover | Lens coated with hydrophobic film\n\n整机-网络摄像机 • C46|V1.0|I0A0S0M17P23T1C1|E0000|AX620U+SC200AI|1080P|无红外|不带音频|无SD卡|1.9mm|PON供电|12芯-M12头|黑色|无|不带LOGO|带独立包装|通用|带M12-12芯公头转接线|带遮阳罩|镜头镀疏水膜",
+      "images": [
+        "North America Sales List-FILE/966C46-IPC/图片/1-966C46-IPC kit-image.png",
+        "assets/products/5152178100017.png"
+      ],
+      "usedBy": [
+        {
+          "productLine": "m1n20",
+          "sheetName": "M1N 2_0",
+          "rowNumber": 39,
+          "group": "C46, IPC, Four-way BSD",
+          "quantity": "1",
+          "solutions": []
+        },
+        {
+          "productLine": "m3n",
+          "sheetName": "M3N",
+          "rowNumber": 16,
+          "group": "C46, IPC, Four-way BSD",
+          "quantity": "1",
+          "solutions": []
+        },
+        {
+          "productLine": "966c46ipc",
+          "sheetName": "966C46-IPC",
+          "rowNumber": 2,
+          "group": "966C46-IPCkit",
+          "quantity": "1",
+          "solutions": []
+        }
+      ],
+      "hasImage": true
+    },
+    {
       "sku": "1261010100043",
       "name": "C53 Video Output Cable",
       "nameAliases": [],
@@ -731,14 +813,14 @@
       "hasImage": true
     },
     {
-      "sku": "5154022100006",
+      "sku": "5154022100067",
       "name": "C6 Lite 2.0 Kit 套装",
       "nameAliases": [],
       "category": "kit",
       "lengthM": null,
       "resolution": "1080P",
       "notes": [
-        "North America Version 北美版本"
+        "North America Version, RS232. Default loose power cable is included. 北美版本，RS232，默认含电源散线。"
       ],
       "description": "C6 Lite | 2.0 | V1.0 | Integrated | Dual Camera | North America Version EC25-AF | Standard Positioning | E0000 | Internal MIPI | Built-in DSC | 1080P | 2.2mm | With Infrared | With Audio | External MIPI | 1080P | 4mm | Supports 2 Micro SD Cards | Contains 2 x 128G Micro SD Cards | No Logo | Universal | With Independent Packaging | Non-Virtual Format\n\nC6 Lite|2.0|V1.0|一体|双目|北美版EC25-AF|普通定位|E0000|对内MIPI|内置DSC|1080P|2.2mm|带红外|带音频|对外MIPI|1080P|4mm|支持2路 Micro SD卡|2张128G|不带LOGO|通用|带电源散线|RS232版本|带独立包装|非虚拟格式",
       "images": [],
@@ -757,14 +839,42 @@
       "hasImage": false
     },
     {
-      "sku": "5154022100020",
+      "sku": "5154022100044",
+      "name": "C6 Lite 2.0 Kit 套装",
+      "nameAliases": [],
+      "category": "kit",
+      "lengthM": null,
+      "resolution": null,
+      "notes": [
+        "North America Version, CAN. Default power connection is OBD cable. 北美版本，CAN，默认使用 OBD 电源线。"
+      ],
+      "description": "C6 Lite 2.0 | V1.0 | Integrated | Dual Camera | North America Version | CAN Version | Default OBD power cable | No Logo | Universal",
+      "images": [
+        "North America Sales List-FILE/C6 Lite 2_0/Image/C6-kit-dual.png"
+      ],
+      "usedBy": [
+        {
+          "productLine": "c6lite20",
+          "sheetName": "C6 Lite 2_0",
+          "rowNumber": 25,
+          "group": "Dual-lens Kit,CAN",
+          "quantity": "1",
+          "solutions": [
+            "3"
+          ]
+        }
+      ],
+      "hasImage": true
+    },
+    {
+      "sku": "5154022100068",
       "name": "C6 Lite 2.0-S Kit套装",
       "nameAliases": [],
       "category": "kit",
       "lengthM": null,
       "resolution": "1080P",
       "notes": [
-        "North America Version 北美版本"
+        "North America Version, RS232. Default loose power cable is included. 北美版本，RS232，默认含电源散线。"
       ],
       "description": "C6 Lite | 2.0 | V1.0 | Integrated | Mono Camera | North American Version | E0000 | Built-in GPS Module | With 4G (EC25-AFXD) | With WIFI | With Bluetooth | With Six-Axis | No Internal | External AHD | N | N | No Infrared | With Audio | External MIPI | 1080P | 4mm | Supports 2 Micro SD Cards | Contains 2 x 128G Micro SD Cards | No Logo | Universal | With Loose Power Cable | RS232 Version | With Independent Packaging | Non-Virtual Format\n\nC6 Lite|2.0|V1.0|一体|单目|北美版|E0000|内置GPS模块|带4G（EC25-AFXD）|带WIFI|带蓝牙|带六轴|无对内|外置AHD|N|N|不带红外|带音频|对外MIPI|1080P|4mm|支持2路 Micro SD卡|2张128G|不带LOGO|通用|带电源散线|RS232版本|带独立包装|非虚拟格式",
       "images": [],
@@ -781,6 +891,34 @@
         }
       ],
       "hasImage": false
+    },
+    {
+      "sku": "5154022100083",
+      "name": "C6 Lite 2.0-S Kit套装",
+      "nameAliases": [],
+      "category": "kit",
+      "lengthM": null,
+      "resolution": null,
+      "notes": [
+        "North America Version, CAN. Default power connection is OBD cable. 北美版本，CAN，默认使用 OBD 电源线。"
+      ],
+      "description": "C6 Lite 2.0-S | V1.0 | Integrated | Mono Camera | North America Version | CAN Version | Default OBD power cable | No Logo | Universal",
+      "images": [
+        "North America Sales List-FILE/C6 Lite 2_0/Image/C6-2.0-S-kit.png"
+      ],
+      "usedBy": [
+        {
+          "productLine": "c6lite20",
+          "sheetName": "C6 Lite 2_0",
+          "rowNumber": 26,
+          "group": "Single-lens Kit,CAN",
+          "quantity": "1",
+          "solutions": [
+            "4"
+          ]
+        }
+      ],
+      "hasImage": true
     },
     {
       "sku": "1120041000455",
@@ -3389,6 +3527,32 @@
       "hasImage": false
     },
     {
+      "sku": "1262010100136",
+      "name": "Extension Cable 延长线",
+      "nameAliases": [],
+      "category": "cable",
+      "lengthM": 1.3,
+      "resolution": null,
+      "notes": [
+        "Extension cable for Z5 and ABS power boxes, used for remote installation (e.g., rear door or roof). Standard back-to-back installation is recommended unless the project requires otherwise. Z5和ABS电源盒的延长连接线，用于异位安装（如ABS电源盒安装在后门、车顶）。如没有特殊需求或特殊场景，建议标准背靠背安装。"
+      ],
+      "description": "6PIN waterproof plug and FAKRA signal extension cable - 1.3M - Z5 | One end 06T-JWPF-VSLE-D + blue FAKRA-C waterproof female + 2 burgundy FAKRA-D waterproof female, other end matching male connectors | 1.3M | Neutral English label | Z5 | Universal | HL\n6PIN防水插头和FAKRA信号延长线-1.3M-Z5|一端06T-JWPF-VSLE-D+FAKRA-C CODE蓝色防水母头+2*FAKRA-D CODE酒红色防水母头,另一端06R-JWPF-VSLE-D+FAKRA-C CODE蓝色防水公头+2*FAKRA-D CODE酒红色防水公头,带阻燃波纹管|1.3M|中性英文标贴|Z5|通用|HL|MICN/MIVN/NA",
+      "images": [
+        "North America Sales List-FILE/Z5/Image/7-Z5 ABS Power Box Extension Cable-image.png"
+      ],
+      "usedBy": [
+        {
+          "productLine": "z5",
+          "sheetName": "Z5",
+          "rowNumber": 8,
+          "group": "Accessory",
+          "quantity": "1",
+          "solutions": []
+        }
+      ],
+      "hasImage": true
+    },
+    {
       "sku": "1261080100093",
       "name": "I/O Serial Cable I/O串口线",
       "nameAliases": [],
@@ -3712,7 +3876,9 @@
         "Required for connecting the second IPC and the second CAN, display screen, R-watch, and ibutton 用于连接第二个IPC、CAN2、显示屏、R-Watch和iButton"
       ],
       "description": "20PIN Plug Signal Connection Cable-M1NV2.0|One End JSK 20PIN with Shielding Male Connector, Other End RS765-4 Aviation Male Connector + RS765-6 Aviation Male Connector + Small 5559-2P + Small 5559-6P + SM-3Y Female Connector + 4*Suspended Cables|250mm|Neutral English Label|M1NV2.0|Universal|HL\n\n20PIN插头信号连接线-M1NV2.0|一端JSK 20PIN带屏蔽公头,另一端RS765-4航空公头+RS765-6航空公头+小5559-2P+小5559-6P+SM-3Y母头+吊线*4|250mm|中性英文标贴|M1NV2.0|通用|HL",
-      "images": [],
+      "images": [
+        "North America Sales List-FILE/M1N 2_0/Image/4-IPC Video Expansion Cable-image.png"
+      ],
       "usedBy": [
         {
           "productLine": "m1n20",
@@ -3723,7 +3889,7 @@
           "solutions": []
         }
       ],
-      "hasImage": false
+      "hasImage": true
     },
     {
       "sku": "1260040100057",
@@ -4019,6 +4185,32 @@
         }
       ],
       "hasImage": false
+    },
+    {
+      "sku": "5163020100001",
+      "name": "Wired Door Sensor 有线门磁",
+      "nameAliases": [],
+      "category": "cable",
+      "lengthM": null,
+      "resolution": null,
+      "notes": [
+        "Used in multi-door sensor scenarios. 多门磁场景下使用。"
+      ],
+      "description": "SP11G Door Sensor | V1.0 | Door magnetic sensor | SP11G | No label | No LOGO | With independent packaging | Universal | -40°C to 80°C\nSP11G门磁|V1.0|门磁传感器|SP11G|无标贴|不带LOGO|带独立包装|0|通用|非虚拟格式|-40℃~80℃",
+      "images": [
+        "North America Sales List-FILE/Z5/Image/8-Z5 Wired Door Sensor-image.png"
+      ],
+      "usedBy": [
+        {
+          "productLine": "z5",
+          "sheetName": "Z5",
+          "rowNumber": 9,
+          "group": "Accessory",
+          "quantity": "1",
+          "solutions": []
+        }
+      ],
+      "hasImage": true
     },
     {
       "sku": "5190012100059",
@@ -5039,45 +5231,6 @@
       "hasImage": true
     },
     {
-      "sku": "5151047100028",
-      "name": "CA29P",
-      "nameAliases": [],
-      "category": "camera",
-      "lengthM": null,
-      "resolution": "720P",
-      "notes": [
-        "720P, NTSC, Streamax Logo. Vertical mount. More cost-effective option 台面立装",
-        "NTSC，Streamax logo"
-      ],
-      "description": "SVT-A6410TN-1BEN-WIR4mm-A | CA29P | 720P | NTSC Standard | Streamax English Logo | Black | 4-Core Aviation Connector | 3 Meters | No Audio | With Infrared | 4mm Lens | No Manual | With Individual Packaging | 2053 Solution | None | Universal | Vertical Mount Bracket\n\nSVT-A6410TN-1BEN-WIR4mm-A|CA29P|720P|N制|锐明英文LOGO|黑色|4芯航空头|3米|不带音频|带红外|4mm镜头|无说明书|带独立包装|2053方案|无|通用|立装支架",
-      "images": [
-        "North America Sales List-FILE/C6 Lite 2_0/Image/19-CA29P-image.png",
-        "North America Sales List-FILE/F6N/Image/14-CA29P-image.png"
-      ],
-      "usedBy": [
-        {
-          "productLine": "c6lite20",
-          "sheetName": "C6 Lite 2_0",
-          "rowNumber": 20,
-          "group": "DMS,CA29P",
-          "quantity": "1",
-          "solutions": [
-            "2",
-            "4"
-          ]
-        },
-        {
-          "productLine": "f6n",
-          "sheetName": "F6N",
-          "rowNumber": 15,
-          "group": "DMS",
-          "quantity": "1",
-          "solutions": []
-        }
-      ],
-      "hasImage": true
-    },
-    {
       "sku": "5151047100025",
       "name": "CA29P",
       "nameAliases": [],
@@ -5279,22 +5432,13 @@
       ],
       "description": "Camera-CA46-VC-A6720-V1.00/1080P/PAL Standard 1.8mm Lens|No Audio, With Infrared, 4-pin Aviation Connector/1 Meter White Cable|With Chinese Manual and Independent Packaging|Bilingual Streamax Nameplate and LOGO\n\n摄像机-CA46-VC-A6720-V1.00/1080P/P制1.8mm镜头|不带音频带红外4芯航空头/1米白色|配中文说明书带独立包装|中英文LOGO锐明铭牌",
       "images": [
-        "North America Sales List-FILE/GT1 Pro+DC Max/Image/48-CA46-image.png",
-        "North America Sales List-FILE/M3N/Image/15-CA46-image.png"
+        "North America Sales List-FILE/GT1 Pro+DC Max/Image/48-CA46-image.png"
       ],
       "usedBy": [
         {
           "productLine": "gt1prodcmax",
           "sheetName": "GT1 Pro+DC Max",
           "rowNumber": 49,
-          "group": "Four-way BSD,CA46",
-          "quantity": "1",
-          "solutions": []
-        },
-        {
-          "productLine": "m3n",
-          "sheetName": "M3N",
-          "rowNumber": 16,
           "group": "Four-way BSD,CA46",
           "quantity": "1",
           "solutions": []
@@ -5698,140 +5842,6 @@
         }
       ],
       "hasImage": false
-    },
-    {
-      "sku": "For specific part numbers, refer to the memory device recommendation table 具体料号参考存储器件推荐表",
-      "name": "Micro SD Card",
-      "nameAliases": [],
-      "category": "storage",
-      "lengthM": null,
-      "resolution": null,
-      "notes": [
-        "Selected according to project requirements 根据项目需求选配"
-      ],
-      "description": "32GB/64GB/128GB/256GB/512GB",
-      "images": [
-        "North America Sales List-FILE/AD Plus 2_0/Image/50-Micro SD Card-image.png"
-      ],
-      "usedBy": [
-        {
-          "productLine": "adplus20",
-          "sheetName": "AD Plus 2_0",
-          "rowNumber": 51,
-          "group": "Storage",
-          "quantity": "1",
-          "solutions": [
-            "1",
-            "2",
-            "3"
-          ]
-        }
-      ],
-      "hasImage": true
-    },
-    {
-      "sku": "Specific Part Number Refer to Storage Device Recommendation List",
-      "name": "Micro SD Card",
-      "nameAliases": [
-        "M.2 SSD"
-      ],
-      "category": "storage",
-      "lengthM": null,
-      "resolution": null,
-      "notes": [
-        "Choose based on project requirements 根据项目需求选择"
-      ],
-      "description": "32GB/64GB/128GB/256GB/512GB/1T",
-      "images": [
-        "North America Sales List-FILE/GT1 Pro+DC Max/Image/78-Micro SD Card-image.png",
-        "North America Sales List-FILE/M1N 2_0/Image/36-Micro SD Card-image.png",
-        "North America Sales List-FILE/M1N 2_0/Image/37-M.2 SSD-image.png",
-        "North America Sales List-FILE/M3N/Image/36-Micro SD Card-image.png",
-        "North America Sales List-FILE/M3N/Image/37-M.2 SSD-image.png",
-        "North America Sales List-FILE/F6N/Image/39-Micro SD Card-image.png"
-      ],
-      "usedBy": [
-        {
-          "productLine": "gt1prodcmax",
-          "sheetName": "GT1 Pro+DC Max",
-          "rowNumber": 79,
-          "group": "Storage",
-          "quantity": "1",
-          "solutions": []
-        },
-        {
-          "productLine": "m1n20",
-          "sheetName": "M1N 2_0",
-          "rowNumber": 37,
-          "group": "Storage",
-          "quantity": "1",
-          "solutions": []
-        },
-        {
-          "productLine": "m1n20",
-          "sheetName": "M1N 2_0",
-          "rowNumber": 38,
-          "group": "Storage",
-          "quantity": "1",
-          "solutions": []
-        },
-        {
-          "productLine": "m3n",
-          "sheetName": "M3N",
-          "rowNumber": 37,
-          "group": "Storage",
-          "quantity": "1",
-          "solutions": []
-        },
-        {
-          "productLine": "m3n",
-          "sheetName": "M3N",
-          "rowNumber": 38,
-          "group": "Storage",
-          "quantity": "1",
-          "solutions": []
-        },
-        {
-          "productLine": "f6n",
-          "sheetName": "F6N",
-          "rowNumber": 40,
-          "group": "Storage",
-          "quantity": "1",
-          "solutions": []
-        }
-      ],
-      "hasImage": true
-    },
-    {
-      "sku": "Refer to specific part number in the device storage recommendation table",
-      "name": "Micro SD Card",
-      "nameAliases": [],
-      "category": "storage",
-      "lengthM": null,
-      "resolution": null,
-      "notes": [
-        "Choose based on the requirements 根据项目需求选择"
-      ],
-      "description": "32GB/64GB/128GB/256GB/512GB",
-      "images": [
-        "North America Sales List-FILE/C6 Lite 2_0/Image/23-Micro SD Card-image.png"
-      ],
-      "usedBy": [
-        {
-          "productLine": "c6lite20",
-          "sheetName": "C6 Lite 2_0",
-          "rowNumber": 24,
-          "group": "Storage",
-          "quantity": "1",
-          "solutions": [
-            "1",
-            "2",
-            "3",
-            "4"
-          ]
-        }
-      ],
-      "hasImage": true
     },
     {
       "sku": "5190005100063",
