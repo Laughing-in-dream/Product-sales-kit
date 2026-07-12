@@ -45,6 +45,18 @@ function mSeriesAlgorithmLabel(id) {
   }[id] || id;
 }
 
+// AHD algorithms run in the MDVR, but their available functions still depend
+// on the camera model. An empty list intentionally leaves the camera as
+// recording-only (for example the New Metal Conch surveillance camera).
+function mSeriesAllowedInternalAlgorithms(item) {
+  const text = `${item?.name || ""} ${item?.group || ""}`.toLowerCase();
+  if (/ca20s/.test(text)) return ["adas"];
+  if (/ca29m/.test(text)) return ["dms"];
+  if (/ca46/.test(text)) return ["left_bsd", "right_bsd", "rear_bsd"];
+  if (/square camera|方型机/.test(text)) return ["rear_bsd"];
+  return [];
+}
+
 function m3nCameraExtensionRows(item) {
   if (isM1nProduct()) {
     const text = `${item?.name || ""} ${item?.group || ""}`.toLowerCase();
@@ -149,6 +161,8 @@ function setMSeriesInternalAlgorithm(itemId, slot, algorithm) {
   const item = product?.items?.find((entry) => entry.id === itemId);
   const resource = mSeriesCameraResource(item);
   if (!resource?.ahd) return;
+  const allowedAlgorithms = mSeriesAllowedInternalAlgorithms(item);
+  if (algorithm && !allowedAlgorithms.includes(algorithm)) return;
   const block = ensurePresetSelectionState(itemId, item?.quantity || "1");
   const currentAlgorithms = [...(block.algorithms || [])];
   const usedElsewhere = m3nPresetCameraStatus().internalAlgorithms - (currentAlgorithms[slot] ? 1 : 0);
@@ -314,7 +328,8 @@ function m3nPresetCameraStatus() {
       sum.ipc += resource.ipc * quantity;
       sum.ahd += resource.ahd * quantity;
       sum.recording += resource.recording * quantity;
-      sum.internalAlgorithms += (block.algorithms || []).filter(Boolean).length;
+      const allowedAlgorithms = mSeriesAllowedInternalAlgorithms(item);
+      sum.internalAlgorithms += (block.algorithms || []).filter((algorithm) => allowedAlgorithms.includes(algorithm)).length;
       sum.externalAlgorithms += resource.externalAlgorithms.length * quantity;
       return sum;
     },

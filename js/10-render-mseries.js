@@ -149,14 +149,16 @@ function renderM3nCameraStep() {
                             ? `
                               <div class="algorithm-assignment-grid">
                                 ${Array.from({ length: quantity }, (_, index) => {
-                                  const selectedAlgorithm = block.algorithms?.[index] || "";
+                                  const allowedAlgorithms = mSeriesAllowedInternalAlgorithms(item);
+                                  const storedAlgorithm = block.algorithms?.[index] || "";
+                                  const selectedAlgorithm = allowedAlgorithms.includes(storedAlgorithm) ? storedAlgorithm : "";
                                   const otherAlgorithms = cameraStatus.internalAlgorithms - (selectedAlgorithm ? 1 : 0);
                                   return `
                                     <label class="algorithm-assignment">
                                       <span>${L("MDVR 算法", "MDVR algorithm")} ${index + 1}</span>
                                       <select data-mseries-algorithm="${item.id}" data-mseries-algorithm-slot="${index}">
                                         <option value="" ${selectedAlgorithm ? "" : "selected"}>${L("仅录像，不启用算法", "Recording only")}</option>
-                                        ${M_SERIES_INTERNAL_ALGORITHMS.map((algorithm) => `<option value="${algorithm}" ${selectedAlgorithm === algorithm ? "selected" : ""} ${!selectedAlgorithm && otherAlgorithms >= 2 ? "disabled" : ""}>${mSeriesAlgorithmLabel(algorithm)}</option>`).join("")}
+                                        ${allowedAlgorithms.map((algorithm) => `<option value="${algorithm}" ${selectedAlgorithm === algorithm ? "selected" : ""} ${!selectedAlgorithm && otherAlgorithms >= 2 ? "disabled" : ""}>${mSeriesAlgorithmLabel(algorithm)}</option>`).join("")}
                                       </select>
                                     </label>
                                   `;
