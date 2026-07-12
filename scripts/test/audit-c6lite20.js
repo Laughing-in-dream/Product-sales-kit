@@ -17,7 +17,10 @@ const set = (expr) => g(expr);
 set("chooseProduct('c6lite20'); state.productPickerOpen = false; state.step = 1; render()");
 const dual = g("c6Items([7])[0]");
 const single = g("c6Items([8])[0]");
-check(Boolean(dual && single), "单镜头与双镜头核心套装均存在");
+const canDual = g("c6Items([25])[0]");
+const canSingle = g("c6Items([26])[0]");
+check(Boolean(dual && single && canDual && canSingle), "RS232 与 CAN 的单目/双目四个核心套装均存在");
+check([dual.partNumber, single.partNumber, canDual.partNumber, canSingle.partNumber].join(",") === "5154022100067,5154022100068,5154022100044,5154022100083", "四个核心套装料号正确");
 
 set(`choosePackage(${JSON.stringify(dual.id)}); state.step = 3; render()`);
 for (const camera of g("c6Items([20,21,22])")) {
@@ -32,12 +35,13 @@ check(g("c6Items([20,21,22]).filter(item => state.selections[item.id]?.checked).
 check(selected("1260011100208"), "选择额外摄像机时自动带 AHD 视频拓展线");
 check(selected("1260010100357"), "所选摄像机的 AHD 延长线进入清单");
 
-set("state.step = 2; state.c6 = { powerModel: 'rs232' }; const rs = c6Items([10])[0]; setM3nPresetSelection(rs.id, true); render()");
-check(selected("1261090100095"), "RS232 电源线进入清单");
-set("const rw = c6Items([23])[0]; state.selections[rw.id] = { checked: true, quantity: '1' }; c6Items([10,11]).forEach(item => state.selections[item.id].checked = false); state.c6 = { powerModel: 'can' }; const can = c6Items([12])[0]; setM3nPresetSelection(can.id, true); normalizeC6Selections(); render()");
+set(`choosePackage(${JSON.stringify(single.id)}); state.step = 2; render()`);
+check(g("c6CurrentPowerModel()") === "rs232" && g("validateCurrentStep()"), "RS232 Kit 默认散线，无需额外选择 OBD 也可继续");
+set(`choosePackage(${JSON.stringify(canDual.id)}); state.step = 2; render()`);
+check(g("c6CurrentPowerModel()") === "can" && !g("validateCurrentStep()"), "CAN Kit 默认 OBD，未选择 9PIN/16PIN 时不能继续");
+set("const rw = c6Items([23])[0]; state.selections[rw.id] = { checked: true, quantity: '1' }; const can = c6Items([12])[0]; setM3nPresetSelection(can.id, true); normalizeC6Selections(); render()");
+check(selected("1261090100120") && g("validateCurrentStep()"), "CAN 选择 16PIN OBD 后进入清单并可继续");
 check(!selected("5190067100051"), "CAN 模式下 R-Watch 被自动排除");
-const kitGroups = [dual, single].map(item => String(item.group || ""));
-check(kitGroups.some(group => /CAN/i.test(group)), "当前可售清单含 CAN 核心套装；否则 CAN 电源线选择缺少对应主机", "warn");
 
 set("state.step = 4; const sd = c6Items([24])[0]; state.selections[sd.id] = { checked: true, quantity: '1', variantPartNumber: '1610002100007' }; render()");
 check(selected("1610002100007"), "可选 Micro SD 容量料号进入清单");

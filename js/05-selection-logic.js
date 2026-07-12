@@ -190,6 +190,11 @@ function choosePackage(packageId) {
   if (isC6Product()) {
     const pkg = product?.items?.find((item) => item.id === packageId);
     state.familyId = pkg?.solutionRefs?.[0] || null;
+    state.c6 = state.c6 || {};
+    state.c6.powerModel = /CAN/i.test(pkg?.group || "") ? "can" : "rs232";
+    c6Items([10, 11, 12, 13]).forEach((item) => {
+      if (state.selections[item.id]) state.selections[item.id].checked = false;
+    });
   }
   for (const item of packageCandidates()) {
     if (!state.selections[item.id]) state.selections[item.id] = { checked: false, quantity: item.quantity || "1" };

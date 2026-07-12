@@ -358,8 +358,8 @@ function validateCurrentStep() {
       return isC6Product() ? Boolean(state.packageId) : Boolean(state.scenarioId);
     }
     if (state.step === 2) {
-      // C6 requires a power cable (RS232/CAN model + connector) before moving on.
-      if (isC6Product()) return c6Items([10, 11, 12, 13]).some((it) => state.selections[it.id]?.checked);
+      // RS232 Kits include the loose power cable; CAN Kits require an OBD selection.
+      if (isC6Product()) return c6CurrentPowerModel() === "rs232" || c6Items([12, 13]).some((it) => state.selections[it.id]?.checked);
       return Boolean(state.packageId);
     }
     return true;

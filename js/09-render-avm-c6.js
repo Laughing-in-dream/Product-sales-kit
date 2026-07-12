@@ -358,7 +358,7 @@ function renderAvmAlarmStep() {
 
 // C6 Lite base kit: single vs dual lens, AD-Plus host-card layout.
 function renderC6BaseStep() {
-  const kits = c6Items([7, 8]);
+  const kits = c6Items([7, 8, 25, 26]);
   wizardStageEl.innerHTML = `
     <div class="option-grid two-col">
       ${kits
@@ -398,12 +398,13 @@ function renderC6WiringStep() {
       else seenPower = true;
     }
   });
+  const kit = currentPackage();
+  const kitModel = /CAN/i.test(kit?.group?.en || kit?.group || "") ? "can" : "rs232";
   const selectedPower = powerCables.find((it) => state.selections[it.id]?.checked) || null;
-  const model = selectedPower ? c6PowerModelOf(selectedPower) : state.c6.powerModel;
+  const model = selectedPower ? c6PowerModelOf(selectedPower) : kitModel;
   const connectorCables = powerCables.filter((it) => c6PowerModelOf(it) === model);
   // AHD Expansion (r15) is auto-added when a camera is chosen, so it is not a manual option here.
   const extras = c6Items([9, 14]);
-  const kit = currentPackage();
   const connectorOf = (it) => (/9\s*PIN/i.test(displayCatalogText(it.name)) ? "9PIN" : "16PIN");
   wizardStageEl.innerHTML = `
     <div class="focus-banner">
@@ -418,9 +419,9 @@ function renderC6WiringStep() {
     </div>
     <div class="c6-section">
       <h3 class="c6-section-title">${L("电源线", "Power cable")}</h3>
-      <p class="c6-section-hint">${L("先选机型，再选接口。", "First choose the model, then the connector.")}</p>
+      <p class="c6-section-hint">${model === "can" ? L("CAN 版本默认使用 OBD 电源线；请选择 16PIN 或 9PIN。", "CAN versions use an OBD power cable by default; choose 16PIN or 9PIN.") : L("RS232 版本默认含电源散线；如车辆需要 OBD，可在下方选配。", "RS232 versions include a loose power cable by default; choose an OBD cable below only when needed.")}</p>
       <div class="option-grid two-col">
-        ${C6_POWER_MODELS.map((m) => `
+        ${C6_POWER_MODELS.filter((m) => m.id === kitModel).map((m) => `
           <button class="option-card ${model === m.id ? "active" : ""}" data-c6-model="${m.id}">
             <div class="tag">${localizedText(m.title)}</div>
             <h3>${localizedText(m.title)}</h3>
