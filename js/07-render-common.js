@@ -245,10 +245,6 @@ function z5AccessoryItems() {
   return product?.items?.filter((item) => Z5_STEP_ROWS.accessories.has(item.rowNumber)) || [];
 }
 
-function z5SystemDiagram() {
-  return currentProduct()?.solutions?.find((solution) => solution.id === "S1") || null;
-}
-
 function setZ5StorageQuantity(itemId, nextQuantity) {
   const quantity = Math.max(0, Math.min(1, Number(nextQuantity || 0)));
   for (const item of z5StorageItems()) {
@@ -267,7 +263,6 @@ function renderZ5CoreStep() {
     ensurePresetSelectionState(kit.id, kit.quantity || "1").checked = true;
   }
   const preview = kit ? packagePreview(kit) : { src: "", fallback: false };
-  const diagram = z5SystemDiagram();
   wizardStageEl.innerHTML = `
     <div class="option-grid two-col">
       <button class="option-card active" data-package="${kit?.id || ""}">
@@ -282,7 +277,6 @@ function renderZ5CoreStep() {
         <p>${kit ? displayCatalogText(kit.note || kit.description || "") : ""}</p>
       </button>
     </div>
-    ${diagram?.images?.[0] ? `<div class="c6-section"><h3 class="c6-section-title">${L("系统连接图", "System connection diagram")}</h3><a class="option-card z5-diagram-card" href="./${diagram.images[0]}" target="_blank" rel="noopener"><div class="tag">${L("安装参考", "Installation reference")}</div><h3>${displayCatalogText(diagram.title)}</h3><p>${L("查看 Z5 的系统连接图（不加入清单）。", "Open the Z5 system connection diagram (not included in the BOM).")}</p></a></div>` : ""}
   `;
 
   wizardStageEl.querySelectorAll("[data-package]").forEach((node) => {
