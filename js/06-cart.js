@@ -3,7 +3,8 @@ function selectedPresetItems() {
   const rows = itemsForFamily()
     .filter((item) => {
       // C6: AHD extension cables are chosen per-camera (nested); the AHD expansion cable (r15) is auto-added.
-      if (isC6Product() && [15, 16, 17, 18, 19].includes(item.rowNumber)) return false;
+      // Device-extension and PBP cables are intentionally outside the guided C6 flow.
+      if (isC6Product() && [9, 14, 15, 16, 17, 18, 19].includes(item.rowNumber)) return false;
       // AVM: connection + B2 adapter cables are auto-added, not manually selected.
       if (isAvmProduct() && [7, 8, 19, 20].includes(item.rowNumber)) return false;
       return isMSeriesProduct() ? m3nPresetItemSelected(item) : state.selections[item.id]?.checked;
@@ -358,8 +359,9 @@ function validateCurrentStep() {
       return isC6Product() ? Boolean(state.packageId) : Boolean(state.scenarioId);
     }
     if (state.step === 2) {
-      // RS232 Kits include the loose power cable; CAN Kits require an OBD selection.
-      if (isC6Product()) return c6CurrentPowerModel() === "rs232" || c6Items([12, 13]).some((it) => state.selections[it.id]?.checked);
+      // A matching default is selected on kit selection: loose cable for RS232,
+      // 16PIN OBD for CAN. The user can switch it to another matching connector.
+      if (isC6Product()) return c6Items([10, 11, 12, 13, 27]).some((it) => state.selections[it.id]?.checked);
       return Boolean(state.packageId);
     }
     return true;

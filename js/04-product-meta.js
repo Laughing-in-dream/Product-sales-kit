@@ -82,7 +82,7 @@ const M3N_STEP_ROWS = {
 };
 
 const C6_STEP_ROWS = {
-  wiring: new Set([9, 10, 11, 12, 13, 14, 15]),
+  wiring: new Set([10, 11, 12, 13, 27]),
   cameras: new Set([16, 17, 18, 19, 20, 21, 22]),
   optionals: new Set([23, 24]),
 };
@@ -124,10 +124,10 @@ const M_SERIES_CHANNEL_RULES = {
 
 const C6_STEPS = {
   zh: null, en: [
-    { id: 1, title: "Choose Core Kit", description: "Start by selecting the single-lens or dual-lens C6 Lite 2.0 base kit." },
-    { id: 2, title: "Choose Wiring", description: "Select the device extension cable, power cable, and related connection cables." },
-    { id: 3, title: "Choose Cameras", description: "Add DMS, reverse-view, and related video items based on the project needs." },
-    { id: 4, title: "Choose Accessories", description: "Finish with notifier, storage card, and other optional items." },
+    { id: 1, title: "Choose Core Kit", description: "Choose one of four clearly labelled kits: single or dual lens, RS232 or CAN." },
+    { id: 2, title: "Choose Power Cable", description: "Confirm the default power cable or switch it to the connector required by the vehicle." },
+    { id: 3, title: "Choose Camera", description: "A single-lens kit can add one AHD camera; dual-lens kits already use both channels." },
+    { id: 4, title: "Choose R-Watch & Storage", description: "Finish with the compatible R-Watch and up to one Micro SD card." },
     { id: 5, title: "Review & Export", description: "Check the full list and export the selected SKU list." },
   ],
 };

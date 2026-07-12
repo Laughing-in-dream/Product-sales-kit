@@ -91,6 +91,9 @@ function groupedItems(items) {
 
 function suggestAccessorySelection(item, groupItems) {
   if (item.id === state.packageId) return true;
+  // C6 has only one included power lead, selected from the chosen kit; all
+  // cameras, R-Watch and storage remain opt-in.
+  if (isC6Product()) return false;
   if (isAvmProduct() && item.rowNumber !== undefined && [13, 14].includes(item.rowNumber)) return true;
   if (!item.solutionRefs.length) return false;
   if (/video output cable/i.test(item.group) || /video output cable/i.test(item.name)) return true;
@@ -151,6 +154,14 @@ function resetScenarioState() {
   if (!isCustomFlow()) {
     state.packageId = packageCandidates()[0]?.id || null;
     seedPresetSelections();
+    if (isC6Product()) {
+      const initialKit = currentPackage();
+      const powerModel = /CAN/i.test(initialKit?.group || "") ? "can" : "rs232";
+      const defaultPowerRow = powerModel === "can" ? 12 : 27;
+      state.c6 = { powerModel };
+      const defaultPower = product.items.find((item) => item.rowNumber === defaultPowerRow);
+      if (defaultPower) state.selections[defaultPower.id] = { checked: true, quantity: "1" };
+    }
   }
 }
 
@@ -192,7 +203,15 @@ function choosePackage(packageId) {
     state.familyId = pkg?.solutionRefs?.[0] || null;
     state.c6 = state.c6 || {};
     state.c6.powerModel = /CAN/i.test(pkg?.group || "") ? "can" : "rs232";
-    c6Items([10, 11, 12, 13]).forEach((item) => {
+    const powerRows = [10, 11, 12, 13, 27];
+    const defaultPowerRow = state.c6.powerModel === "can" ? 12 : 27;
+    c6Items(powerRows).forEach((item) => {
+      if (!state.selections[item.id]) state.selections[item.id] = { checked: false, quantity: "1" };
+      state.selections[item.id].checked = item.rowNumber === defaultPowerRow;
+    });
+    // These catalog items are not part of the guided C6 flow. Clear any stale
+    // selection left by an older session before rebuilding the BOM.
+    c6Items([9, 14, 15]).forEach((item) => {
       if (state.selections[item.id]) state.selections[item.id].checked = false;
     });
   }

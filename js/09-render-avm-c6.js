@@ -141,12 +141,26 @@ function selectedAvmItems() {
 function c6PowerModelOf(item) {
   return /CAN/i.test(item.group?.en || item.group || "") ? "can" : "rs232";
 }
+
+const C6_POWER_ROWS = [10, 11, 12, 13, 27];
+
+function c6KitModelOf(item) {
+  return /CAN/i.test(item?.group?.en || item?.group || "") ? "can" : "rs232";
+}
+
+function c6SharedKitPreview(item) {
+  const single = /single-lens/i.test(item?.group?.en || item?.group || "");
+  return single
+    ? "North America Sales List-FILE/C6 Lite 2_0/Image/C6-2.0-S-kit.png"
+    : "North America Sales List-FILE/C6 Lite 2_0/Image/C6-kit-dual.png";
+}
+
 function c6SelectedKitIsSingle() {
   const pkg = currentPackage();
   return /single-lens/i.test(pkg?.group?.en || pkg?.group || "");
 }
 function c6CurrentPowerModel() {
-  const checked = c6Items([10, 11, 12, 13]).find((it) => state.selections[it.id]?.checked);
+  const checked = c6Items(C6_POWER_ROWS).find((it) => state.selections[it.id]?.checked);
   return checked ? c6PowerModelOf(checked) : state.c6?.powerModel || null;
 }
 // Business rules from the spec:
@@ -176,15 +190,14 @@ function normalizeC6Selections() {
   // AHD Expansion (r15) is auto-added with cameras, never selected manually.
   const exp = c6Items([15])[0];
   if (exp && state.selections[exp.id]) state.selections[exp.id].checked = false;
+  c6Items([9, 14]).forEach((item) => {
+    if (state.selections[item.id]) state.selections[item.id].checked = false;
+  });
   if (c6CurrentPowerModel() === "can") {
     const rwatch = c6Items([23])[0];
     if (rwatch && state.selections[rwatch.id]) state.selections[rwatch.id].checked = false;
   }
 }
-const C6_POWER_MODELS = [
-  { id: "rs232", title: { zh: "RS232 机型", en: "RS232 model" }, detail: { zh: "适用于 RS232 车型", en: "For RS232 vehicles" } },
-  { id: "can", title: { zh: "CAN 机型", en: "CAN model" }, detail: { zh: "适用于 CAN 车型", en: "For CAN vehicles" } },
-];
 
 // AVM base: the AVM 360 kit (surround cameras + calibration are part of the core system).
 function renderAvmBaseStep() {
@@ -356,7 +369,7 @@ function renderAvmAlarmStep() {
   attachAvmHandlers();
 }
 
-// C6 Lite base kit: single vs dual lens, AD-Plus host-card layout.
+// C6 Lite base kit: four explicit combinations of lens count and vehicle interface.
 function renderC6BaseStep() {
   const kits = c6Items([7, 8, 25, 26]);
   wizardStageEl.innerHTML = `
@@ -364,15 +377,20 @@ function renderC6BaseStep() {
       ${kits
         .map((kit) => {
           const active = kit.id === state.packageId ? "active" : "";
-          const preview = skuInfo(kit.partNumber)?.image || fallbackItemPreviewAsset(kit) || pickPreviewAsset(kit.images);
           const single = /single-lens/i.test(kit.group?.en || kit.group || "");
+          const model = c6KitModelOf(kit);
           const lens = single ? L("单镜头", "Single-lens") : L("双镜头", "Dual-lens");
-          const detail = single ? L("单镜头一体机", "Single-lens integrated unit") : L("双镜头一体机", "Dual-lens integrated unit");
+          const modelLabel = model === "can" ? "CAN" : "RS232";
+          const preview = c6SharedKitPreview(kit);
+          const detail = L(
+            `${lens} · ${modelLabel} 版本`,
+            `${single ? "Single-lens" : "Dual-lens"} · ${modelLabel} vehicle interface`
+          );
           return `
             <button class="option-card ${active}" data-package="${kit.id}">
               ${preview ? `<img loading="lazy" decoding="async" class="host-photo" src="./${preview}" alt="${displayCatalogText(kit.name)}" />` : `<div class="host-photo host-photo-empty">${t().emptyPreview}</div>`}
-              <div class="tag">${lens}</div>
-              <h3>${displayCatalogText(kit.name)}</h3>
+              <div class="tag">${lens} · ${modelLabel}</div>
+              <h3>${single ? "C6 Lite 2.0-S" : "C6 Lite 2.0"} · ${modelLabel}</h3>
               <div class="sku">${kit.partNumber || t().noPartNumber}</div>
               <p>${detail}</p>
             </button>
@@ -386,10 +404,10 @@ function renderC6BaseStep() {
   });
 }
 
-// C6 Lite wiring: pick the model (RS232 / CAN) first, then the connector (16PIN / 9PIN); extras below.
+// C6 Lite power: the selected kit determines the compatible cable list and its default.
 function renderC6WiringStep() {
-  state.c6 = state.c6 || { powerModel: null };
-  const powerCables = c6Items([10, 11, 12, 13]);
+  state.c6 = state.c6 || {};
+  const powerCables = c6Items(C6_POWER_ROWS);
   // normalize: keep at most one power cable selected
   let seenPower = false;
   powerCables.forEach((it) => {
@@ -399,13 +417,9 @@ function renderC6WiringStep() {
     }
   });
   const kit = currentPackage();
-  const kitModel = /CAN/i.test(kit?.group?.en || kit?.group || "") ? "can" : "rs232";
-  const selectedPower = powerCables.find((it) => state.selections[it.id]?.checked) || null;
-  const model = selectedPower ? c6PowerModelOf(selectedPower) : kitModel;
-  const connectorCables = powerCables.filter((it) => c6PowerModelOf(it) === model);
-  // AHD Expansion (r15) is auto-added when a camera is chosen, so it is not a manual option here.
-  const extras = c6Items([9, 14]);
-  const connectorOf = (it) => (/9\s*PIN/i.test(displayCatalogText(it.name)) ? "9PIN" : "16PIN");
+  const kitModel = c6KitModelOf(kit);
+  const compatibleCables = powerCables.filter((it) => c6PowerModelOf(it) === kitModel);
+  const defaultRow = kitModel === "can" ? 12 : 27;
   wizardStageEl.innerHTML = `
     <div class="focus-banner">
       <div>
@@ -419,100 +433,33 @@ function renderC6WiringStep() {
     </div>
     <div class="c6-section">
       <h3 class="c6-section-title">${L("电源线", "Power cable")}</h3>
-      <p class="c6-section-hint">${model === "can" ? L("CAN 版本默认使用 OBD 电源线；请选择 16PIN 或 9PIN。", "CAN versions use an OBD power cable by default; choose 16PIN or 9PIN.") : L("RS232 版本默认含电源散线；如车辆需要 OBD，可在下方选配。", "RS232 versions include a loose power cable by default; choose an OBD cable below only when needed.")}</p>
+      <p class="c6-section-hint">${kitModel === "can" ? L("CAN 版本默认选中 16PIN OBD；如车型需要，可改选 9PIN OBD。", "The CAN kit defaults to 16PIN OBD; switch to 9PIN OBD only when required by the vehicle.") : L("RS232 版本默认选中电源散线；如车型需要，可改选 16PIN 或 9PIN OBD。", "The RS232 kit defaults to the loose power cable; switch to 16PIN or 9PIN OBD only when required by the vehicle.")}</p>
       <div class="option-grid two-col">
-        ${C6_POWER_MODELS.filter((m) => m.id === kitModel).map((m) => `
-          <button class="option-card ${model === m.id ? "active" : ""}" data-c6-model="${m.id}">
-            <div class="tag">${localizedText(m.title)}</div>
-            <h3>${localizedText(m.title)}</h3>
-            <p>${localizedText(m.detail)}</p>
-          </button>
-        `).join("")}
-      </div>
-      ${
-        model
-          ? `
-            <div class="option-grid two-col">
-              ${connectorCables
-                .map((it) => {
-                  const active = state.selections[it.id]?.checked ? "active" : "";
-                  const preview = fallbackItemPreviewAsset(it);
-                  const connector = connectorOf(it);
-                  return `
-                    <button class="option-card ${active}" data-c6-connector="${it.id}">
-                      ${preview ? `<img loading="lazy" decoding="async" class="host-photo" src="./${preview}" alt="${connector}" />` : `<div class="host-photo host-photo-empty">${t().emptyPreview}</div>`}
-                      <div class="tag">${connector}</div>
-                      <h3>${connector} OBD</h3>
-                      <div class="sku">${it.partNumber || t().noPartNumber}</div>
-                      <p>${displayCatalogText(it.note || it.description || "")}</p>
-                    </button>
-                  `;
-                })
-                .join("")}
-            </div>
-          `
-          : `<p class="c6-section-hint">${L("请先选择机型。", "Choose a model first.")}</p>`
-      }
-    </div>
-    <div class="c6-section">
-      <h3 class="c6-section-title">${L("可选线材", "Optional cables")}</h3>
-      <div class="group-list accessory-vertical-list">
-        ${extras
-          .map((it) => {
-            const checked = state.selections[it.id]?.checked ? "checked" : "";
-            const selected = checked ? "selected" : "";
-            const info = skuInfo(it.partNumber);
-            const preview = info?.image || fallbackItemPreviewAsset(it);
-            const name = info?.title ? localizedText(info.title) : displayCatalogText(it.name);
-            return `
-              <section class="group-card accessory-row-group">
-                <label class="item-card accessory-row-card ${selected}">
-                  <div class="accessory-row-media">
-                    ${preview ? `<img loading="lazy" decoding="async" class="thumb" src="./${preview}" alt="${name}" />` : `<div class="thumb"></div>`}
-                  </div>
-                  <div class="accessory-row-copy">
-                    <h4>${name}</h4>
-                    <div class="sku">${it.partNumber || t().noPartNumber}</div>
-                    <p>${displayCatalogText(it.note || it.description || "")}</p>
-                  </div>
-                  <div class="accessory-row-control">
-                    <input type="checkbox" data-c6-extra="${it.id}" ${checked} />
-                  </div>
-                </label>
-              </section>
-            `;
-          })
-          .join("")}
+        ${compatibleCables.map((it) => {
+          const active = state.selections[it.id]?.checked ? "active" : "";
+          const preview = skuInfo(it.partNumber)?.image || fallbackItemPreviewAsset(it);
+          const name = skuInfo(it.partNumber)?.title ? localizedText(skuInfo(it.partNumber).title) : displayCatalogText(it.name);
+          const isDefault = it.rowNumber === defaultRow;
+          return `
+            <button class="option-card ${active}" data-c6-power="${it.id}">
+              ${preview ? `<img loading="lazy" decoding="async" class="host-photo" src="./${preview}" alt="${name}" />` : `<div class="host-photo host-photo-empty">${t().emptyPreview}</div>`}
+              <div class="tag">${isDefault ? L("套装默认", "Kit default") : L("按车型替换", "Vehicle-specific replacement")}</div>
+              <h3>${name}</h3>
+              <div class="sku">${it.partNumber || t().noPartNumber}</div>
+              <p>${displayCatalogText(it.note || it.description || "")}</p>
+            </button>`;
+        }).join("")}
       </div>
     </div>
   `;
 
-  wizardStageEl.querySelectorAll("[data-c6-model]").forEach((node) => {
+  wizardStageEl.querySelectorAll("[data-c6-power]").forEach((node) => {
     node.addEventListener("click", () => {
-      const m = node.dataset.c6Model;
-      state.c6 = state.c6 || {};
-      state.c6.powerModel = m;
-      c6Items([10, 11, 12, 13]).forEach((it) => {
-        if (c6PowerModelOf(it) !== m && state.selections[it.id]) state.selections[it.id].checked = false;
-      });
-      render();
-    });
-  });
-  wizardStageEl.querySelectorAll("[data-c6-connector]").forEach((node) => {
-    node.addEventListener("click", () => {
-      const id = node.dataset.c6Connector;
-      c6Items([10, 11, 12, 13]).forEach((it) => {
+      const id = node.dataset.c6Power;
+      powerCables.forEach((it) => {
         if (!state.selections[it.id]) state.selections[it.id] = { checked: false, quantity: "1" };
         state.selections[it.id].checked = it.id === id;
       });
-      render();
-    });
-  });
-  wizardStageEl.querySelectorAll("[data-c6-extra]").forEach((node) => {
-    node.addEventListener("change", (event) => {
-      const id = node.dataset.c6Extra;
-      if (!state.selections[id]) state.selections[id] = { checked: false, quantity: "1" };
-      state.selections[id].checked = event.target.checked;
       render();
     });
   });
@@ -650,8 +597,10 @@ function renderC6AccessoryStep() {
       ${items
         .map((it) => {
           const block = state.selections[it.id] || {};
-          const checked = block.checked ? "checked" : "";
-          const selected = block.checked ? "selected" : "";
+          const isStorage = it.rowNumber === 24;
+          const quantity = isStorage ? (block.checked ? Math.max(1, Number(block.quantity || 0)) : 0) : (block.checked ? 1 : 0);
+          const checked = quantity > 0 ? "checked" : "";
+          const selected = quantity > 0 ? "selected" : "";
           const variantOptions = presetVariantOptions(it);
           const selectedVariant = variantOptions
             ? variantOptions.find((v) => v.partNumber === block.variantPartNumber) || variantOptions[0]
@@ -677,25 +626,36 @@ function renderC6AccessoryStep() {
                   <p>${detail}</p>
                 </div>
                 <div class="accessory-row-control">
-                  <input type="checkbox" data-c6-extra="${it.id}" ${checked} ${disabled ? "disabled" : ""} />
+                  ${
+                    isStorage
+                      ? `<div class="qty-stepper" data-c6-storage-stepper="${it.id}">
+                          <button type="button" class="qty-btn" data-c6-storage-step="${it.id}" data-direction="-1" ${quantity <= 0 ? "disabled" : ""}>-</button>
+                          <span class="qty-value">${quantity}</span>
+                          <button type="button" class="qty-btn" data-c6-storage-step="${it.id}" data-direction="1" ${quantity >= 1 ? "disabled" : ""}>+</button>
+                        </div>`
+                      : `<input type="checkbox" data-c6-extra="${it.id}" ${checked} ${disabled ? "disabled" : ""} />`
+                  }
                 </div>
               </label>
               ${
-                block.checked && variantOptions
+                quantity > 0 && variantOptions
                   ? `
-                    <div class="extension-picker">
+                    <div class="extension-picker accessory-qty-picker storage-picker">
                       <div class="extension-picker-head">
-                        <strong>${L("容量 / 料号", "Capacity / part number")}</strong>
-                        <span>${"Maximum 1 unit"}</span>
+                        <strong>${L("选择 Micro SD 卡", "Choose Micro SD card")}</strong>
+                        <span>${L("最多 1 张", "Up to 1 card")}</span>
                       </div>
-                      <label>
-                        <span>${L("选择规格", "Choose variant")}</span>
-                        <select data-preset-variant="${it.id}">
-                          ${variantOptions
-                            .map((v) => `<option value="${v.partNumber}" ${selectedVariant.partNumber === v.partNumber ? "selected" : ""}>${localizedText(v.name)} | ${v.partNumber}</option>`)
-                            .join("")}
-                        </select>
-                      </label>
+                      <div class="storage-card-grid">
+                        <label class="storage-card">
+                          <span class="storage-card-label">${L("Micro SD 卡", "Micro SD card")}</span>
+                          <select data-preset-variant="${it.id}">
+                            ${variantOptions
+                              .map((v) => `<option value="${v.partNumber}" ${selectedVariant.partNumber === v.partNumber ? "selected" : ""}>${localizedText(v.name)}</option>`)
+                              .join("")}
+                          </select>
+                          <span class="storage-card-sku">SKU ${selectedVariant.partNumber}</span>
+                        </label>
+                      </div>
                     </div>
                   `
                   : ""
@@ -712,6 +672,18 @@ function renderC6AccessoryStep() {
       const id = node.dataset.c6Extra;
       if (!state.selections[id]) state.selections[id] = { checked: false, quantity: "1" };
       state.selections[id].checked = event.target.checked;
+      render();
+    });
+  });
+  wizardStageEl.querySelectorAll("[data-c6-storage-step]").forEach((node) => {
+    node.addEventListener("click", () => {
+      const id = node.dataset.c6StorageStep;
+      const block = state.selections[id] || { checked: false, quantity: "0" };
+      const currentQuantity = block.checked ? Math.max(1, Number(block.quantity || 0)) : 0;
+      const quantity = Math.max(0, Math.min(1, currentQuantity + Number(node.dataset.direction || 0)));
+      block.checked = quantity > 0;
+      block.quantity = String(quantity);
+      state.selections[id] = block;
       render();
     });
   });
