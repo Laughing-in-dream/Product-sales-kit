@@ -150,6 +150,15 @@ const AVM_FLOW_STEPS = {
   ],
 };
 
+const AVM_STANDALONE_FLOW_STEPS = {
+  zh: null, en: [
+    { id: 1, title: "Choose Mode & Base Kit", description: "Select standalone or cascade, then confirm the required AVM kit." },
+    { id: 2, title: "Cameras & Calibration", description: "Four surround cameras, four individual extension cables, and the calibration cloth are required." },
+    { id: 3, title: "Screen, Alerts & Storage", description: "Configure the DP7S screen, left/right B2 alarms, and up to two Micro SD cards." },
+    { id: 4, title: "Review & Export", description: "Check the complete AVM list and export the selected SKUs." },
+  ],
+};
+
 const C53_STEPS = {
   zh: null, en: [
     { id: 1, title: "Choose Core Kit", description: "Start by selecting the C53-L or C53-R base kit." },

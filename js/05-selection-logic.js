@@ -47,6 +47,7 @@ function isCustomFlow() {
 }
 
 function currentSteps() {
+  if (isAvmProduct() && state.avm?.mode === "standalone") return L(AVM_STANDALONE_FLOW_STEPS.zh, AVM_STANDALONE_FLOW_STEPS.en) || AVM_STANDALONE_FLOW_STEPS.en;
   const steps = PRODUCT_META[state.productId]?.steps;
   if (steps) return L(steps.zh, steps.en) || steps.en;
   if (isStepperProduct()) return t().m1nSteps;
