@@ -53,11 +53,10 @@ function renderStage() {
       else renderReviewStep();
       return;
     }
-    // AVM bespoke steps: mandatory cameras / connection and screen / alerts and storage.
+    // AVM bespoke steps: mandatory cameras, then host connection and screen.
     if (isAvmProduct()) {
       if (state.step === 2) { renderAvm2CameraStep(); return; }
       if (state.step === 3) { renderAvm2WiringStep(); return; }
-      if (state.step === 4 && state.avm?.mode === "cascade") { renderAvm2AccessoriesStep(); return; }
       if (state.avm?.mode === "standalone") { renderReviewStep(); return; }
     }
     // C6 Lite uses bespoke, AD-Plus-style step screens (built in stages).
@@ -303,7 +302,7 @@ nextStepBtn.addEventListener("click", () => {
     render();
     return;
   }
-  if (isAvmProduct() && state.avm?.mode === "cascade" && state.step === 4) {
+  if (isAvmProduct() && state.avm?.mode === "cascade" && state.step === 3) {
     avmEnterHostFlow();
     return;
   }

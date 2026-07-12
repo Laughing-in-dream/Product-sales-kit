@@ -145,8 +145,7 @@ const AVM_FLOW_STEPS = {
     { id: 1, title: "Choose Mode & Base Kit", description: "Select standalone or cascade, then confirm the required AVM kit." },
     { id: 2, title: "Cameras & Calibration", description: "Four surround cameras, four individual extension cables, and the calibration cloth are required." },
     { id: 3, title: "Host Connection & Screen", description: "Pick one of three cascade hosts (it joins the combined list) and configure the AVM bird's-eye AHD output." },
-    { id: 4, title: "Alerts & Storage", description: "Add left/right B2 alarms and up to two Micro SD cards, then continue into the host's own wizard." },
-    { id: 5, title: "Host Wizard & Review", description: "Complete the host's own steps; the combined AVM + host list is reviewed and exported there." },
+    { id: 4, title: "Host Wizard & Review", description: "Complete the host's own steps, including its alarms and storage; the combined AVM + host list is reviewed and exported there." },
   ],
 };
 

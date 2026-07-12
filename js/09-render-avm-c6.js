@@ -155,10 +155,12 @@ function selectedAvmItems() {
     const screenExtension = avmItemByRow(Number(avm.screenExtension));
     if (screenExtension) rows.push(avmBomLine(screenExtension));
   }
-  const selectedB2 = [avmItemByRow(17), avmItemByRow(18)].filter((item) => state.selections[item?.id]?.checked);
-  selectedB2.forEach((item) => { rows.push(avmBomLine(item)); const extension = findCatalogItem("m3n", Number(state.selections[item.id]?.b2ExtensionRow || 28)); if (extension) rows.push(avmBomLine(extension)); });
-  if (selectedB2.length) { const adapter = avmItemByRow(selectedB2.length === 1 ? 19 : 20); if (adapter) rows.push(avmBomLine(adapter)); }
-  for (let index = 0; index < avm.storageQuantity; index += 1) { const variant = SD_CARD_VARIANTS.find((item) => item.partNumber === avm.storageVariants[index]) || SD_CARD_VARIANTS[0]; rows.push({ product: product.title, scenario: "", family: "", group: "Storage", name: localizedText(variant.name), partNumber: variant.partNumber, quantity: "1", note: "AVM storage", description: "AVM Micro SD card" }); }
+  if (avm.mode === "standalone") {
+    const selectedB2 = [avmItemByRow(17), avmItemByRow(18)].filter((item) => state.selections[item?.id]?.checked);
+    selectedB2.forEach((item) => { rows.push(avmBomLine(item)); const extension = findCatalogItem("m3n", Number(state.selections[item.id]?.b2ExtensionRow || 28)); if (extension) rows.push(avmBomLine(extension)); });
+    if (selectedB2.length) { const adapter = avmItemByRow(selectedB2.length === 1 ? 19 : 20); if (adapter) rows.push(avmBomLine(adapter)); }
+    for (let index = 0; index < avm.storageQuantity; index += 1) { const variant = SD_CARD_VARIANTS.find((item) => item.partNumber === avm.storageVariants[index]) || SD_CARD_VARIANTS[0]; rows.push({ product: product.title, scenario: "", family: "", group: "Storage", name: localizedText(variant.name), partNumber: variant.partNumber, quantity: "1", note: "AVM storage", description: "AVM Micro SD card" }); }
+  }
   return rows;
 }
 
@@ -191,7 +193,7 @@ function avmReturnFromHostFlow() {
   state.selections = cascade.snapshot.selections;
   state.packageId = cascade.snapshot.packageId;
   state.productPickerOpen = false;
-  state.step = 4;
+  state.step = 3;
   render();
 }
 function c6PowerModelOf(item) {
