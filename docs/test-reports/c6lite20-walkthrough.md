@@ -9,9 +9,9 @@
 - ✅ 选择额外摄像机时自动带 AHD 视频拓展线
 - ✅ 所选摄像机的 AHD 延长线进入清单
 - ✅ RS232 Kit 默认散线，无需额外选择 OBD 也可继续
-- ✅ CAN Kit 默认 OBD，未选择 9PIN/16PIN 时不能继续
+- ❌ CAN Kit 默认 OBD，未选择 9PIN/16PIN 时不能继续
 - ✅ CAN 选择 16PIN OBD 后进入清单并可继续
 - ✅ CAN 模式下 R-Watch 被自动排除
 - ✅ 可选 Micro SD 容量料号进入清单
 
-审计完成：🔴 0 个疑似 bug，🟡 0 个提醒
+审计完成：🔴 1 个疑似 bug，🟡 0 个提醒
