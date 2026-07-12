@@ -10,6 +10,7 @@ function avmState() {
   state.avm.mode = state.avm.mode || "standalone";
   state.avm.cascadeHost = state.avm.cascadeHost || "adplus20";
   state.avm.ahdRoute = state.avm.ahdRoute || "direct";
+  state.avm.screenExtension = state.avm.screenExtension || 9;
   state.avm.cameraExtensions = state.avm.cameraExtensions?.length === 4 ? state.avm.cameraExtensions : [9, 9, 9, 9];
   state.avm.storageVariants = state.avm.storageVariants?.length === 2 ? state.avm.storageVariants : [SD_CARD_VARIANTS[0].partNumber, SD_CARD_VARIANTS[0].partNumber];
   state.avm.storageQuantity = Math.max(0, Math.min(2, Number(state.avm.storageQuantity || 0)));
@@ -89,6 +90,7 @@ function renderAvm2WiringStep() {
   const avm = avmState();
   const screen = avmItemByRow(15);
   const screenChecked = Boolean(state.selections[screen?.id]?.checked);
+  const screenExtensions = [9, 10, 11, 12].map(avmItemByRow).filter(Boolean);
   const hostNames = { adplus20: "AD Plus 2.0", m1n20: "M1N 2.0", m3n: "M3N" };
   wizardStageEl.innerHTML = `
     <div class="c6-section">
@@ -96,11 +98,12 @@ function renderAvm2WiringStep() {
       ${avm.mode === "cascade" ? `<p class="c6-section-hint">${L("级联线会自动加入。主机侧占用 1 路 IPC 与 1 路录像通道，画面为四分屏。", "The cascade IPC cable is included automatically. The host uses 1 IPC and 1 recording channel for a four-way split view.")}</p><label class="extension-picker"><span>${L("级联目标主机", "Cascade host")}</span><select data-avm2-host>${Object.entries(hostNames).map(([id, name]) => `<option value="${id}" ${avm.cascadeHost === id ? "selected" : ""}>${name}</option>`).join("")}</select></label>` : `<p class="c6-section-hint">${L("单机模式不接上级 MDVR。", "Standalone mode does not connect to an upstream MDVR.")}</p>`}
     </div>
     <div class="c6-section"><h3 class="c6-section-title">${L("司机屏幕与俯瞰图输出", "Driver screen & bird's-eye output")}</h3>${avmSelectableCard(screen, `data-avm2-screen="${screen.id}"`, screenChecked)}
-      ${screenChecked ? `<div class="option-grid two-col"><button type="button" class="option-card ${avm.ahdRoute === "direct" ? "active" : ""}" data-avm2-route="direct"><h3>${L("直接到屏幕", "Direct to screen")}</h3><p>${L("带 AHD 信号转接线，仅供司机查看。", "Includes the AHD signal adapter; for driver viewing only.")}</p></button>${avm.mode === "cascade" ? `<button type="button" class="option-card ${avm.ahdRoute === "split" ? "active" : ""}" data-avm2-route="split"><h3>${L("屏幕 + MDVR 录制", "Screen + MDVR recording")}</h3><p>${L("带一拖二线，同时接屏幕和主机 AHD 输入。", "Includes the splitter cable to feed both screen and host AHD input.")}</p></button>` : ""}</div>` : ""}
+      ${screenChecked ? `<div class="option-grid two-col"><button type="button" class="option-card ${avm.ahdRoute === "direct" ? "active" : ""}" data-avm2-route="direct"><h3>${L("直接到屏幕", "Direct to screen")}</h3><p>${L("带 AHD 信号转接线，仅供司机查看。", "Includes the AHD signal adapter; for driver viewing only.")}</p></button>${avm.mode === "cascade" ? `<button type="button" class="option-card ${avm.ahdRoute === "split" ? "active" : ""}" data-avm2-route="split"><h3>${L("屏幕 + MDVR 录制", "Screen + MDVR recording")}</h3><p>${L("带一拖二线，同时接屏幕和主机 AHD 输入。", "Includes the splitter cable to feed both screen and host AHD input.")}</p></button>` : ""}</div><div class="extension-picker"><div class="extension-picker-head"><strong>${L("屏幕音视频延长线", "Screen audio-video extension cable")}</strong><span>${L("必选，按安装距离选择", "Required — choose by installation distance")}</span></div><label><span>${t().lengthAndPart}</span><select data-avm2-screen-extension>${screenExtensions.map((item) => `<option value="${item.rowNumber}" ${Number(avm.screenExtension) === item.rowNumber ? "selected" : ""}>${formatExtensionOptionLabel(item)}</option>`).join("")}</select></label></div>` : ""}
     </div>`;
   wizardStageEl.querySelectorAll("[data-avm2-host]").forEach((node) => node.addEventListener("change", () => { avm.cascadeHost = node.value; render(); }));
   wizardStageEl.querySelectorAll("[data-avm2-screen]").forEach((node) => node.addEventListener("change", (event) => { state.selections[screen.id] = { checked: event.target.checked, quantity: "1" }; render(); }));
   wizardStageEl.querySelectorAll("[data-avm2-route]").forEach((node) => node.addEventListener("click", () => { avm.ahdRoute = node.dataset.avm2Route; render(); }));
+  wizardStageEl.querySelectorAll("[data-avm2-screen-extension]").forEach((node) => node.addEventListener("change", () => { avm.screenExtension = Number(node.value); render(); }));
 }
 
 function renderAvm2AccessoriesStep() {
@@ -128,6 +131,8 @@ function selectedAvmItems() {
     rows.push(avmBomLine(screen));
     const ahdCable = avmItemByRow(avm.mode === "cascade" && avm.ahdRoute === "split" ? 7 : 16);
     if (ahdCable) rows.push(avmBomLine(ahdCable));
+    const screenExtension = avmItemByRow(Number(avm.screenExtension));
+    if (screenExtension) rows.push(avmBomLine(screenExtension));
   }
   const selectedB2 = [avmItemByRow(17), avmItemByRow(18)].filter((item) => state.selections[item?.id]?.checked);
   selectedB2.forEach((item) => { rows.push(avmBomLine(item)); const extension = findCatalogItem("m3n", Number(state.selections[item.id]?.b2ExtensionRow || 28)); if (extension) rows.push(avmBomLine(extension)); });
