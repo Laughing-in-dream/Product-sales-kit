@@ -53,7 +53,7 @@ function avmSelectableCard(item, key, checked, detailOverride = "") {
 function avmModeVisual(modeId, avmPreview) {
   const avmNode = `<div class="avm-mode-device"><img loading="lazy" decoding="async" src="./${avmPreview}" alt="AVM" /><span>AVM</span></div>`;
   if (modeId === "standalone") return `<div class="avm-mode-visual standalone">${avmNode}</div>`;
-  return `<div class="avm-mode-visual cascade">${avmNode}<span class="avm-mode-plus">+</span><div class="avm-mode-device"><img loading="lazy" decoding="async" src="./North America Sales List-FILE/AD Plus 2_0/Image/image.png" alt="AD Plus 2.0" /><span>AD Plus 2.0</span></div><span class="avm-mode-plus">+</span><div class="avm-mode-device"><img loading="lazy" decoding="async" src="./North America Sales List-FILE/M1N 2_0/Image/3-M1N 2.0 -image.png" alt="M1N 2.0" /><span>M1N 2.0</span></div></div>`;
+  return `<div class="avm-mode-visual cascade">${avmNode}<span class="avm-mode-plus">+</span><div class="avm-mode-device"><img loading="lazy" decoding="async" src="./North America Sales List-FILE/AD Plus 2_0/Image/image.png" alt="AD Plus 2.0" /><span>AD Plus 2.0</span></div><div class="avm-mode-device"><img loading="lazy" decoding="async" src="./North America Sales List-FILE/M1N 2_0/Image/3-M1N 2.0 -image.png" alt="MDVR" /><span>MDVR</span></div></div>`;
 }
 
 function renderAvm2BaseStep() {
@@ -65,7 +65,7 @@ function renderAvm2BaseStep() {
       <h3 class="c6-section-title">${L("方案模式", "Solution mode")}</h3>
       <div class="option-grid two-col">
         <button type="button" class="option-card avm-mode-card ${avm.mode === "standalone" ? "active" : ""}" data-avm2-mode="standalone">${kitPreview ? avmModeVisual("standalone", kitPreview) : ""}<div class="tag">${L("单机", "Standalone")}</div><h3>${L("独立单机", "Standalone AVM")}</h3><p>${L("AVM 独立工作，直接向 DP7S 输出鸟瞰图。", "AVM operates independently and sends its bird's-eye AHD output directly to DP7S.")}</p></button>
-        <button type="button" class="option-card avm-mode-card ${avm.mode === "cascade" ? "active" : ""}" data-avm2-mode="cascade">${kitPreview ? avmModeVisual("cascade", kitPreview) : ""}<div class="tag">${L("级联", "Cascade")}</div><h3>${L("级联从机", "Cascade slave")}</h3><p>${L("AVM 作为从机接入上级 MDVR；图中展示 AD Plus 2.0 与 M1N 2.0 参考形态。", "AVM connects as a slave to an upstream MDVR; AD Plus 2.0 and M1N 2.0 are shown as reference hosts.")}</p></button>
+        <button type="button" class="option-card avm-mode-card ${avm.mode === "cascade" ? "active" : ""}" data-avm2-mode="cascade">${kitPreview ? avmModeVisual("cascade", kitPreview) : ""}<div class="tag">${L("级联", "Cascade")}</div><h3>${L("级联从机", "Cascade slave")}</h3><p>${L("AVM 作为从机接入上级 MDVR；图中展示 AD Plus 2.0 与通用 MDVR 参考形态。", "AVM connects as a slave to an upstream MDVR; AD Plus 2.0 and a generic MDVR are shown as reference hosts.")}</p></button>
       </div>
     </div>`;
   wizardStageEl.querySelectorAll("[data-avm2-mode]").forEach((node) => node.addEventListener("click", () => { avm.mode = node.dataset.avm2Mode; render(); }));

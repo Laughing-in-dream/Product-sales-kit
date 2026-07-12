@@ -6,7 +6,7 @@
 
 - 首步仅展示两张带图的模式卡片，不再单独展示 AVM Kit 卡；Kit 仍按固定组成自动加入 BOM。
 - **Standalone** 卡片展示 AVM 单机图。
-- **Cascade** 卡片展示 AVM、AD Plus 2.0、M1N 2.0 的拼接图，作为级联主机形态的直观参考；实际级联目标仍在后续连接步骤选择，且主机本体不加入 AVM BOM。
+- **Cascade** 卡片展示 AVM、AD Plus 2.0、MDVR 的拼接图，AVM 与 AD Plus 2.0 间以加号关联，MDVR 作为通用上级主机参考；实际级联目标仍在后续连接步骤选择，且主机本体不加入 AVM BOM。
 
 ## 1. 固定组成
 
