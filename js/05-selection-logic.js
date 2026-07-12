@@ -203,7 +203,7 @@ function choosePackage(packageId) {
     state.familyId = pkg?.solutionRefs?.[0] || null;
     state.c6 = state.c6 || {};
     state.c6.powerModel = /CAN/i.test(pkg?.group || "") ? "can" : "rs232";
-    const powerRows = [10, 11, 12, 13, 27];
+    const powerRows = [10, 11, 12, 13, 27, 28];
     const defaultPowerRow = state.c6.powerModel === "can" ? 12 : 27;
     c6Items(powerRows).forEach((item) => {
       if (!state.selections[item.id]) state.selections[item.id] = { checked: false, quantity: "1" };

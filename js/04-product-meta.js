@@ -82,7 +82,7 @@ const M3N_STEP_ROWS = {
 };
 
 const C6_STEP_ROWS = {
-  wiring: new Set([10, 11, 12, 13, 27]),
+  wiring: new Set([10, 11, 12, 13, 27, 28]),
   cameras: new Set([16, 17, 18, 19, 20, 21, 22]),
   optionals: new Set([23, 24]),
 };

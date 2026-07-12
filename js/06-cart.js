@@ -4,7 +4,7 @@ function selectedPresetItems() {
     .filter((item) => {
       // C6: AHD extension cables are chosen per-camera (nested); the AHD expansion cable (r15) is auto-added.
       // Device-extension and PBP cables are intentionally outside the guided C6 flow.
-      if (isC6Product() && [9, 14, 15, 16, 17, 18, 19].includes(item.rowNumber)) return false;
+      if (isC6Product() && [9, 14, 15, 16, 17, 18, 19, 24].includes(item.rowNumber)) return false;
       // AVM: connection + B2 adapter cables are auto-added, not manually selected.
       if (isAvmProduct() && [7, 8, 19, 20].includes(item.rowNumber)) return false;
       return isMSeriesProduct() ? m3nPresetItemSelected(item) : state.selections[item.id]?.checked;
@@ -60,6 +60,26 @@ function selectedPresetItems() {
     if (selectedCams.length) {
       const exp = c6Items([15])[0];
       if (exp) rows.push(c6Line(exp));
+    }
+    const storage = c6Items([24])[0];
+    const storageState = state.selections[storage?.id] || {};
+    const storageQuantity = storageState.checked ? Math.max(1, Math.min(2, Number(storageState.quantity || 1))) : 0;
+    const storageParts = Array.isArray(storageState.variantPartNumbers)
+      ? storageState.variantPartNumbers
+      : [storageState.variantPartNumber || SD_CARD_VARIANTS[0].partNumber];
+    for (let index = 0; index < storageQuantity; index += 1) {
+      const variant = SD_CARD_VARIANTS.find((item) => item.partNumber === storageParts[index]) || SD_CARD_VARIANTS[0];
+      rows.push({
+        product: product.title,
+        scenario: localizedText(currentScenario()?.title || ""),
+        family: state.familyId || "",
+        group: "Storage",
+        name: localizedText(variant.name),
+        partNumber: variant.partNumber,
+        quantity: "1",
+        note: displayCatalogText(storage?.note || ""),
+        description: displayCatalogText(storage?.description || ""),
+      });
     }
   }
 
@@ -361,7 +381,11 @@ function validateCurrentStep() {
     if (state.step === 2) {
       // A matching default is selected on kit selection: loose cable for RS232,
       // 16PIN OBD for CAN. The user can switch it to another matching connector.
-      if (isC6Product()) return c6Items([10, 11, 12, 13, 27]).some((it) => state.selections[it.id]?.checked);
+      if (isC6Product()) {
+        const requiredRow = c6CurrentPowerModel() === "can" ? 12 : 27;
+        const requiredPower = c6Items([requiredRow])[0];
+        return Boolean(requiredPower && state.selections[requiredPower.id]?.checked);
+      }
       return Boolean(state.packageId);
     }
     return true;
