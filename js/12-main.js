@@ -274,6 +274,10 @@ function setLanguage(language) {
 }
 
 prevStepBtn.addEventListener("click", () => {
+  if (avmCascadeActive() && !state.productPickerOpen && state.step === (isAdplusProduct() ? 2 : 1)) {
+    avmReturnFromHostFlow();
+    return;
+  }
   if (isAdplusProduct() && !state.productPickerOpen && state.step === 2) {
     state.productPickerOpen = true;
     state.step = 1;
@@ -297,6 +301,10 @@ nextStepBtn.addEventListener("click", () => {
     state.productPickerOpen = false;
     state.step = isAdplusProduct() ? 2 : 1;
     render();
+    return;
+  }
+  if (isAvmProduct() && state.avm?.mode === "cascade" && state.step === 4) {
+    avmEnterHostFlow();
     return;
   }
   if (state.step < currentSteps().length) {

@@ -359,7 +359,10 @@ function selectedCustomItems() {
 }
 
 function selectedItems() {
-  return isCustomFlow() ? selectedCustomItems() : selectedPresetItems();
+  const rows = isCustomFlow() ? selectedCustomItems() : selectedPresetItems();
+  return avmCascadeActive() && state.avmCascade.items?.length
+    ? [...state.avmCascade.items, ...rows]
+    : rows;
 }
 
 function updateStepControls() {

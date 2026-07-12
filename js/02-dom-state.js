@@ -31,6 +31,7 @@ const state = {
   },
   c6: { powerModel: null },
   avm: { mode: null },
+  avmCascade: null,
 };
 
 function t() {
