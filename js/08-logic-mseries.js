@@ -132,8 +132,19 @@ function setPresetVariant(itemId, partNumber) {
 function setM3nPresetSelection(itemId, checked) {
   const item = product?.items?.find((entry) => entry.id === itemId);
   const block = ensurePresetSelectionState(itemId, item?.quantity || "1");
+  const resource = mSeriesCameraResource(item);
+  // Keep the channel reservation enforceable even if this setter is reached
+  // without the disabled checkbox state (for example through restored state).
+  if (checked && !block.checked && resource) {
+    const status = m3nPresetCameraStatus();
+    if (
+      resource.ipc > status.ipcRemaining ||
+      resource.ahd > status.ahdRemaining ||
+      resource.recording > status.recordingRemaining
+    ) return;
+  }
   block.checked = checked;
-  if (isM3nPresetCameraItem(item) && !mSeriesCameraResource(item)?.bundle) {
+  if (isM3nPresetCameraItem(item) && !resource?.bundle) {
     block.quantity = checked ? "1" : "0";
   }
   if (checked) {
