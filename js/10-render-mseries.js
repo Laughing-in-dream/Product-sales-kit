@@ -32,7 +32,7 @@ function renderM3nCameraStep() {
       <div class="algorithm-plan-head">
         <div>
           <strong>${L("算法与通道方案", "Algorithm & channel plan")}</strong>
-          <span>${L("IPC、AHD 与录像通道均为硬限制。", "IPC, AHD, and recording channels are enforced.")}${avmCascadeActive() ? L(`（AVM 级联已预占 ${avmCascadeReserved().ipc} IPC${avmCascadeReserved().ahd ? ` + ${avmCascadeReserved().ahd} AHD` : ""} / ${avmCascadeReserved().recording} 路录像，已计入额度）`, ` (AVM cascade reserves ${avmCascadeReserved().ipc} IPC${avmCascadeReserved().ahd ? ` + ${avmCascadeReserved().ahd} AHD` : ""} / ${avmCascadeReserved().recording} recording, already counted.)`) : ""}</span>
+          <span>${L("IPC、AHD 与录像通道均为硬限制。", "IPC, AHD, and recording channels are enforced.")}</span>
         </div>
         <div class="resource-badge-list">
           <span>IPC ${cameraStatus.ipc}/${channelRule.ipc}</span>
