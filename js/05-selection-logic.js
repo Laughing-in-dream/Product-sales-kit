@@ -180,8 +180,6 @@ function chooseScenario(scenarioId) {
 function chooseProduct(productId) {
   const nextProduct = catalog.productLines.find((item) => item.id === productId);
   if (!nextProduct) return;
-  // 切换产品即退出 AVM 级联组合（avmEnterHostFlow 会在调用本函数后重新写入）
-  state.avmCascade = null;
   state.productId = productId;
   state.productPickerOpen = true;
   product = nextProduct;
@@ -320,20 +318,7 @@ function isOptionalDisabled(optionalDef) {
   return optionalDef.id === "rwatch" && ca42TrailerAdapterBlocksRwatch();
 }
 
-// AVM 级联组合：当前产品是级联所选主机时，AVM 预占的通道要计入主机资源。
-// 规则（docs/knowledge/avm.md 第 3 节）：Direct to screen 占 1 IPC / 1 录像；
-// Screen + MDVR recording 占 1 IPC + 1 AHD / 2 录像。
-function avmCascadeActive() {
-  return Boolean(state.avmCascade && state.productId === state.avmCascade.host);
-}
-
-function avmCascadeReserved() {
-  if (!avmCascadeActive()) return { ipc: 0, ahd: 0, recording: 0 };
-  return state.avmCascade.reserved || { ipc: 0, ahd: 0, recording: 0 };
-}
-
 function selectedCameraCounts() {
-  const reserved = avmCascadeReserved();
   return selectedCustomAccessoryDefs().reduce(
     (acc, item) => {
       const qty = Number(ensureAccessoryState(item.id).quantity || 0);
@@ -341,7 +326,7 @@ function selectedCameraCounts() {
       if (item.cameraType === "ahd") acc.ahd += qty;
       return acc;
     },
-    { ipc: reserved.ipc, ahd: reserved.ahd }
+    { ipc: 0, ahd: 0 }
   );
 }
 

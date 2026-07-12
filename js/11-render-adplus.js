@@ -261,7 +261,6 @@ function renderCustomAccessoryStep() {
         <p>${selectedCustomWirings().map((item) => localizedText(item.title)).join(" / ") || "-"}</p>
       </div>
     </div>
-    ${avmCascadeActive() ? `<p class="c6-section-hint">${L(`AVM 级联已预占 ${avmCascadeReserved().ipc} 路 IPC${avmCascadeReserved().ahd ? ` + ${avmCascadeReserved().ahd} 路 AHD` : ""}，已计入摄像头路数额度。`, `AVM cascade reserves ${avmCascadeReserved().ipc} IPC${avmCascadeReserved().ahd ? ` + ${avmCascadeReserved().ahd} AHD` : ""} on this host, already counted toward the camera limits.`)}</p>` : ""}
     ${
       capacityRule
         ? `<div class="capacity-note ${capacityWarning ? "warning" : ""}">

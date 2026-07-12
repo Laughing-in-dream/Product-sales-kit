@@ -31,9 +31,6 @@ const state = {
   },
   c6: { powerModel: null },
   avm: { mode: null },
-  // AVM 级联进入主机向导后携带的组合信息：
-  // { host, route, reserved: {ipc, ahd, recording}, items: [AVM BOM 行], snapshot: {...AVM 页面状态} }
-  avmCascade: null,
 };
 
 function t() {

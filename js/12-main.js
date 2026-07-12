@@ -274,12 +274,6 @@ function setLanguage(language) {
 }
 
 prevStepBtn.addEventListener("click", () => {
-  // AVM 级联组合：在主机流程的第一个配置页点"上一步"回到 AVM 配置
-  if (avmCascadeActive() && !state.productPickerOpen &&
-      state.step === (isAdplusProduct() ? 2 : 1)) {
-    avmReturnFromHostFlow();
-    return;
-  }
   if (isAdplusProduct() && !state.productPickerOpen && state.step === 2) {
     state.productPickerOpen = true;
     state.step = 1;
@@ -303,11 +297,6 @@ nextStepBtn.addEventListener("click", () => {
     state.productPickerOpen = false;
     state.step = isAdplusProduct() ? 2 : 1;
     render();
-    return;
-  }
-  // AVM 级联组合：报警与存储页（第 4 步）完成后进入所选主机自己的向导
-  if (isAvmProduct() && state.avm?.mode === "cascade" && state.step === 4) {
-    avmEnterHostFlow();
     return;
   }
   if (state.step < currentSteps().length) {
