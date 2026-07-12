@@ -359,7 +359,12 @@ function selectedCustomItems() {
 }
 
 function selectedItems() {
-  return isCustomFlow() ? selectedCustomItems() : selectedPresetItems();
+  const rows = isCustomFlow() ? selectedCustomItems() : selectedPresetItems();
+  // AVM 级联组合：主机向导里的清单 = AVM 快照 + 主机自身选型
+  if (avmCascadeActive() && state.avmCascade.items?.length) {
+    return [...state.avmCascade.items, ...rows];
+  }
+  return rows;
 }
 
 function updateStepControls() {

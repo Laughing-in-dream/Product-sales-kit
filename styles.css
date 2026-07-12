@@ -2047,3 +2047,18 @@ button.secondary {
   }
 
 }
+
+/* AVM 级联主机三选一卡片 */
+.avm-host-card .avm-host-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  margin-bottom: 8px;
+}
+
+.avm-host-card .avm-host-media img {
+  max-width: 100%;
+  max-height: 112px;
+  object-fit: contain;
+}

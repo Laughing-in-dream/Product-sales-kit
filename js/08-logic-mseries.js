@@ -305,6 +305,8 @@ function m3nOptionalDisplay(item) {
 function m3nPresetCameraStatus() {
   const channelRule = currentMSeriesChannelRule();
   const selectedItems = m1nItemsByRows(currentMSeriesStepRows().cameras).filter((item) => mSeriesSelectionQuantity(item) > 0);
+  // AVM 级联预占的接口/录像通道计入初值（不占内置算法资源，见 docs/knowledge/avm.md 第 3 节）
+  const reserved = avmCascadeReserved();
   const totals = selectedItems.reduce(
     (sum, item) => {
       const resource = mSeriesCameraResource(item);
@@ -317,7 +319,7 @@ function m3nPresetCameraStatus() {
       sum.externalAlgorithms += resource.externalAlgorithms.length * quantity;
       return sum;
     },
-    { ipc: 0, ahd: 0, recording: 0, internalAlgorithms: 0, externalAlgorithms: 0 }
+    { ipc: reserved.ipc, ahd: reserved.ahd, recording: reserved.recording, internalAlgorithms: 0, externalAlgorithms: 0 }
   );
   return {
     ...totals,

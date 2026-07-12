@@ -117,18 +117,16 @@ function renderAvm2WiringStep() {
   const screenChecked = Boolean(state.selections[screen?.id]?.checked);
   const screenExtensions = [9, 10, 11, 12].map(avmItemByRow).filter(Boolean);
   const hostNames = { adplus20: "AD Plus 2.0", m1n20: "M1N 2.0", m3n: "M3N" };
-  const selectedHostName = hostNames[avm.cascadeHost] || hostNames.adplus20;
-  const selectedHostPreview = PRODUCT_META[avm.cascadeHost]?.entryImage || PRODUCT_META.adplus20.entryImage;
   wizardStageEl.innerHTML = `
     <div class="c6-section">
       <h3 class="c6-section-title">${L("上级主机连接", "Host connection")}</h3>
-      ${avm.mode === "cascade" ? `<p class="c6-section-hint">${L("级联线会自动加入。主机侧占用 1 路 IPC 与 1 路录像通道，画面为四分屏。", "The cascade IPC cable is included automatically. The host uses 1 IPC and 1 recording channel for a four-way split view.")}</p><label class="extension-picker"><span>${L("级联目标主机", "Cascade host")}</span><select data-avm2-host>${Object.entries(hostNames).map(([id, name]) => `<option value="${id}" ${avm.cascadeHost === id ? "selected" : ""}>${name}</option>`).join("")}</select></label><section class="group-card accessory-row-group"><div class="item-card accessory-row-card selected"><div class="accessory-row-media"><img class="thumb" src="./${selectedHostPreview}" alt="${selectedHostName}" /></div><div class="accessory-row-copy"><h4>${selectedHostName}</h4><div class="sku">${L("级联目标主机", "Cascade host")}</div><p>${L("仅用于连接参考；主机本体不会加入本 AVM 清单。", "Shown for connection reference only; the host itself is not added to this AVM list.")}</p></div></div></section>` : `<p class="c6-section-hint">${L("单机模式不接上级 MDVR。", "Standalone mode does not connect to an upstream MDVR.")}</p>`}
+      ${avm.mode === "cascade" ? `<p class="c6-section-hint">${L("级联线会自动加入。三选一确定上级主机：主机本体将加入组合清单，完成 AVM 配置后进入该主机自己的选型流程。Direct to screen 预占主机 1 路 IPC / 1 路录像；屏幕 + MDVR 录制再预占 1 路 AHD / 1 路录像。", "The cascade IPC cable is included automatically. Pick one of three hosts: the host itself joins the combined list, and after the AVM pages you continue in that host's own wizard. Direct to screen reserves 1 IPC / 1 recording channel on the host; Screen + MDVR recording additionally reserves 1 AHD / 1 recording channel.")}</p><div class="option-grid three-col">${Object.entries(hostNames).map(([id, name]) => `<button type="button" class="option-card avm-host-card ${avm.cascadeHost === id ? "active" : ""}" data-avm2-host="${id}"><div class="avm-host-media"><img loading="lazy" decoding="async" src="./${PRODUCT_META[id]?.entryImage || ""}" alt="${name}" /></div><h3>${name}</h3><p>${L("加入组合清单，随后按其向导完成主机选型。", "Joins the combined list; host setup continues in its own wizard.")}</p></button>`).join("")}</div>` : `<p class="c6-section-hint">${L("单机模式不接上级 MDVR。", "Standalone mode does not connect to an upstream MDVR.")}</p>`}
     </div>
     <div class="c6-section"><h3 class="c6-section-title">${L("司机屏幕与俯瞰图输出", "Driver screen & bird's-eye output")}</h3>${avmSelectableCard(screen, `data-avm2-screen="${screen.id}"`, screenChecked)}
       ${screenChecked ? `<div class="option-grid two-col"><button type="button" class="option-card ${avm.ahdRoute === "direct" ? "active" : ""}" data-avm2-route="direct"><h3>${L("直接到屏幕", "Direct to screen")}</h3><p>${L("带 AHD 信号转接线，仅供司机查看。", "Includes the AHD signal adapter; for driver viewing only.")}</p></button>${avm.mode === "cascade" ? `<button type="button" class="option-card ${avm.ahdRoute === "split" ? "active" : ""}" data-avm2-route="split"><h3>${L("屏幕 + MDVR 录制", "Screen + MDVR recording")}</h3><p>${L("带一拖二线，同时接屏幕和主机 AHD 输入。", "Includes the splitter cable to feed both screen and host AHD input.")}</p></button>` : ""}</div><div class="extension-picker"><div class="extension-picker-head"><strong>${L("屏幕音视频延长线", "Screen audio-video extension cable")}</strong><span>${L("必选，按安装距离选择", "Required — choose by installation distance")}</span></div><label><span>${t().lengthAndPart}</span><select data-avm2-screen-extension>${screenExtensions.map((item) => `<option value="${item.rowNumber}" ${Number(avm.screenExtension) === item.rowNumber ? "selected" : ""}>${formatExtensionOptionLabel(item)}</option>`).join("")}</select></label></div>` : ""}
     </div>
     ${avm.mode === "standalone" ? `${avmB2Section()}${avmStorageSection()}` : ""}`;
-  wizardStageEl.querySelectorAll("[data-avm2-host]").forEach((node) => node.addEventListener("change", () => { avm.cascadeHost = node.value; render(); }));
+  wizardStageEl.querySelectorAll("[data-avm2-host]").forEach((node) => node.addEventListener("click", () => { avm.cascadeHost = node.dataset.avm2Host; render(); }));
   wizardStageEl.querySelectorAll("[data-avm2-screen]").forEach((node) => node.addEventListener("change", (event) => { state.selections[screen.id] = { checked: event.target.checked, quantity: "1" }; render(); }));
   wizardStageEl.querySelectorAll("[data-avm2-route]").forEach((node) => node.addEventListener("click", () => { avm.ahdRoute = node.dataset.avm2Route; render(); }));
   wizardStageEl.querySelectorAll("[data-avm2-screen-extension]").forEach((node) => node.addEventListener("change", () => { avm.screenExtension = Number(node.value); render(); }));
@@ -162,6 +160,46 @@ function selectedAvmItems() {
   if (selectedB2.length) { const adapter = avmItemByRow(selectedB2.length === 1 ? 19 : 20); if (adapter) rows.push(avmBomLine(adapter)); }
   for (let index = 0; index < avm.storageQuantity; index += 1) { const variant = SD_CARD_VARIANTS.find((item) => item.partNumber === avm.storageVariants[index]) || SD_CARD_VARIANTS[0]; rows.push({ product: product.title, scenario: "", family: "", group: "Storage", name: localizedText(variant.name), partNumber: variant.partNumber, quantity: "1", note: "AVM storage", description: "AVM Micro SD card" }); }
   return rows;
+}
+
+// 级联模式：AVM 配置完成后进入所选主机自己的向导。
+// AVM 的 BOM 与页面状态先快照进 state.avmCascade，主机复核页展示组合清单；
+// 在主机流程第一步点"上一步"可回到 AVM 配置页（avmReturnFromHostFlow）。
+function avmEnterHostFlow() {
+  const avm = avmState();
+  const cascade = {
+    host: avm.cascadeHost,
+    route: avm.ahdRoute,
+    reserved: {
+      ipc: 1,
+      ahd: avm.ahdRoute === "split" ? 1 : 0,
+      recording: avm.ahdRoute === "split" ? 2 : 1,
+    },
+    items: selectedAvmItems(),
+    snapshot: {
+      avm: JSON.parse(JSON.stringify(state.avm)),
+      selections: JSON.parse(JSON.stringify(state.selections)),
+      packageId: state.packageId,
+    },
+  };
+  chooseProduct(cascade.host); // 会清空 avmCascade，因此快照在之后写回
+  state.avmCascade = cascade;
+  state.productPickerOpen = false;
+  state.step = isAdplusProduct() ? 2 : 1;
+  render();
+}
+
+function avmReturnFromHostFlow() {
+  const cascade = state.avmCascade;
+  if (!cascade) return;
+  chooseProduct("avm");
+  state.avmCascade = null;
+  state.avm = cascade.snapshot.avm;
+  state.selections = cascade.snapshot.selections;
+  state.packageId = cascade.snapshot.packageId;
+  state.productPickerOpen = false;
+  state.step = 4; // 回到级联的报警与存储页
+  render();
 }
 function c6PowerModelOf(item) {
   return /CAN/i.test(item.group?.en || item.group || "") ? "can" : "rs232";
