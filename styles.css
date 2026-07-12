@@ -195,6 +195,69 @@ body {
   color: var(--muted, #6b7280);
   font-size: 0.85rem;
 }
+
+.avm-mode-card {
+  text-align: left;
+}
+
+.avm-mode-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 176px;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding: 12px;
+  border: 1px solid rgba(19, 91, 86, 0.14);
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f8fffd, #eef9f7);
+}
+
+.avm-mode-device {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  justify-items: center;
+  color: var(--accent-deep);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.avm-mode-device img {
+  width: 100%;
+  height: 112px;
+  object-fit: contain;
+}
+
+.avm-mode-visual.standalone .avm-mode-device {
+  width: min(78%, 260px);
+}
+
+.avm-mode-visual.cascade .avm-mode-device {
+  flex: 1 1 0;
+}
+
+.avm-mode-visual.cascade .avm-mode-device img {
+  height: 86px;
+}
+
+.avm-mode-plus {
+  color: var(--accent);
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+
+@media (max-width: 620px) {
+  .avm-mode-visual.cascade {
+    gap: 5px;
+    padding: 8px;
+  }
+
+  .avm-mode-visual.cascade .avm-mode-device img {
+    height: 64px;
+  }
+}
 .avm-diagram {
   display: block;
   width: 100%;
