@@ -269,33 +269,17 @@ function renderZ5CoreStep() {
   const preview = kit ? packagePreview(kit) : { src: "", fallback: false };
   const diagram = z5SystemDiagram();
   wizardStageEl.innerHTML = `
-    <div class="focus-banner">
-      <div>
-        <strong>${t().summaryFields.product}</strong>
-        <p>${currentProduct()?.title || "Z5"}</p>
-      </div>
-      <div>
-        <strong>${L("Core kit", "Core kit")}</strong>
-        <p>${kit ? displayCatalogText(kit.name) : "-"}</p>
-      </div>
-    </div>
-    <div class="package-grid z5-package-grid">
-      <button class="package-card active" data-package="${kit?.id || ""}">
+    <div class="option-grid two-col">
+      <button class="option-card active" data-package="${kit?.id || ""}">
         ${
           preview.src
-            ? `<img loading="lazy" decoding="async" class="package-image" src="./${preview.src}" alt="${kit ? displayCatalogText(kit.name) : "Z5"}" />`
-            : `<div class="package-image package-image-empty">${t().emptyPreview}</div>`
+            ? `<img loading="lazy" decoding="async" class="host-photo" src="./${preview.src}" alt="${kit ? displayCatalogText(kit.name) : "Z5"}" />`
+            : `<div class="host-photo host-photo-empty">${t().emptyPreview}</div>`
         }
-        <div class="package-head">
-          <div>
-            <div class="group-badge">${displayCatalogText(kit?.group || "Z5 Kit")}</div>
-            <h3>${kit ? displayCatalogText(kit.name) : "Z5"}</h3>
-          </div>
-          <div class="sku">${kit?.partNumber || t().noPartNumber}</div>
-        </div>
-        <div class="review-card">
-          <p>${kit ? displayCatalogText(kit.note || kit.description || "") : ""}</p>
-        </div>
+        <div class="tag">${L("固定核心套装", "Required core kit")}</div>
+        <h3>${kit ? displayCatalogText(kit.name) : "Z5"}</h3>
+        <div class="sku">${kit?.partNumber || t().noPartNumber}</div>
+        <p>${kit ? displayCatalogText(kit.note || kit.description || "") : ""}</p>
       </button>
     </div>
     ${diagram?.images?.[0] ? `<div class="c6-section"><h3 class="c6-section-title">${L("系统连接图", "System connection diagram")}</h3><a class="option-card z5-diagram-card" href="./${diagram.images[0]}" target="_blank" rel="noopener"><div class="tag">${L("安装参考", "Installation reference")}</div><h3>${displayCatalogText(diagram.title)}</h3><p>${L("查看 Z5 的系统连接图（不加入清单）。", "Open the Z5 system connection diagram (not included in the BOM).")}</p></a></div>` : ""}
@@ -309,6 +293,11 @@ function renderZ5CoreStep() {
 function renderZ5StorageStep() {
   const storageItems = z5StorageItems();
   const accessories = z5AccessoryItems();
+  const selectedStorage = storageItems.find((item) => state.selections[item.id]?.checked) || null;
+  const storageQuantity = selectedStorage ? 1 : 0;
+  const storagePreviewItem = selectedStorage || storageItems[0] || null;
+  const storagePreview = storagePreviewItem ? (skuInfo(storagePreviewItem.partNumber)?.image || fallbackItemPreviewAsset(storagePreviewItem)) : "";
+  const storageName = selectedStorage ? `Micro SD ${displayCatalogText(selectedStorage.note || selectedStorage.name)}` : "Micro SD card";
   wizardStageEl.innerHTML = `
     <div class="focus-banner">
       <div>
@@ -320,25 +309,14 @@ function renderZ5StorageStep() {
         <p>${L("Z5 supports up to 1 Micro SD card.", "Z5 supports up to 1 Micro SD card.")}</p>
       </div>
     </div>
-    <div class="option-grid storage-option-grid">
-      ${storageItems
-        .map((item) => {
-          const block = ensurePresetSelectionState(item.id, item.quantity || "1");
-          const quantity = block.checked ? Number(block.quantity || 0) : 0;
-          const selected = quantity > 0 ? "selected" : "";
-          const preview = skuInfo(item.partNumber)?.image || fallbackItemPreviewAsset(item);
-          const capacity = displayCatalogText(item.note || item.name);
-          return `
-            <button type="button" class="option-card storage-option-card ${selected}" data-z5-storage-choice="${item.id}" aria-pressed="${quantity > 0}">
-              ${preview ? `<img loading="lazy" decoding="async" class="host-photo" src="./${preview}" alt="${capacity}" />` : `<div class="host-photo host-photo-empty">${t().emptyPreview}</div>`}
-              <div class="tag">${quantity > 0 ? L("已选择", "Selected") : L("可选", "Optional")}</div>
-              <h3>Micro SD ${capacity}</h3><div class="sku">${item.partNumber || t().noPartNumber}</div>
-              <p>${L("Z5 supports one Micro SD card. Click again to remove.", "Z5 supports one Micro SD card. Click again to remove.")}</p>
-            </button>
-          `;
-        })
-        .join("")}
-    </div>
+    <section class="group-card accessory-row-group">
+      <div class="item-card accessory-row-card ${storageQuantity > 0 ? "selected" : ""}">
+        <div class="accessory-row-media">${storagePreview ? `<img loading="lazy" decoding="async" class="thumb" src="./${storagePreview}" alt="${storageName}" />` : `<div class="thumb"></div>`}</div>
+        <div class="accessory-row-copy"><h4>${storageName}</h4><div class="sku">${selectedStorage?.partNumber || t().noPartNumber}</div><p>${L("Choose up to one Micro SD card for Z5.", "Choose up to one Micro SD card for Z5.")}</p></div>
+        <div class="accessory-row-control"><div class="qty-stepper"><button type="button" class="qty-btn" data-z5-storage-step="-1" ${storageQuantity === 0 ? "disabled" : ""}>-</button><span class="qty-value">${storageQuantity}</span><button type="button" class="qty-btn" data-z5-storage-step="1" ${storageQuantity >= 1 ? "disabled" : ""}>+</button></div></div>
+      </div>
+      ${storageQuantity > 0 ? `<div class="extension-picker accessory-qty-picker storage-picker"><div class="extension-picker-head"><strong>${L("选择 Micro SD 卡", "Choose Micro SD card")}</strong><span>${L("最多 1 张", "Up to 1 card")}</span></div><div class="storage-card-grid"><label class="storage-card"><span class="storage-card-label">${L("Micro SD 卡", "Micro SD card")}</span><select data-z5-storage-variant>${storageItems.map((item) => `<option value="${item.id}" ${item.id === selectedStorage.id ? "selected" : ""}>Micro SD ${displayCatalogText(item.note || item.name)}</option>`).join("")}</select><span class="storage-card-sku">SKU ${selectedStorage.partNumber}</span></label></div></div>` : ""}
+    </section>
     <div class="c6-section">
       <h3 class="c6-section-title">${L("可选附件", "Optional accessories")}</h3>
       <div class="group-list accessory-vertical-list">
@@ -352,12 +330,14 @@ function renderZ5StorageStep() {
     </div>
   `;
 
-  wizardStageEl.querySelectorAll("[data-z5-storage-choice]").forEach((node) => {
+  wizardStageEl.querySelectorAll("[data-z5-storage-step]").forEach((node) => {
     node.addEventListener("click", () => {
-      const itemId = node.dataset.z5StorageChoice;
-      const block = ensurePresetSelectionState(itemId);
-      setZ5StorageQuantity(itemId, block.checked ? 0 : 1);
+      const nextQuantity = Math.max(0, Math.min(1, storageQuantity + Number(node.dataset.z5StorageStep || 0)));
+      setZ5StorageQuantity(selectedStorage?.id || storageItems[0]?.id, nextQuantity);
     });
+  });
+  wizardStageEl.querySelectorAll("[data-z5-storage-variant]").forEach((node) => {
+    node.addEventListener("change", (event) => setZ5StorageQuantity(event.target.value, 1));
   });
   wizardStageEl.querySelectorAll("[data-z5-accessory]").forEach((node) => {
     node.addEventListener("change", (event) => {
