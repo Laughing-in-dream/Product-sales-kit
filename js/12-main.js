@@ -39,6 +39,7 @@ function renderStage() {
   if (state.step === 1) {
     if (isC6Product()) renderC6BaseStep();
     else if (isAvmProduct()) renderAvm2BaseStep();
+    else if (is960C53Product()) renderC53BaseStep();
     else if (isMSeriesProduct()) renderM1nBaseStep();
     else if (isZ5Product()) renderZ5CoreStep();
     else if (isPresetPackageProduct()) renderPresetPackageStep();
@@ -58,6 +59,14 @@ function renderStage() {
       if (state.step === 2) { renderAvm2CameraStep(); return; }
       if (state.step === 3) { renderAvm2WiringStep(); return; }
       if (state.avm?.mode === "standalone") { renderReviewStep(); return; }
+    }
+    if (is960C53Product()) {
+      if (state.step === 2) { renderC53SelectableStep(C53_STEP_ROWS.base); return; }
+      if (state.step === 3) { renderC53SelectableStep(C53_STEP_ROWS.video); return; }
+      if (state.step === 4) { renderC53SelectableStep(C53_STEP_ROWS.display); return; }
+      if (state.step === 5 && state.c53?.mode === "cascade") { renderC53HostStep(); return; }
+      renderReviewStep();
+      return;
     }
     // C6 Lite uses bespoke, AD-Plus-style step screens (built in stages).
     if (isC6Product()) {
@@ -277,6 +286,10 @@ prevStepBtn.addEventListener("click", () => {
     avmReturnFromHostFlow();
     return;
   }
+  if (c53CascadeActive() && !state.productPickerOpen && state.step === (isAdplusProduct() ? 2 : 1)) {
+    c53ReturnFromHostFlow();
+    return;
+  }
   if (isAdplusProduct() && !state.productPickerOpen && state.step === 2) {
     state.productPickerOpen = true;
     state.step = 1;
@@ -304,6 +317,10 @@ nextStepBtn.addEventListener("click", () => {
   }
   if (isAvmProduct() && state.avm?.mode === "cascade" && state.step === 3) {
     avmEnterHostFlow();
+    return;
+  }
+  if (is960C53Product() && state.c53?.mode === "cascade" && state.step === 5) {
+    c53EnterHostFlow();
     return;
   }
   if (state.step < currentSteps().length) {

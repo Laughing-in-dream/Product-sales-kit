@@ -181,6 +181,7 @@ function chooseProduct(productId) {
   const nextProduct = catalog.productLines.find((item) => item.id === productId);
   if (!nextProduct) return;
   state.avmCascade = null;
+  state.c53Cascade = null;
   state.productId = productId;
   state.productPickerOpen = true;
   product = nextProduct;
@@ -324,8 +325,17 @@ function avmCascadeActive() {
 }
 
 function avmCascadeReserved() {
-  if (!avmCascadeActive()) return { ipc: 0, ahd: 0, recording: 0 };
-  return state.avmCascade.reserved || { ipc: 0, ahd: 0, recording: 0 };
+  if (avmCascadeActive()) return state.avmCascade.reserved || { ipc: 0, ahd: 0, recording: 0 };
+  if (c53CascadeActive()) return state.c53Cascade.reserved || { ipc: 0, ahd: 0, recording: 0 };
+  return { ipc: 0, ahd: 0, recording: 0 };
+}
+
+function hostCascadeActive() {
+  return avmCascadeActive() || c53CascadeActive();
+}
+
+function hostCascadeName() {
+  return avmCascadeActive() ? "AVM" : (c53CascadeActive() ? "C53" : "");
 }
 
 function selectedCameraCounts() {

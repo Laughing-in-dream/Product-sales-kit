@@ -360,9 +360,9 @@ function selectedCustomItems() {
 
 function selectedItems() {
   const rows = isCustomFlow() ? selectedCustomItems() : selectedPresetItems();
-  return avmCascadeActive() && state.avmCascade.items?.length
-    ? [...state.avmCascade.items, ...rows]
-    : rows;
+  if (avmCascadeActive() && state.avmCascade.items?.length) return [...state.avmCascade.items, ...rows];
+  if (c53CascadeActive() && state.c53Cascade.items?.length) return [...state.c53Cascade.items, ...rows];
+  return rows;
 }
 
 function updateStepControls() {

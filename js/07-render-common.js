@@ -233,6 +233,118 @@ function renderPresetPackageStep() {
   });
 }
 
+function c53State() {
+  state.c53 = state.c53 || {};
+  state.c53.mode = state.c53.mode || "standalone";
+  state.c53.cascadeHost = state.c53.cascadeHost || "adplus20";
+  return state.c53;
+}
+
+function c53CascadeActive() {
+  return Boolean(state.c53Cascade && state.productId === state.c53Cascade.host);
+}
+
+function c53SetMode(mode) {
+  const c53 = c53State();
+  c53.mode = mode;
+  if (mode === "cascade") {
+    (product?.items || []).filter((item) => [19, 20, 21].includes(item.rowNumber)).forEach((item) => {
+      const block = ensurePresetSelectionState(item.id, item.quantity || "1");
+      block.checked = false;
+      block.quantity = 0;
+    });
+  }
+  render();
+}
+
+function renderC53BaseStep() {
+  const c53 = c53State();
+  const standaloneDiagram = product?.solutions?.find((solution) => solution.id === "S1")?.images?.[0] || "";
+  const cascadeDiagram = product?.solutions?.find((solution) => solution.id === "S3")?.images?.[0] || "";
+  renderPresetPackageStep();
+  wizardStageEl.insertAdjacentHTML("afterbegin", `
+    <section class="c6-section">
+      <h3 class="c6-section-title">${L("方案模式", "Solution mode")}</h3>
+      <div class="option-grid two-col">
+        <button type="button" class="option-card avm-mode-card ${c53.mode === "standalone" ? "active" : ""}" data-c53-mode="standalone">
+          ${standaloneDiagram ? `<div class="avm-mode-visual standalone"><div class="avm-mode-device"><img loading="lazy" decoding="async" src="./${standaloneDiagram}" alt="C53 standalone" /><span>C53</span></div></div>` : ""}
+          <div class="tag">${L("单机", "Standalone")}</div><h3>${L("独立单机", "Standalone C53")}</h3><p>${L("C53 独立运行；GPS 为必选。", "C53 operates independently; GPS is required.")}</p>
+        </button>
+        <button type="button" class="option-card avm-mode-card ${c53.mode === "cascade" ? "active" : ""}" data-c53-mode="cascade">
+          ${cascadeDiagram ? `<div class="avm-mode-visual standalone"><div class="avm-mode-device"><img loading="lazy" decoding="async" src="./${cascadeDiagram}" alt="C53 cascade" /><span>C53 + MDVR</span></div></div>` : ""}
+          <div class="tag">${L("级联", "Cascade")}</div><h3>${L("级联从机", "Cascade slave")}</h3><p>${L("接入 AD Plus 2.0、M1N 2.0 或 M3N，并继续完成主机向导。", "Connect to AD Plus 2.0, M1N 2.0, or M3N, then continue in the host wizard.")}</p>
+        </button>
+      </div>
+    </section>`);
+  wizardStageEl.querySelectorAll("[data-c53-mode]").forEach((node) => node.addEventListener("click", () => c53SetMode(node.dataset.c53Mode)));
+}
+
+function renderC53SelectableStep(rowSet) {
+  const c53 = c53State();
+  let items = m1nItemsByRows(rowSet);
+  if (rowSet === C53_STEP_ROWS.video) {
+    if (c53.mode === "standalone") {
+      const gps = items.find((item) => item.rowNumber === 19);
+      if (gps) {
+        const block = ensurePresetSelectionState(gps.id, gps.quantity || "1");
+        block.checked = true;
+        block.quantity = "1";
+      }
+    } else {
+      items = items.filter((item) => ![19, 20, 21].includes(item.rowNumber));
+    }
+  }
+  renderM1nSelectableStep(items, L("C53 配置", "C53 configuration"));
+}
+
+function renderC53HostStep() {
+  const c53 = c53State();
+  const hosts = { adplus20: "AD Plus 2.0", m1n20: "M1N 2.0", m3n: "M3N" };
+  wizardStageEl.innerHTML = `
+    <section class="c6-section">
+      <h3 class="c6-section-title">${L("上级主机", "Upstream host")}</h3>
+      <p class="c6-section-hint">${L("C53 级联将预占主机 1 路 IPC；未选 CA51 占 2 路录像，选择 CA51 后占 3 路录像。不占主机内置算法。", "C53 reserves 1 host IPC; it uses 2 recording channels without CA51 or 3 with CA51. It does not use host internal AI.")}</p>
+      <div class="option-grid three-col">${Object.entries(hosts).map(([id, name]) => `<button type="button" class="option-card avm-host-card ${c53.cascadeHost === id ? "active" : ""}" data-c53-host="${id}"><div class="avm-host-media"><img loading="lazy" decoding="async" src="./${PRODUCT_META[id]?.entryImage || ""}" alt="${name}" /></div><h3>${name}</h3><p>${L("加入组合清单，随后进入主机原有向导。", "Joins the combined list; its existing host wizard follows.")}</p></button>`).join("")}</div>
+    </section>`;
+  wizardStageEl.querySelectorAll("[data-c53-host]").forEach((node) => node.addEventListener("click", () => { c53.cascadeHost = node.dataset.c53Host; render(); }));
+}
+
+function c53HasCa51() {
+  return (product?.items || []).filter((item) => [22, 23].includes(item.rowNumber)).some((item) => state.selections[item.id]?.checked);
+}
+
+function c53EnterHostFlow() {
+  const c53 = c53State();
+  const cascade = {
+    host: c53.cascadeHost,
+    reserved: { ipc: 1, ahd: 0, recording: c53HasCa51() ? 3 : 2 },
+    items: selectedPresetItems(),
+    snapshot: {
+      c53: JSON.parse(JSON.stringify(state.c53)),
+      selections: JSON.parse(JSON.stringify(state.selections)),
+      packageId: state.packageId,
+    },
+  };
+  chooseProduct(cascade.host);
+  state.c53Cascade = cascade;
+  state.productPickerOpen = false;
+  state.step = isAdplusProduct() ? 2 : 1;
+  render();
+}
+
+function c53ReturnFromHostFlow() {
+  const cascade = state.c53Cascade;
+  if (!cascade) return;
+  chooseProduct("960c53");
+  state.c53Cascade = null;
+  state.c53 = cascade.snapshot.c53;
+  state.selections = cascade.snapshot.selections;
+  state.packageId = cascade.snapshot.packageId;
+  state.productPickerOpen = false;
+  state.step = 5;
+  render();
+}
+
 function z5CoreItem() {
   return product?.items?.find((item) => item.rowNumber === 2) || currentPackage() || packageCandidates()[0] || null;
 }

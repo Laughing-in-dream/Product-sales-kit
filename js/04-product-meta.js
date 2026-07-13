@@ -160,12 +160,11 @@ const AVM_STANDALONE_FLOW_STEPS = {
 
 const C53_STEPS = {
   zh: null, en: [
-    { id: 1, title: "Choose Core Kit", description: "Start by selecting the C53-L or C53-R base kit." },
+    { id: 1, title: "Choose Mode & C53 Kit", description: "Choose standalone or cascade, then select the C53-L or C53-R kit." },
     { id: 2, title: "Choose Base Accessories", description: "Add power box, brackets, input/output cables, and base hardware." },
-    { id: 3, title: "Choose Video & GPS", description: "Select GPS modules, front BSD cameras, and the related video items." },
+    { id: 3, title: "Choose Video & GPS", description: "Standalone requires GPS; choose front BSD cameras and related video items." },
     { id: 4, title: "Choose Screen & Alerts", description: "Add screens, B2 / B3 devices, and their matching extension cables." },
-    { id: 5, title: "Choose Host & Service", description: "Complete the build with MDVR, service cables, and AVOUT adapters." },
-    { id: 6, title: "Review & Export", description: "Check the complete list and export the selected SKUs." },
+    { id: 5, title: "Host Wizard & Review", description: "Cascade continues in the selected host wizard; standalone proceeds to review." },
   ],
 };
 
