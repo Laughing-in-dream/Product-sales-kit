@@ -309,6 +309,17 @@ prevStepBtn.addEventListener("click", () => {
 
 nextStepBtn.addEventListener("click", () => {
   if (!validateCurrentStep()) return;
+  if (is960C53Product() && state.c53?.mode === "standalone" && state.step === 3) {
+    const gpsItems = (product?.items || []).filter((item) => [19, 20, 21].includes(item.rowNumber));
+    const gps = gpsItems.find((item) => state.selections[item.id]?.checked) || gpsItems[0];
+    if (gps) {
+      gpsItems.forEach((item) => {
+        const block = ensurePresetSelectionState(item.id, item.quantity || "1");
+        block.checked = item.id === gps.id;
+        block.quantity = item.id === gps.id ? "1" : "0";
+      });
+    }
+  }
   if (state.productPickerOpen) {
     state.productPickerOpen = false;
     state.step = isAdplusProduct() ? 2 : 1;
