@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sales Configurator Admin</title>
+    <style>
+      :root { color-scheme: light; font-family: Inter, Arial, sans-serif; color: #17282d; background: #f4f8f7; }
+      body { max-width: 1120px; margin: 0 auto; padding: 32px 18px 64px; }
+      header, .metrics, .grid { display: grid; gap: 16px; } header { grid-template-columns: 1fr auto; align-items: end; }
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 24px 0; } .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .card { background: #fff; border: 1px solid #d7e3df; border-radius: 16px; padding: 18px; box-shadow: 0 8px 26px rgba(31, 61, 56, .06); }
+      h1, h2, p { margin-top: 0; } h1 { margin-bottom: 4px; } h2 { font-size: 18px; }
+      .metric { font-size: 36px; font-weight: 800; color: #006b5e; } .muted { color: #61757a; }
+      input, button { box-sizing: border-box; border-radius: 9px; padding: 10px 12px; font: inherit; }
+      input { border: 1px solid #b9cac6; min-width: 260px; } button { border: 0; background: #006b5e; color: #fff; cursor: pointer; font-weight: 700; }
+      table { width: 100%; border-collapse: collapse; font-size: 14px; } th, td { padding: 9px 4px; border-bottom: 1px solid #e6eeeb; text-align: left; vertical-align: top; } th { color: #61757a; }
+      .feedback { grid-column: 1 / -1; } #status { margin: 12px 0 0; color: #9a3b18; } @media (max-width: 720px) { header, .metrics, .grid { grid-template-columns: 1fr; } input { min-width: 0; width: 100%; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div><h1>Sales Configurator Admin</h1><p class="muted">Internal beta telemetry. A solution is counted when an Excel list is exported.</p></div>
+      <form id="token-form"><input id="token" type="password" autocomplete="current-password" placeholder="Administrator token" required /><button>Load dashboard</button></form>
+    </header>
+    <p id="status"></p>
+    <main id="dashboard" hidden>
+      <section class="metrics"><div class="card"><p class="muted">Exported solutions</p><div class="metric" id="exports">0</div><p class="muted">Last 30 days</p></div><div class="card"><p class="muted">Unique browser sessions</p><div class="metric" id="sessions">0</div><p class="muted">Not verified people</p></div></section>
+      <section class="grid"><div class="card"><h2>Products selected</h2><table><thead><tr><th>Product</th><th>Exports</th></tr></thead><tbody id="products"></tbody></table></div><div class="card"><h2>Most-used components</h2><table><thead><tr><th>Part number</th><th>Component</th><th>Uses</th></tr></thead><tbody id="components"></tbody></table></div><div class="card feedback"><h2>Feedback queue</h2><table><thead><tr><th>Received</th><th>Product</th><th>Comment</th><th>Contact</th></tr></thead><tbody id="feedback"></tbody></table></div></section>
+    </main>
+    <script>
+      const escape = (value) => String(value || "").replace(/[&<>\"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[character]));
+      const rows = (items, render, empty) => items.length ? items.map(render).join("") : `<tr><td colspan="4" class="muted">${empty}</td></tr>`;
+      document.getElementById("token-form").addEventListener("submit", async (event) => {
+        event.preventDefault(); const status = document.getElementById("status"); status.textContent = "Loading…";
+        try {
+          const response = await fetch("/api/admin/overview", { headers: { Authorization: `Bearer ${document.getElementById("token").value}` } });
+          if (!response.ok) throw new Error(response.status === 401 ? "The administrator token is incorrect." : "Dashboard could not be loaded.");
+          const data = await response.json(); document.getElementById("exports").textContent = data.exports; document.getElementById("sessions").textContent = data.uniqueSessions;
+          document.getElementById("products").innerHTML = rows(data.productCounts, (item) => `<tr><td>${escape(item.productName || item.productId)}</td><td>${item.exports}</td></tr>`, "No exported solutions yet.");
+          document.getElementById("components").innerHTML = rows(data.components, (item) => `<tr><td>${escape(item.partNumber)}</td><td>${escape(item.name)}</td><td>${item.uses}</td></tr>`, "No components recorded yet.");
+          document.getElementById("feedback").innerHTML = rows(data.feedback, (item) => `<tr><td>${escape(item.createdAt)}</td><td>${escape(item.productName)}</td><td>${escape(item.message)}</td><td>${escape(item.contact)}</td></tr>`, "No feedback yet.");
+          document.getElementById("dashboard").hidden = false; status.textContent = "";
+        } catch (error) { status.textContent = error.message; }
+      });
+    </script>
+  </body>
+</html>

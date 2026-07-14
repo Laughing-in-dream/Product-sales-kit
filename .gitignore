@@ -5,6 +5,7 @@ Desktop.ini
 ~$*.xlsx
 *.tmp
 *.bak
+server/data/
 
 # 与本项目无关的历史遗留目录（另一个 AI 会话的产物）
 compass-pet-run/

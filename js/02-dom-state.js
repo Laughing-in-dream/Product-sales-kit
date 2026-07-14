@@ -7,6 +7,12 @@ const cartListEl = document.getElementById("cart-list");
 const prevStepBtn = document.getElementById("prev-step");
 const nextStepBtn = document.getElementById("next-step");
 const exportExcelBtn = document.getElementById("export-excel");
+const feedbackButton = document.getElementById("feedback-button");
+const feedbackDialog = document.getElementById("feedback-dialog");
+const feedbackForm = document.getElementById("feedback-form");
+const feedbackMessage = document.getElementById("feedback-message");
+const feedbackContact = document.getElementById("feedback-contact");
+const feedbackStatus = document.getElementById("feedback-status");
 
 const state = {
   productId: "adplus20",

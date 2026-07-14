@@ -363,6 +363,89 @@ function exportExcel() {
     workbook,
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   );
+  reportSolutionExport(rows);
+}
+
+function analyticsSessionId() {
+  const key = "sales-configurator-session-id";
+  let sessionId = localStorage.getItem(key);
+  if (!sessionId) {
+    sessionId = crypto.randomUUID();
+    localStorage.setItem(key, sessionId);
+  }
+  return sessionId;
+}
+
+function activeBuildContext() {
+  return {
+    version: APP_VERSION,
+    sessionId: analyticsSessionId(),
+    productId: state.productId,
+    productName: product?.title || state.productId,
+    step: state.step,
+    items: selectedItems().filter((item) => String(item.partNumber || "").trim()).map((item) => ({
+      partNumber: String(item.partNumber || "").trim(),
+      name: String(item.name || "").trim(),
+      quantity: String(item.quantity || "1"),
+    })),
+  };
+}
+
+function postToServer(path, payload) {
+  if (window.location.protocol === "file:") return Promise.reject(new Error("The feedback server is unavailable when opening the HTML file directly."));
+  return fetch(path, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  }).then((response) => {
+    if (!response.ok) throw new Error("The server could not save this request.");
+    return response.json();
+  });
+}
+
+function reportSolutionExport(rows) {
+  const context = activeBuildContext();
+  context.items = rows.map((item) => ({
+    partNumber: String(item.partNumber || "").trim(),
+    name: String(item.name || "").trim(),
+    quantity: String(item.quantity || "1"),
+  }));
+  postToServer("/api/solutions", context).catch(() => {
+    // Export remains available when the site is opened locally or telemetry is temporarily offline.
+  });
+}
+
+function openFeedbackDialog() {
+  feedbackStatus.textContent = "";
+  feedbackForm.reset();
+  if (typeof feedbackDialog.showModal === "function") feedbackDialog.showModal();
+  else feedbackStatus.textContent = "Feedback requires a modern browser.";
+}
+
+function closeFeedbackDialog() {
+  if (feedbackDialog.open) feedbackDialog.close();
+}
+
+function submitFeedback(event) {
+  event.preventDefault();
+  const message = feedbackMessage.value.trim();
+  if (!message) return;
+  feedbackStatus.textContent = "Sending…";
+  const submitButton = feedbackForm.querySelector("button[type=submit]");
+  submitButton.disabled = true;
+  postToServer("/api/feedback", {
+    ...activeBuildContext(),
+    message,
+    contact: feedbackContact.value.trim(),
+    pageUrl: window.location.href,
+  }).then(() => {
+    feedbackStatus.textContent = "Thank you. Your feedback has been sent.";
+    feedbackForm.reset();
+  }).catch((error) => {
+    feedbackStatus.textContent = error.message || "Feedback could not be sent. Please try again later.";
+  }).finally(() => {
+    submitButton.disabled = false;
+  });
 }
 
 function setLanguage(language) {
@@ -431,6 +514,11 @@ nextStepBtn.addEventListener("click", () => {
 });
 
 exportExcelBtn.addEventListener("click", exportExcel);
+feedbackButton.addEventListener("click", openFeedbackDialog);
+feedbackForm.addEventListener("submit", submitFeedback);
+document.querySelectorAll("[data-feedback-close]").forEach((button) => button.addEventListener("click", closeFeedbackDialog));
+
+document.getElementById("app-version").textContent = `Beta ${APP_VERSION}`;
 
 if (product) {
   resetScenarioState();

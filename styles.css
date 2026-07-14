@@ -88,6 +88,108 @@ body {
   justify-content: flex-end;
 }
 
+.version-badge,
+.feedback-button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.68);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  padding: 8px 12px;
+}
+
+.version-badge {
+  color: var(--accent-deep);
+}
+
+.feedback-button {
+  cursor: pointer;
+}
+
+.feedback-button:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.feedback-dialog {
+  width: min(560px, calc(100vw - 32px));
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 0;
+  color: var(--ink);
+  box-shadow: 0 24px 80px rgba(22, 42, 47, 0.28);
+}
+
+.feedback-dialog::backdrop {
+  background: rgba(17, 33, 37, 0.48);
+}
+
+.feedback-dialog form {
+  display: grid;
+  gap: 12px;
+  padding: 24px;
+}
+
+.feedback-dialog-head,
+.feedback-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.feedback-dialog h2 {
+  margin: 4px 0 0;
+  font-size: 22px;
+}
+
+.feedback-help,
+.feedback-status {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.feedback-dialog label {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.feedback-dialog textarea,
+.feedback-dialog input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  color: var(--ink);
+  font: inherit;
+}
+
+.feedback-dialog textarea {
+  min-height: 144px;
+  resize: vertical;
+}
+
+.dialog-close {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.dialog-close:hover {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
 .eyebrow,
 .step {
   display: inline-flex;

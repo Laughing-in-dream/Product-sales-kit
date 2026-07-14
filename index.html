@@ -12,6 +12,8 @@
         <div class="hero-main">
           <div class="topbar">
             <p id="hero-eyebrow" class="eyebrow">AD Plus 2.0</p>
+            <span id="app-version" class="version-badge">Beta B1.0.1</span>
+            <button id="feedback-button" class="feedback-button" type="button">Send feedback</button>
           </div>
           <h1 id="hero-title">一步一步生成 AD Plus 2.0 方案</h1>
           <p id="hero-intro" class="intro">
@@ -62,10 +64,32 @@
       </main>
     </div>
 
+    <dialog id="feedback-dialog" class="feedback-dialog" aria-labelledby="feedback-title">
+      <form id="feedback-form" method="dialog">
+        <div class="feedback-dialog-head">
+          <div>
+            <p class="step">Beta feedback</p>
+            <h2 id="feedback-title">Comment on this page</h2>
+          </div>
+          <button class="dialog-close" type="button" data-feedback-close aria-label="Close feedback form">×</button>
+        </div>
+        <p class="feedback-help">Tell us what is unclear, incorrect, or missing. The active product and selected items will be attached automatically.</p>
+        <label for="feedback-message">Your comment</label>
+        <textarea id="feedback-message" name="message" maxlength="2000" required placeholder="For example: this cable should be included automatically."></textarea>
+        <label for="feedback-contact">Email or name (optional)</label>
+        <input id="feedback-contact" name="contact" maxlength="200" autocomplete="email" placeholder="So we can follow up" />
+        <p id="feedback-status" class="feedback-status" aria-live="polite"></p>
+        <div class="feedback-actions">
+          <button class="secondary" type="button" data-feedback-close>Cancel</button>
+          <button class="primary" type="submit">Send feedback</button>
+        </div>
+      </form>
+    </dialog>
+
     <script src="./catalog-data.js?v=20260710-2"></script>
     <!-- 按编号顺序加载，共享全局作用域，顺序不可调换 -->
-    <script src="./js/01-bootstrap-i18n.js?v=20260714-2"></script>
-    <script src="./js/02-dom-state.js?v=20260714-2"></script>
+    <script src="./js/01-bootstrap-i18n.js?v=20260714-3"></script>
+    <script src="./js/02-dom-state.js?v=20260714-3"></script>
     <script src="./js/03-data-adplus.js?v=20260710-1"></script>
     <script src="./js/04-product-meta.js?v=20260714-4"></script>
     <script src="./js/05-selection-logic.js?v=20260714-2"></script>
@@ -75,6 +99,6 @@
     <script src="./js/09-render-avm-c6.js?v=20260712-7"></script>
     <script src="./js/10-render-mseries.js?v=20260710-1"></script>
     <script src="./js/11-render-adplus.js?v=20260710-1"></script>
-    <script src="./js/12-main.js?v=20260714-2"></script>
+    <script src="./js/12-main.js?v=20260714-3"></script>
   </body>
 </html>

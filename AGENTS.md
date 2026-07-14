@@ -43,6 +43,13 @@
 4. `catalog-data.js` 是生成物，不要直接编辑；数据问题回溯到 Excel 或生成脚本。
 5. 提交信息用中文，说明"改了哪条规则/哪个产品"，而不是只写"更新代码"。
 
+## 发布、版本与分支记录
+
+1. 每次准备发布前，必须更新 `docs/release-notes.md`：用客户能理解的白话写明版本号、日期、功能变化、修复内容和已知限制。
+2. 每次在分支上完成一项可交付工作，必须更新 `docs/branch-log.md`：说明该分支完成了什么业务变化，不写代码行级对比。
+3. 页面显示的版本号以 `js/01-bootstrap-i18n.js` 中的 `APP_VERSION` 为唯一来源；发布时必须同步更新该版本号、Release Notes 和 Branch Work Log。
+4. 发布完成后，为实际部署的 commit 创建同名 Git tag。不要为未部署的 commit 打 release tag。
+
 ## 重新生成数据
 
 ```powershell
