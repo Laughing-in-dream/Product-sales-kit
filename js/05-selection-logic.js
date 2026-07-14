@@ -69,9 +69,9 @@ function itemsForFamily() {
 
 function packageCandidates() {
   if (is960C53Product()) {
-    // The sales sheet labels both the purchasable C53 units and the items
-    // included inside them as “C53 Kit”. Only rows 2–7 are actual kit SKUs.
-    return product.items.filter((item) => item.rowNumber >= 2 && item.rowNumber <= 7);
+    // Only no-logo C53-L/C53-R kits are selectable at entry. Rows 3 and 6
+    // are Streamax-logo variants; rows 8–14 are included kit components.
+    return product.items.filter((item) => [2, 4, 5, 7].includes(item.rowNumber));
   }
   if (isAvmProduct()) {
     return product.items.filter((item) => /kit/i.test(item.group) || /kit/i.test(item.name));

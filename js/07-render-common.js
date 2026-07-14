@@ -258,16 +258,104 @@ function c53SetMode(mode) {
 }
 
 function c53KitItems() {
-  return (product?.items || []).filter((item) => item.rowNumber >= 2 && item.rowNumber <= 7);
+  return (product?.items || []).filter((item) => [2, 4, 5, 7].includes(item.rowNumber));
+}
+
+function c53KitSpec(item) {
+  const row = Number(item?.rowNumber || 0);
+  return {
+    side: row <= 4 ? "left" : "right",
+    finish: [2, 5].includes(row) ? "white" : "black",
+  };
 }
 
 function c53KitTraits(item) {
-  const row = Number(item?.rowNumber || 0);
+  const spec = c53KitSpec(item);
   return {
-    side: row <= 4 ? L("左侧安装", "Left side") : L("右侧安装", "Right side"),
-    finish: [2, 3, 5, 6].includes(row) ? L("白色", "White") : L("黑色", "Black"),
-    logo: [3, 6].includes(row) ? "Streamax logo" : L("无 Logo", "No logo"),
+    side: spec.side === "left" ? L("左侧安装", "Left side") : L("右侧安装", "Right side"),
+    finish: spec.finish === "white" ? L("白色", "White") : L("黑色", "Black"),
   };
+}
+
+function c53SelectedKitIds() {
+  const c53 = c53State();
+  const kits = c53KitItems();
+  const validIds = new Set(kits.map((item) => item.id));
+  let selectedIds = Array.isArray(c53.kitIds) ? c53.kitIds.filter((id) => validIds.has(id)) : [];
+  if (!selectedIds.length) selectedIds = [validIds.has(state.packageId) ? state.packageId : kits[0]?.id].filter(Boolean);
+
+  // One kit per installation side. Keep the most recently retained choice.
+  const bySide = new Map();
+  selectedIds.forEach((id) => {
+    const item = kits.find((kit) => kit.id === id);
+    if (item) bySide.set(c53KitSpec(item).side, id);
+  });
+  c53.kitIds = [...bySide.values()];
+  return c53.kitIds;
+}
+
+function c53SelectedKitItems() {
+  const selectedIds = new Set(c53SelectedKitIds());
+  return c53KitItems().filter((item) => selectedIds.has(item.id));
+}
+
+function c53BracketSpec(item) {
+  const specs = {
+    15: { side: "right", finish: "white" },
+    16: { side: "left", finish: "white" },
+    17: { side: "right", finish: "black" },
+    18: { side: "left", finish: "black" },
+  };
+  return specs[Number(item.rowNumber)];
+}
+
+function c53SyncBracketSelections() {
+  const selectedSpecs = c53SelectedKitItems().map(c53KitSpec);
+  m1nItemsByRows(C53_STEP_ROWS.base).forEach((item) => {
+    const bracket = c53BracketSpec(item);
+    const compatible = bracket && selectedSpecs.some((kit) => kit.side === bracket.side && kit.finish === bracket.finish);
+    if (!compatible && state.selections[item.id]) {
+      state.selections[item.id].checked = false;
+      state.selections[item.id].quantity = "0";
+    }
+  });
+}
+
+function c53SyncKitSelections() {
+  const selectedIds = new Set(c53SelectedKitIds());
+  c53KitItems().forEach((item) => {
+    if (!state.selections[item.id]) state.selections[item.id] = { checked: false, quantity: "0" };
+    state.selections[item.id].checked = selectedIds.has(item.id);
+    state.selections[item.id].quantity = selectedIds.has(item.id) ? "1" : "0";
+  });
+  state.packageId = c53SelectedKitIds()[0] || null;
+  c53SyncBracketSelections();
+}
+
+function c53SetKit(itemId) {
+  const item = c53KitItems().find((kit) => kit.id === itemId);
+  if (!item) return;
+  const c53 = c53State();
+  const currentIds = c53SelectedKitIds();
+  const side = c53KitSpec(item).side;
+  const isSelected = currentIds.includes(itemId);
+  const otherSideIds = currentIds.filter((id) => {
+    const selectedItem = c53KitItems().find((kit) => kit.id === id);
+    return selectedItem && c53KitSpec(selectedItem).side !== side;
+  });
+
+  // Keep at least one C53 kit selected; otherwise a click toggles or replaces its side.
+  c53.kitIds = isSelected && currentIds.length === 1 ? currentIds : (isSelected ? otherSideIds : [...otherSideIds, itemId]);
+  c53SyncKitSelections();
+  render();
+}
+
+function c53VisibleBaseItems() {
+  const selectedSpecs = c53SelectedKitItems().map(c53KitSpec);
+  return m1nItemsByRows(C53_STEP_ROWS.base).filter((item) => {
+    const bracket = c53BracketSpec(item);
+    return bracket && selectedSpecs.some((kit) => kit.side === bracket.side && kit.finish === bracket.finish);
+  });
 }
 
 function c53ModeVisual(modeId, preview) {
@@ -279,7 +367,8 @@ function c53ModeVisual(modeId, preview) {
 function renderC53BaseStep() {
   const c53 = c53State();
   const kits = c53KitItems();
-  const selectedKit = currentPackage() || kits[0];
+  c53SyncKitSelections();
+  const selectedKit = c53SelectedKitItems()[0] || kits[0];
   const c53Preview = fallbackItemPreviewAsset(selectedKit) || PRODUCT_META["960c53"]?.entryImage || "";
   wizardStageEl.innerHTML = `
     <section class="c6-section">
@@ -297,20 +386,21 @@ function renderC53BaseStep() {
     </section>
     <section class="c6-section">
       <h3 class="c6-section-title">${L("选择 C53 套装", "Choose C53 kit")}</h3>
-      <p class="c6-section-hint">${L("按安装侧、机身颜色与 Logo 选择。B3、匹配短支架、电源盒、视频输出线、串口输入线及螺丝刀均已包含在套装内。", "Choose installation side, finish, and logo. The B3, matching short bracket, power box, video output cable, serial input cable, and screwdriver are included in the kit.")}</p>
+      <p class="c6-section-hint">${L("左、右侧可各选一套，也可仅选单侧。B3、匹配短支架、电源盒、视频输出线、串口输入线及螺丝刀均已包含在套装内。", "Select up to two kits: one left and one right, or a single side. The B3, matching short bracket, power box, video output cable, serial input cable, and screwdriver are included in the kit.")}</p>
       <div class="option-grid three-col">${kits.map((item) => {
         const traits = c53KitTraits(item);
         const preview = fallbackItemPreviewAsset(item);
-        return `<button type="button" class="option-card avm-host-card ${item.id === state.packageId ? "active" : ""}" data-c53-kit="${item.id}"><div class="avm-host-media">${preview ? `<img loading="lazy" decoding="async" src="./${preview}" alt="${displayCatalogText(item.name)}" />` : ""}</div><div class="tag">${traits.side}</div><h3>${displayCatalogText(item.name)}</h3><div class="sku">${item.partNumber}</div><p>${traits.finish} · ${traits.logo}</p></button>`;
+        return `<button type="button" class="option-card avm-host-card ${c53SelectedKitIds().includes(item.id) ? "active" : ""}" data-c53-kit="${item.id}"><div class="avm-host-media">${preview ? `<img loading="lazy" decoding="async" src="./${preview}" alt="${displayCatalogText(item.name)}" />` : ""}</div><div class="tag">${traits.side}</div><h3>${displayCatalogText(item.name)}</h3><div class="sku">${item.partNumber}</div><p>${traits.finish} · ${L("无 Logo", "No logo")}</p></button>`;
       }).join("")}</div>
     </section>`;
   wizardStageEl.querySelectorAll("[data-c53-mode]").forEach((node) => node.addEventListener("click", () => c53SetMode(node.dataset.c53Mode)));
-  wizardStageEl.querySelectorAll("[data-c53-kit]").forEach((node) => node.addEventListener("click", () => choosePackage(node.dataset.c53Kit)));
+  wizardStageEl.querySelectorAll("[data-c53-kit]").forEach((node) => node.addEventListener("click", () => c53SetKit(node.dataset.c53Kit)));
 }
 
 function renderC53SelectableStep(rowSet) {
   const c53 = c53State();
-  let items = m1nItemsByRows(rowSet);
+  c53SyncKitSelections();
+  let items = rowSet === C53_STEP_ROWS.base ? c53VisibleBaseItems() : m1nItemsByRows(rowSet);
   if (rowSet === C53_STEP_ROWS.video) {
     if (c53.mode === "standalone") {
       const gps = items.find((item) => item.rowNumber === 19);
