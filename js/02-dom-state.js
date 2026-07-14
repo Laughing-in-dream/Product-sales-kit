@@ -6,10 +6,7 @@ const summaryMetaEl = document.getElementById("summary-meta");
 const cartListEl = document.getElementById("cart-list");
 const prevStepBtn = document.getElementById("prev-step");
 const nextStepBtn = document.getElementById("next-step");
-const exportCsvBtn = document.getElementById("export-csv");
-const exportJsonBtn = document.getElementById("export-json");
-const langZhBtn = document.getElementById("lang-zh");
-const langEnBtn = document.getElementById("lang-en");
+const exportExcelBtn = document.getElementById("export-excel");
 
 const state = {
   productId: "adplus20",
