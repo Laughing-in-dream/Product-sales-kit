@@ -61,10 +61,9 @@ function renderStage() {
       if (state.avm?.mode === "standalone") { renderReviewStep(); return; }
     }
     if (is960C53Product()) {
-      if (state.step === 2) { renderC53SelectableStep(C53_STEP_ROWS.base); return; }
-      if (state.step === 3) { renderC53SelectableStep(C53_STEP_ROWS.video); return; }
-      if (state.step === 4) { renderC53SelectableStep(C53_STEP_ROWS.display); return; }
-      if (state.step === 5 && state.c53?.mode === "cascade") { renderC53HostStep(); return; }
+      if (state.step === 2) { renderC53SetupStep(); return; }
+      if (state.step === 3) { renderC53DisplayStep(); return; }
+      if (state.step === 4 && state.c53?.mode === "cascade") { renderC53HostStep(); return; }
       renderReviewStep();
       return;
     }
@@ -309,7 +308,7 @@ prevStepBtn.addEventListener("click", () => {
 
 nextStepBtn.addEventListener("click", () => {
   if (!validateCurrentStep()) return;
-  if (is960C53Product() && state.c53?.mode === "standalone" && state.step === 3) {
+  if (is960C53Product() && state.c53?.mode === "standalone" && state.step === 2) {
     const gpsItems = (product?.items || []).filter((item) => [19, 20, 21].includes(item.rowNumber));
     const gps = gpsItems.find((item) => state.selections[item.id]?.checked) || gpsItems[0];
     if (gps) {
@@ -330,7 +329,7 @@ nextStepBtn.addEventListener("click", () => {
     avmEnterHostFlow();
     return;
   }
-  if (is960C53Product() && state.c53?.mode === "cascade" && state.step === 5) {
+  if (is960C53Product() && state.c53?.mode === "cascade" && state.step === 4) {
     c53EnterHostFlow();
     return;
   }
