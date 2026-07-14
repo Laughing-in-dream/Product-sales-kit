@@ -358,28 +358,31 @@ function c53VisibleBaseItems() {
   });
 }
 
-function c53ModeVisual(modeId, preview) {
-  const c53Node = `<div class="avm-mode-device"><img loading="lazy" decoding="async" src="./${preview}" alt="C53" /><span>C53</span></div>`;
-  if (modeId === "standalone") return `<div class="avm-mode-visual standalone">${c53Node}</div>`;
-  return `<div class="avm-mode-visual cascade">${c53Node}<span class="avm-mode-plus">+</span><div class="avm-mode-device"><img loading="lazy" decoding="async" src="./North America Sales List-FILE/M1N 2_0/Image/3-M1N 2.0 -image.png" alt="MDVR" /><span>MDVR</span></div></div>`;
+function c53ModeVisual(modeId, selectedKits) {
+  const c53Nodes = selectedKits.map((item) => {
+    const preview = fallbackItemPreviewAsset(item);
+    const traits = c53KitTraits(item);
+    return `<div class="avm-mode-device c53-mode-device"><img loading="lazy" decoding="async" src="./${preview}" alt="${displayCatalogText(item.name)}" /><span>${traits.side} · C53</span></div>`;
+  }).join("");
+  if (modeId === "standalone") return `<div class="avm-mode-visual standalone">${c53Nodes}</div>`;
+  return `<div class="avm-mode-visual cascade">${c53Nodes}<span class="avm-mode-plus">+</span><div class="avm-mode-device"><img loading="lazy" decoding="async" src="./North America Sales List-FILE/M1N 2_0/Image/3-M1N 2.0 -image.png" alt="MDVR" /><span>MDVR</span></div></div>`;
 }
 
 function renderC53BaseStep() {
   const c53 = c53State();
   const kits = c53KitItems();
   c53SyncKitSelections();
-  const selectedKit = c53SelectedKitItems()[0] || kits[0];
-  const c53Preview = fallbackItemPreviewAsset(selectedKit) || PRODUCT_META["960c53"]?.entryImage || "";
+  const selectedKits = c53SelectedKitItems();
   wizardStageEl.innerHTML = `
     <section class="c6-section">
       <h3 class="c6-section-title">${L("方案模式", "Solution mode")}</h3>
       <div class="option-grid two-col">
         <button type="button" class="option-card avm-mode-card ${c53.mode === "standalone" ? "active" : ""}" data-c53-mode="standalone">
-          ${c53Preview ? c53ModeVisual("standalone", c53Preview) : ""}
+          ${c53ModeVisual("standalone", selectedKits)}
           <div class="tag">${L("单机", "Standalone")}</div><h3>${L("独立单机", "Standalone C53")}</h3><p>${L("C53 独立运行；GPS 为必选。", "C53 operates independently; GPS is required.")}</p>
         </button>
         <button type="button" class="option-card avm-mode-card ${c53.mode === "cascade" ? "active" : ""}" data-c53-mode="cascade">
-          ${c53Preview ? c53ModeVisual("cascade", c53Preview) : ""}
+          ${c53ModeVisual("cascade", selectedKits)}
           <div class="tag">${L("级联", "Cascade")}</div><h3>${L("级联从机", "Cascade slave")}</h3><p>${L("接入 AD Plus 2.0、M1N 2.0 或 M3N，并继续完成主机向导。", "Connect to AD Plus 2.0, M1N 2.0, or M3N, then continue in the host wizard.")}</p>
         </button>
       </div>
@@ -390,7 +393,8 @@ function renderC53BaseStep() {
       <div class="option-grid three-col">${kits.map((item) => {
         const traits = c53KitTraits(item);
         const preview = fallbackItemPreviewAsset(item);
-        return `<button type="button" class="option-card avm-host-card ${c53SelectedKitIds().includes(item.id) ? "active" : ""}" data-c53-kit="${item.id}"><div class="avm-host-media">${preview ? `<img loading="lazy" decoding="async" src="./${preview}" alt="${displayCatalogText(item.name)}" />` : ""}</div><div class="tag">${traits.side}</div><h3>${displayCatalogText(item.name)}</h3><div class="sku">${item.partNumber}</div><p>${traits.finish} · ${L("无 Logo", "No logo")}</p></button>`;
+        const selected = c53SelectedKitIds().includes(item.id);
+        return `<button type="button" class="option-card avm-host-card ${selected ? "active" : ""}" aria-pressed="${selected}" data-c53-kit="${item.id}"><div class="avm-host-media">${preview ? `<img loading="lazy" decoding="async" src="./${preview}" alt="${displayCatalogText(item.name)}" />` : ""}</div><div class="tag">${traits.side}</div><h3>${displayCatalogText(item.name)}</h3><div class="sku">${item.partNumber}</div><p>${traits.finish} · ${L("无 Logo", "No logo")}</p><div class="c53-kit-selection ${selected ? "is-selected" : ""}"><span class="c53-kit-check">${selected ? "✓" : ""}</span><span>${selected ? L("已选择", "Selected") : L("点击选择", "Click to select")}</span></div></button>`;
       }).join("")}</div>
     </section>`;
   wizardStageEl.querySelectorAll("[data-c53-mode]").forEach((node) => node.addEventListener("click", () => c53SetMode(node.dataset.c53Mode)));

@@ -234,6 +234,10 @@ body {
   width: min(78%, 260px);
 }
 
+.avm-mode-visual.standalone .avm-mode-device.c53-mode-device {
+  width: min(42%, 190px);
+}
+
 .avm-mode-visual.cascade .avm-mode-device {
   flex: 1 1 0;
 }
@@ -482,6 +486,39 @@ button.secondary {
 .avm-host-card p {
   align-self: start;
   margin: 0;
+}
+
+.c53-kit-selection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.c53-kit-check {
+  display: inline-grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 1.5px solid rgba(15, 118, 110, 0.34);
+  border-radius: 7px;
+  background: #fff;
+  color: #fff;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.c53-kit-selection.is-selected {
+  color: var(--accent-deep);
+}
+
+.c53-kit-selection.is-selected .c53-kit-check {
+  border-color: var(--accent);
+  background: var(--accent);
 }
 
 .scenario-grid,
