@@ -1,4 +1,4 @@
-const PRODUCT_ENTRY_IDS = ["adplus20", "m1n20", "m3n", "c6lite20", "avm", "z5", "960c53", "966c46ipc"];
+const PRODUCT_ENTRY_IDS = ["adplus20", "m1n20", "m3n", "c6lite20", "avm", "z5", "960c53"];
 
 function currentProduct() {
   return product;
