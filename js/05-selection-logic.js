@@ -68,6 +68,11 @@ function itemsForFamily() {
 }
 
 function packageCandidates() {
+  if (is960C53Product()) {
+    // The sales sheet labels both the purchasable C53 units and the items
+    // included inside them as “C53 Kit”. Only rows 2–7 are actual kit SKUs.
+    return product.items.filter((item) => item.rowNumber >= 2 && item.rowNumber <= 7);
+  }
   if (isAvmProduct()) {
     return product.items.filter((item) => /kit/i.test(item.group) || /kit/i.test(item.name));
   }

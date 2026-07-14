@@ -257,26 +257,55 @@ function c53SetMode(mode) {
   render();
 }
 
+function c53KitItems() {
+  return (product?.items || []).filter((item) => item.rowNumber >= 2 && item.rowNumber <= 7);
+}
+
+function c53KitTraits(item) {
+  const row = Number(item?.rowNumber || 0);
+  return {
+    side: row <= 4 ? L("左侧安装", "Left side") : L("右侧安装", "Right side"),
+    finish: [2, 3, 5, 6].includes(row) ? L("白色", "White") : L("黑色", "Black"),
+    logo: [3, 6].includes(row) ? "Streamax logo" : L("无 Logo", "No logo"),
+  };
+}
+
+function c53ModeVisual(modeId, preview) {
+  const c53Node = `<div class="avm-mode-device"><img loading="lazy" decoding="async" src="./${preview}" alt="C53" /><span>C53</span></div>`;
+  if (modeId === "standalone") return `<div class="avm-mode-visual standalone">${c53Node}</div>`;
+  return `<div class="avm-mode-visual cascade">${c53Node}<span class="avm-mode-plus">+</span><div class="avm-mode-device"><img loading="lazy" decoding="async" src="./North America Sales List-FILE/M1N 2_0/Image/3-M1N 2.0 -image.png" alt="MDVR" /><span>MDVR</span></div></div>`;
+}
+
 function renderC53BaseStep() {
   const c53 = c53State();
-  const standaloneDiagram = product?.solutions?.find((solution) => solution.id === "S1")?.images?.[0] || "";
-  const cascadeDiagram = product?.solutions?.find((solution) => solution.id === "S3")?.images?.[0] || "";
-  renderPresetPackageStep();
-  wizardStageEl.insertAdjacentHTML("afterbegin", `
+  const kits = c53KitItems();
+  const selectedKit = currentPackage() || kits[0];
+  const c53Preview = fallbackItemPreviewAsset(selectedKit) || PRODUCT_META["960c53"]?.entryImage || "";
+  wizardStageEl.innerHTML = `
     <section class="c6-section">
       <h3 class="c6-section-title">${L("方案模式", "Solution mode")}</h3>
       <div class="option-grid two-col">
         <button type="button" class="option-card avm-mode-card ${c53.mode === "standalone" ? "active" : ""}" data-c53-mode="standalone">
-          ${standaloneDiagram ? `<div class="avm-mode-visual standalone"><div class="avm-mode-device"><img loading="lazy" decoding="async" src="./${standaloneDiagram}" alt="C53 standalone" /><span>C53</span></div></div>` : ""}
+          ${c53Preview ? c53ModeVisual("standalone", c53Preview) : ""}
           <div class="tag">${L("单机", "Standalone")}</div><h3>${L("独立单机", "Standalone C53")}</h3><p>${L("C53 独立运行；GPS 为必选。", "C53 operates independently; GPS is required.")}</p>
         </button>
         <button type="button" class="option-card avm-mode-card ${c53.mode === "cascade" ? "active" : ""}" data-c53-mode="cascade">
-          ${cascadeDiagram ? `<div class="avm-mode-visual standalone"><div class="avm-mode-device"><img loading="lazy" decoding="async" src="./${cascadeDiagram}" alt="C53 cascade" /><span>C53 + MDVR</span></div></div>` : ""}
+          ${c53Preview ? c53ModeVisual("cascade", c53Preview) : ""}
           <div class="tag">${L("级联", "Cascade")}</div><h3>${L("级联从机", "Cascade slave")}</h3><p>${L("接入 AD Plus 2.0、M1N 2.0 或 M3N，并继续完成主机向导。", "Connect to AD Plus 2.0, M1N 2.0, or M3N, then continue in the host wizard.")}</p>
         </button>
       </div>
-    </section>`);
+    </section>
+    <section class="c6-section">
+      <h3 class="c6-section-title">${L("选择 C53 套装", "Choose C53 kit")}</h3>
+      <p class="c6-section-hint">${L("按安装侧、机身颜色与 Logo 选择。B3、匹配短支架、电源盒、视频输出线、串口输入线及螺丝刀均已包含在套装内。", "Choose installation side, finish, and logo. The B3, matching short bracket, power box, video output cable, serial input cable, and screwdriver are included in the kit.")}</p>
+      <div class="option-grid three-col">${kits.map((item) => {
+        const traits = c53KitTraits(item);
+        const preview = fallbackItemPreviewAsset(item);
+        return `<button type="button" class="option-card avm-host-card ${item.id === state.packageId ? "active" : ""}" data-c53-kit="${item.id}"><div class="avm-host-media">${preview ? `<img loading="lazy" decoding="async" src="./${preview}" alt="${displayCatalogText(item.name)}" />` : ""}</div><div class="tag">${traits.side}</div><h3>${displayCatalogText(item.name)}</h3><div class="sku">${item.partNumber}</div><p>${traits.finish} · ${traits.logo}</p></button>`;
+      }).join("")}</div>
+    </section>`;
   wizardStageEl.querySelectorAll("[data-c53-mode]").forEach((node) => node.addEventListener("click", () => c53SetMode(node.dataset.c53Mode)));
+  wizardStageEl.querySelectorAll("[data-c53-kit]").forEach((node) => node.addEventListener("click", () => choosePackage(node.dataset.c53Kit)));
 }
 
 function renderC53SelectableStep(rowSet) {
