@@ -283,16 +283,10 @@ function c53SelectedKitIds() {
   const c53 = c53State();
   const kits = c53KitItems();
   const validIds = new Set(kits.map((item) => item.id));
-  let selectedIds = Array.isArray(c53.kitIds) ? c53.kitIds.filter((id) => validIds.has(id)) : [];
-  if (!selectedIds.length) selectedIds = [validIds.has(state.packageId) ? state.packageId : kits[0]?.id].filter(Boolean);
-
-  // One kit per installation side. Keep the most recently retained choice.
-  const bySide = new Map();
-  selectedIds.forEach((id) => {
-    const item = kits.find((kit) => kit.id === id);
-    if (item) bySide.set(c53KitSpec(item).side, id);
-  });
-  c53.kitIds = [...bySide.values()];
+  const savedIds = Array.isArray(c53.kitIds) ? c53.kitIds.filter((id) => validIds.has(id)) : [];
+  const selectedId = validIds.has(state.packageId) ? state.packageId : (savedIds[0] || kits[0]?.id);
+  // A C53 solution is a single-kit build: C53-L and C53-R are alternatives.
+  c53.kitIds = selectedId ? [selectedId] : [];
   return c53.kitIds;
 }
 
@@ -338,16 +332,8 @@ function c53SetKit(itemId) {
   const item = c53KitItems().find((kit) => kit.id === itemId);
   if (!item) return;
   const c53 = c53State();
-  const currentIds = c53SelectedKitIds();
-  const side = c53KitSpec(item).side;
-  const isSelected = currentIds.includes(itemId);
-  const otherSideIds = currentIds.filter((id) => {
-    const selectedItem = c53KitItems().find((kit) => kit.id === id);
-    return selectedItem && c53KitSpec(selectedItem).side !== side;
-  });
-
-  // Keep at least one C53 kit selected; otherwise a click toggles or replaces its side.
-  c53.kitIds = isSelected && currentIds.length === 1 ? currentIds : (isSelected ? otherSideIds : [...otherSideIds, itemId]);
+  c53.kitIds = [itemId];
+  state.packageId = itemId;
   c53SyncKitSelections();
   render();
 }
@@ -493,7 +479,7 @@ function renderC53BaseStep() {
     </section>
     <section class="c6-section">
       <h3 class="c6-section-title">${L("选择 C53 套装", "Choose C53 kit")}</h3>
-      <p class="c6-section-hint">${L("左、右侧可各选一套，也可仅选单侧。B3、匹配短支架、电源盒、视频输出线、串口输入线及螺丝刀均已包含在套装内。", "Select up to two kits: one left and one right, or a single side. The B3, matching short bracket, power box, video output cable, serial input cable, and screwdriver are included in the kit.")}</p>
+      <p class="c6-section-hint">${L("左、右侧和颜色为互斥选项，请选择一套 C53。B3、匹配短支架、电源盒、视频输出线、串口输入线及螺丝刀均已包含在套装内。", "Left/right and finish are mutually exclusive. Select one C53 kit. The B3, matching short bracket, power box, video output cable, serial input cable, and screwdriver are included in the kit.")}</p>
       <div class="option-grid three-col">${kits.map((item) => {
         const traits = c53KitTraits(item);
         const preview = fallbackItemPreviewAsset(item);
