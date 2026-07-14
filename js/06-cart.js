@@ -1,5 +1,6 @@
 function selectedPresetItems() {
   if (isAvmProduct()) return selectedAvmItems();
+  if (is960C53Product()) return selectedC53Items();
   const rows = itemsForFamily()
     .filter((item) => {
       // C6: AHD extension cables are chosen per-camera (nested); the AHD expansion cable (r15) is auto-added.

@@ -237,6 +237,8 @@ function c53State() {
   state.c53 = state.c53 || {};
   state.c53.mode = state.c53.mode || "standalone";
   state.c53.cascadeHost = state.c53.cascadeHost || "adplus20";
+  state.c53.b2 = state.c53.b2 || { right: false, left: false, extensions: { right: 37, left: 37 } };
+  state.c53.b2.extensions = state.c53.b2.extensions || { right: 37, left: 37 };
   return state.c53;
 }
 
@@ -358,6 +360,108 @@ function c53VisibleBaseItems() {
   });
 }
 
+function c53ItemByRow(rowNumber) {
+  return (product?.items || []).find((item) => item.rowNumber === rowNumber) || null;
+}
+
+function c53ExternalItem(rowNumber) {
+  return findCatalogItem("adplus20", rowNumber) || null;
+}
+
+function c53Ca51Item() {
+  const source = c53ItemByRow(22);
+  return source ? {
+    ...source,
+    id: "c53-ca51a-n",
+    partNumber: "5151077100026",
+    note: L("1080P，N 制；选择后必须选择一条 C53 to CA51 延长线。", "1080P, NTSC. Select one C53 to CA51 extension cable after choosing the camera."),
+  } : null;
+}
+
+function c53SelectableCard(item, inputAttr, checked, detail = "", locked = false) {
+  const preview = skuInfo(item?.partNumber)?.image || fallbackItemPreviewAsset(item);
+  const name = skuInfo(item?.partNumber)?.title ? localizedText(skuInfo(item.partNumber).title) : displayCatalogText(item?.name || "");
+  return `<section class="group-card accessory-row-group"><label class="item-card accessory-row-card ${checked ? "selected" : ""}"><div class="accessory-row-media">${preview ? `<img loading="lazy" decoding="async" class="thumb" src="./${preview}" alt="${name}" />` : `<div class="thumb"></div>`}</div><div class="accessory-row-copy"><h4>${name}</h4><div class="sku">${item?.partNumber || t().noPartNumber}</div><p>${detail || displayCatalogText(item?.note || item?.description || "")}</p></div><div class="accessory-row-control"><input type="checkbox" ${inputAttr} ${checked ? "checked" : ""} ${locked ? "disabled" : ""} /></div></label></section>`;
+}
+
+function c53ApplyGpsRule() {
+  const gpsRows = [19, 20, 21];
+  gpsRows.forEach((row) => {
+    const item = c53ItemByRow(row);
+    if (!item) return;
+    const block = ensurePresetSelectionState(item.id, item.quantity || "1");
+    const selected = c53State().mode === "standalone" && row === 19;
+    block.checked = selected;
+    block.quantity = selected ? "1" : "0";
+  });
+}
+
+function c53CameraExtensionItems() {
+  return [31, 32, 33, 34].map(c53ItemByRow).filter(Boolean);
+}
+
+function c53B2Items() {
+  return { right: c53ItemByRow(35), left: c53ItemByRow(36) };
+}
+
+function c53B2ExtensionItems() {
+  return [37, 38, 39].map(c53ItemByRow).filter(Boolean);
+}
+
+function c53BomLine(item, quantity = "1") {
+  return {
+    product: product.title,
+    scenario: localizedText(currentScenario()?.title || ""),
+    family: state.familyId || "",
+    group: displayCatalogText(item.group),
+    name: skuInfo(item.partNumber)?.title ? localizedText(skuInfo(item.partNumber).title) : displayCatalogText(item.name),
+    partNumber: item.partNumber,
+    quantity: String(quantity),
+    note: displayCatalogText(item.note || ""),
+    description: displayCatalogText(item.description || ""),
+  };
+}
+
+function selectedC53Items() {
+  c53SyncKitSelections();
+  c53ApplyGpsRule();
+  const c53 = c53State();
+  const rows = [];
+  c53SelectedKitItems().forEach((item) => rows.push(c53BomLine(item)));
+  c53VisibleBaseItems().filter((item) => state.selections[item.id]?.checked).forEach((item) => rows.push(c53BomLine(item)));
+  if (c53.mode === "standalone") {
+    const gps = c53ItemByRow(19);
+    if (gps) rows.push(c53BomLine(gps));
+  }
+  if (c53.ca51Selected) {
+    const camera = c53Ca51Item();
+    const extension = c53ItemByRow(Number(c53.ca51ExtensionRow || 31));
+    if (camera) rows.push(c53BomLine(camera));
+    if (extension) rows.push(c53BomLine(extension));
+  }
+  const cameraBracket = c53ItemByRow(25);
+  if (cameraBracket && state.selections[cameraBracket.id]?.checked) rows.push(c53BomLine(cameraBracket));
+  if (c53.screenSelected) {
+    const screen = c53ExternalItem(40);
+    const signalAdapter = c53ExternalItem(41);
+    if (screen) rows.push(c53BomLine(screen));
+    if (signalAdapter) rows.push(c53BomLine(signalAdapter));
+  }
+  [29, 30].map(c53ItemByRow).filter((item) => state.selections[item.id]?.checked).forEach((item) => rows.push(c53BomLine(item)));
+  const b2Items = c53B2Items();
+  const b2ExtensionItems = c53B2ExtensionItems();
+  const selectedB2Sides = ["right", "left"].filter((side) => c53.b2[side]);
+  selectedB2Sides.forEach((side) => {
+    const alarm = b2Items[side];
+    const extension = b2ExtensionItems.find((item) => item.rowNumber === Number(c53.b2.extensions[side] || 37));
+    if (alarm) rows.push(c53BomLine(alarm));
+    if (extension) rows.push(c53BomLine(extension));
+  });
+  const b2Adapter = selectedB2Sides.length === 1 ? c53ExternalItem(45) : selectedB2Sides.length === 2 ? c53ExternalItem(46) : null;
+  if (b2Adapter) rows.push(c53BomLine(b2Adapter));
+  return rows;
+}
+
 function c53ModeVisual(modeId, selectedKits) {
   const c53Nodes = selectedKits.map((item) => {
     const preview = fallbackItemPreviewAsset(item);
@@ -401,9 +505,60 @@ function renderC53BaseStep() {
   wizardStageEl.querySelectorAll("[data-c53-kit]").forEach((node) => node.addEventListener("click", () => c53SetKit(node.dataset.c53Kit)));
 }
 
+function renderC53VideoStep() {
+  const c53 = c53State();
+  c53ApplyGpsRule();
+  const gps = c53ItemByRow(19);
+  const camera = c53Ca51Item();
+  const cameraBracket = c53ItemByRow(25);
+  const extensions = c53CameraExtensionItems();
+  const selectedExtension = Number(c53.ca51ExtensionRow || 31);
+  wizardStageEl.innerHTML = `
+    ${c53.mode === "standalone" ? `<section class="c6-section"><h3 class="c6-section-title">${L("GPS 定位", "GPS positioning")}</h3><p class="c6-section-hint">${L("单机模式必须带 GPS；仅提供推荐的 GOTOP 版本。", "Standalone mode requires GPS; only the recommended GOTOP version is available.")}</p><div class="group-list accessory-vertical-list">${gps ? c53SelectableCard(gps, "data-c53-gps", true, "", true) : ""}</div></section>` : `<section class="c6-section"><h3 class="c6-section-title">${L("GPS 定位", "GPS positioning")}</h3><p class="c6-section-hint">${L("级联模式由上级 MDVR 提供定位，不需额外 GPS。", "The upstream MDVR provides positioning in cascade mode; no additional GPS is needed.")}</p></section>`}
+    <section class="c6-section"><h3 class="c6-section-title">${L("前盲区摄像头", "Front BSD camera")}</h3><p class="c6-section-hint">${L("选择 N 制 CA51-A 后，必须为该摄像头选择一条 C53 to CA51 延长线。", "Selecting the NTSC CA51-A requires one C53 to CA51 extension cable.")}</p><div class="group-list accessory-vertical-list">${camera ? c53SelectableCard(camera, "data-c53-ca51", Boolean(c53.ca51Selected)) : ""}${c53.ca51Selected ? `<div class="extension-picker"><label><span>${L("C53 to CA51 延长线", "C53 to CA51 extension cable")}</span><select data-c53-ca51-extension>${extensions.map((item) => `<option value="${item.rowNumber}" ${item.rowNumber === selectedExtension ? "selected" : ""}>${formatExtensionOptionLabel(item)}</option>`).join("")}</select></label><p class="hint">${L("每个已选 CA51-A 必须配一条延长线。", "Each selected CA51-A requires one extension cable.")}</p></div>` : ""}${cameraBracket ? c53SelectableCard(cameraBracket, `data-c53-simple="${cameraBracket.id}"`, Boolean(state.selections[cameraBracket.id]?.checked)) : ""}</div></section>`;
+  wizardStageEl.querySelectorAll("[data-c53-ca51]").forEach((node) => node.addEventListener("change", (event) => { c53.ca51Selected = event.target.checked; if (c53.ca51Selected && !extensions.some((item) => item.rowNumber === Number(c53.ca51ExtensionRow))) c53.ca51ExtensionRow = 31; render(); }));
+  wizardStageEl.querySelectorAll("[data-c53-ca51-extension]").forEach((node) => node.addEventListener("change", () => { c53.ca51ExtensionRow = Number(node.value); render(); }));
+  attachC53SimpleHandlers();
+}
+
+function renderC53B2Section() {
+  const c53 = c53State();
+  const b2Items = c53B2Items();
+  const extensions = c53B2ExtensionItems();
+  return `<section class="c6-section"><h3 class="c6-section-title">${L("B2 声光报警器", "B2 sound and light alarms")}</h3><p class="c6-section-hint">${L("左右独立选择。每个 B2 必带一条 6PIN 延长线；转接线按选择数量自动匹配。", "Choose left/right independently. Each B2 requires one 6PIN extension cable; the adapter is matched automatically by quantity.")}</p><div class="group-list accessory-vertical-list">${["right", "left"].map((side) => { const item = b2Items[side]; const selected = Boolean(c53.b2[side]); const extensionRow = Number(c53.b2.extensions[side] || 37); return `${item ? c53SelectableCard(item, `data-c53-b2="${side}"`, selected) : ""}${selected ? `<div class="extension-picker"><label><span>${L("B2 6PIN 延长线", "B2 6PIN extension cable")}</span><select data-c53-b2-extension="${side}">${extensions.map((cable) => `<option value="${cable.rowNumber}" ${cable.rowNumber === extensionRow ? "selected" : ""}>${formatExtensionOptionLabel(cable)}</option>`).join("")}</select></label></div>` : ""}`; }).join("")}</div></section>`;
+}
+
+function renderC53DisplayStep() {
+  const c53 = c53State();
+  const screen = c53ExternalItem(40);
+  const signalAdapter = c53ExternalItem(41);
+  const b3Extensions = [29, 30].map(c53ItemByRow).filter(Boolean);
+  wizardStageEl.innerHTML = `
+    <section class="c6-section"><h3 class="c6-section-title">${L("屏幕", "Screen")}</h3><p class="c6-section-hint">${L("复用 AD Plus 2.0 的 DP7S。选择后自动带出 AHD Signal Adapter Cable。", "Uses the AD Plus 2.0 DP7S. Selecting it automatically adds the AHD Signal Adapter Cable.")}</p><div class="group-list accessory-vertical-list">${screen ? c53SelectableCard(screen, "data-c53-screen", Boolean(c53.screenSelected)) : ""}${c53.screenSelected && signalAdapter ? `<div class="extension-picker"><div class="extension-picker-head"><strong>${skuInfo(signalAdapter.partNumber)?.title ? localizedText(skuInfo(signalAdapter.partNumber).title) : displayCatalogText(signalAdapter.name)}</strong><span>${L("自动带出", "Automatically included")}</span></div><div class="sku">${signalAdapter.partNumber}</div></div>` : ""}</div></section>
+    ${renderC53B2Section()}
+    <section class="c6-section"><h3 class="c6-section-title">${L("B3 延长线", "B3 extension cable")}</h3><p class="c6-section-hint">${L("C53 套装内 B3 自带 2.5m 线；按安装距离选配延长线。", "The B3 in the C53 kit includes a 2.5m lead; add an extension only when needed.")}</p><div class="group-list accessory-vertical-list">${b3Extensions.map((item) => c53SelectableCard(item, `data-c53-simple="${item.id}"`, Boolean(state.selections[item.id]?.checked))).join("")}</div></section>`;
+  wizardStageEl.querySelectorAll("[data-c53-screen]").forEach((node) => node.addEventListener("change", (event) => { c53.screenSelected = event.target.checked; render(); }));
+  wizardStageEl.querySelectorAll("[data-c53-b2]").forEach((node) => node.addEventListener("change", (event) => { const side = node.dataset.c53B2; c53.b2[side] = event.target.checked; c53.b2.extensions[side] = c53.b2.extensions[side] || 37; render(); }));
+  wizardStageEl.querySelectorAll("[data-c53-b2-extension]").forEach((node) => node.addEventListener("change", () => { c53.b2.extensions[node.dataset.c53B2Extension] = Number(node.value); render(); }));
+  attachC53SimpleHandlers();
+}
+
+function attachC53SimpleHandlers() {
+  wizardStageEl.querySelectorAll("[data-c53-simple]").forEach((node) => node.addEventListener("change", (event) => {
+    const item = (product?.items || []).find((entry) => entry.id === node.dataset.c53Simple);
+    if (!item) return;
+    const block = ensurePresetSelectionState(item.id, item.quantity || "1");
+    block.checked = event.target.checked;
+    block.quantity = event.target.checked ? "1" : "0";
+    render();
+  }));
+}
+
 function renderC53SelectableStep(rowSet) {
   const c53 = c53State();
   c53SyncKitSelections();
+  if (rowSet === C53_STEP_ROWS.video) { renderC53VideoStep(); return; }
+  if (rowSet === C53_STEP_ROWS.display) { renderC53DisplayStep(); return; }
   let items = rowSet === C53_STEP_ROWS.base ? c53VisibleBaseItems() : m1nItemsByRows(rowSet);
   if (rowSet === C53_STEP_ROWS.video) {
     if (c53.mode === "standalone") {
@@ -433,7 +588,7 @@ function renderC53HostStep() {
 }
 
 function c53HasCa51() {
-  return (product?.items || []).filter((item) => [22, 23].includes(item.rowNumber)).some((item) => state.selections[item.id]?.checked);
+  return Boolean(c53State().ca51Selected);
 }
 
 function c53EnterHostFlow() {
