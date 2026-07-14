@@ -13,6 +13,8 @@ const feedbackForm = document.getElementById("feedback-form");
 const feedbackMessage = document.getElementById("feedback-message");
 const feedbackContact = document.getElementById("feedback-contact");
 const feedbackStatus = document.getElementById("feedback-status");
+const releaseDialog = document.getElementById("release-dialog");
+const releaseContent = document.getElementById("release-content");
 
 const state = {
   productId: "adplus20",

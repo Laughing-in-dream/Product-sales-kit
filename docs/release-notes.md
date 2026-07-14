@@ -2,6 +2,10 @@
 
 This file is the customer-readable release history for the North America Sales Configurator. It describes what changed in plain language, not code-level diffs.
 
+## Contact
+
+For product-selection questions, incorrect material information, or beta feedback, contact [Kevin Wang](mailto:kevinwang@Streamax.com).
+
 ## B1.0.1 — 2026-07-14
 
 First controlled beta release.

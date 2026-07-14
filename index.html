@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AD Plus 2.0 Solution Builder</title>
-  <link rel="stylesheet" href="./styles.css?v=20260714-2" />
+    <link rel="stylesheet" href="./styles.css?v=20260714-3" />
   </head>
   <body>
     <div class="shell">
@@ -12,7 +12,7 @@
         <div class="hero-main">
           <div class="topbar">
             <p id="hero-eyebrow" class="eyebrow">AD Plus 2.0</p>
-            <span id="app-version" class="version-badge">Beta B1.0.1</span>
+            <button id="app-version" class="version-badge version-button" type="button" aria-haspopup="dialog">Beta B1.0.1</button>
             <button id="feedback-button" class="feedback-button" type="button">Send feedback</button>
           </div>
           <h1 id="hero-title">一步一步生成 AD Plus 2.0 方案</h1>
@@ -64,6 +64,19 @@
       </main>
     </div>
 
+    <dialog id="release-dialog" class="release-dialog" aria-labelledby="release-title">
+      <div class="release-dialog-head">
+        <div>
+          <p class="step">Release notes</p>
+          <h2 id="release-title">What changed</h2>
+        </div>
+        <button class="dialog-close" type="button" data-release-close aria-label="Close release notes">×</button>
+      </div>
+      <div id="release-content" class="release-content"></div>
+      <p class="release-contact">Questions or feedback? Contact <a href="mailto:kevinwang@Streamax.com">kevinwang@Streamax.com</a>.</p>
+      <div class="feedback-actions"><button class="secondary" type="button" data-release-close>Close</button></div>
+    </dialog>
+
     <dialog id="feedback-dialog" class="feedback-dialog" aria-labelledby="feedback-title">
       <form id="feedback-form" method="dialog">
         <div class="feedback-dialog-head">
@@ -88,8 +101,8 @@
 
     <script src="./catalog-data.js?v=20260710-2"></script>
     <!-- 按编号顺序加载，共享全局作用域，顺序不可调换 -->
-    <script src="./js/01-bootstrap-i18n.js?v=20260714-3"></script>
-    <script src="./js/02-dom-state.js?v=20260714-3"></script>
+    <script src="./js/01-bootstrap-i18n.js?v=20260714-4"></script>
+    <script src="./js/02-dom-state.js?v=20260714-4"></script>
     <script src="./js/03-data-adplus.js?v=20260710-1"></script>
     <script src="./js/04-product-meta.js?v=20260714-4"></script>
     <script src="./js/05-selection-logic.js?v=20260714-2"></script>
@@ -99,6 +112,6 @@
     <script src="./js/09-render-avm-c6.js?v=20260712-7"></script>
     <script src="./js/10-render-mseries.js?v=20260710-1"></script>
     <script src="./js/11-render-adplus.js?v=20260710-1"></script>
-    <script src="./js/12-main.js?v=20260714-3"></script>
+    <script src="./js/12-main.js?v=20260714-4"></script>
   </body>
 </html>

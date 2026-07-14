@@ -426,6 +426,19 @@ function closeFeedbackDialog() {
   if (feedbackDialog.open) feedbackDialog.close();
 }
 
+function openReleaseDialog() {
+  releaseContent.replaceChildren(...APP_RELEASE_NOTES.map((note) => {
+    const item = document.createElement("li");
+    item.textContent = note;
+    return item;
+  }));
+  if (typeof releaseDialog.showModal === "function") releaseDialog.showModal();
+}
+
+function closeReleaseDialog() {
+  if (releaseDialog.open) releaseDialog.close();
+}
+
 function submitFeedback(event) {
   event.preventDefault();
   const message = feedbackMessage.value.trim();
@@ -517,6 +530,8 @@ exportExcelBtn.addEventListener("click", exportExcel);
 feedbackButton.addEventListener("click", openFeedbackDialog);
 feedbackForm.addEventListener("submit", submitFeedback);
 document.querySelectorAll("[data-feedback-close]").forEach((button) => button.addEventListener("click", closeFeedbackDialog));
+document.getElementById("app-version").addEventListener("click", openReleaseDialog);
+document.querySelectorAll("[data-release-close]").forEach((button) => button.addEventListener("click", closeReleaseDialog));
 
 document.getElementById("app-version").textContent = `Beta ${APP_VERSION}`;
 
