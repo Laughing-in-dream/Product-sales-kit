@@ -47,6 +47,7 @@ function isCustomFlow() {
 }
 
 function currentSteps() {
+  if (is960C53Product() && state.c53?.mode === "cascade") return L(C53_CASCADE_STEPS.zh, C53_CASCADE_STEPS.en) || C53_CASCADE_STEPS.en;
   if (isAvmProduct() && state.avm?.mode === "standalone") return L(AVM_STANDALONE_FLOW_STEPS.zh, AVM_STANDALONE_FLOW_STEPS.en) || AVM_STANDALONE_FLOW_STEPS.en;
   const steps = PRODUCT_META[state.productId]?.steps;
   if (steps) return L(steps.zh, steps.en) || steps.en;

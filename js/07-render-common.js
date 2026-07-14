@@ -250,6 +250,9 @@ function c53SetMode(mode) {
   const c53 = c53State();
   c53.mode = mode;
   if (mode === "cascade") {
+    // Screens are configured by the selected MDVR in a cascade build, never by C53.
+    c53.screenSelected = false;
+    c53.screenExtensionRow = 0;
     (product?.items || []).filter((item) => [19, 20, 21].includes(item.rowNumber)).forEach((item) => {
       const block = ensurePresetSelectionState(item.id, item.quantity || "1");
       block.checked = false;
@@ -435,7 +438,7 @@ function selectedC53Items() {
   }
   const cameraBracket = c53ItemByRow(25);
   if (cameraBracket && state.selections[cameraBracket.id]?.checked) rows.push(c53BomLine(cameraBracket));
-  if (c53.screenSelected) {
+  if (c53.mode === "standalone" && c53.screenSelected) {
     const screen = c53ExternalItem(40);
     const signalAdapter = c53ExternalItem(41);
     const screenExtension = c53ExternalItem(Number(c53.screenExtensionRow || 0));
@@ -545,11 +548,21 @@ function renderC53B2Section() {
 
 function renderC53DisplayStep() {
   const c53 = c53State();
+  const b3Extensions = [29, 30].map(c53ItemByRow).filter(Boolean);
+  if (c53.mode === "cascade") {
+    wizardStageEl.innerHTML = `
+      <section class="c6-section"><h3 class="c6-section-title">${L("屏幕由主机选择", "Screen is selected in the host wizard")}</h3><p class="c6-section-hint">${L("级联时不在 C53 中添加 DP7S、AHD Signal Adapter Cable 或屏幕延长线。完成本页后将进入所选 MDVR，并在其屏幕步骤中统一选择。", "Cascade builds do not add DP7S, the AHD Signal Adapter Cable, or screen extensions in C53. Continue to the selected MDVR and choose the screen in its own screen step.")}</p></section>
+      ${renderC53B2Section()}
+      <section class="c6-section"><h3 class="c6-section-title">${L("B3 延长线", "B3 extension cable")}</h3><p class="c6-section-hint">${L("C53 套装内 B3 自带 2.5m 线；按安装距离选配延长线。", "The B3 in the C53 kit includes a 2.5m lead; add an extension only when needed.")}</p><div class="group-list accessory-vertical-list">${b3Extensions.map((item) => c53SelectableCard(item, `data-c53-simple="${item.id}"`, Boolean(state.selections[item.id]?.checked))).join("")}</div></section>`;
+    wizardStageEl.querySelectorAll("[data-c53-b2]").forEach((node) => node.addEventListener("change", (event) => { const side = node.dataset.c53B2; c53.b2.left = false; c53.b2.right = false; c53.b2[side] = event.target.checked; c53.b2.extensions[side] = c53.b2.extensions[side] || 37; render(); }));
+    wizardStageEl.querySelectorAll("[data-c53-b2-extension]").forEach((node) => node.addEventListener("change", () => { c53.b2.extensions[node.dataset.c53B2Extension] = Number(node.value); render(); }));
+    attachC53SimpleHandlers();
+    return;
+  }
   const screen = c53ExternalItem(40);
   const signalAdapter = c53ExternalItem(41);
   const screenExtensions = [31, 32, 33].map(c53ExternalItem).filter(Boolean);
   const screenExtensionRow = Number(c53.screenExtensionRow || 0);
-  const b3Extensions = [29, 30].map(c53ItemByRow).filter(Boolean);
   wizardStageEl.innerHTML = `
     <section class="c6-section"><h3 class="c6-section-title">${L("屏幕", "Screen")}</h3><p class="c6-section-hint">${L("复用 AD Plus 2.0 的 DP7S。选择后自动带出 AHD Signal Adapter Cable，并可按安装距离选配 AHD 延长线。", "Uses the AD Plus 2.0 DP7S. Selecting it automatically adds the AHD Signal Adapter Cable; an AHD extension cable is optional by installation distance.")}</p><div class="group-list accessory-vertical-list">${screen ? c53SelectableCard(screen, "data-c53-screen", Boolean(c53.screenSelected)) : ""}${c53.screenSelected && signalAdapter ? `<div class="extension-picker"><div class="extension-picker-head"><strong>${skuInfo(signalAdapter.partNumber)?.title ? localizedText(skuInfo(signalAdapter.partNumber).title) : displayCatalogText(signalAdapter.name)}</strong><span>${L("自动带出", "Automatically included")}</span></div><div class="sku">${signalAdapter.partNumber}</div></div><div class="extension-picker"><label><span>${L("屏幕 AHD 延长线（可选）", "Screen AHD extension cable (optional)")}</span><select data-c53-screen-extension><option value="0" ${screenExtensionRow ? "" : "selected"}>${L("无需延长线", "No extension needed")}</option>${screenExtensions.map((item) => `<option value="${item.rowNumber}" ${item.rowNumber === screenExtensionRow ? "selected" : ""}>${formatExtensionOptionLabel(item)}</option>`).join("")}</select></label></div>` : ""}</div></section>
     ${renderC53B2Section()}

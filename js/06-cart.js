@@ -368,16 +368,24 @@ function selectedItems() {
 
 function updateStepControls() {
   const steps = currentSteps();
+  const enteringC53HostWizard = is960C53Product() && state.c53?.mode === "cascade" && state.step === 4;
   prevStepBtn.disabled = state.productPickerOpen;
-  nextStepBtn.textContent = state.step === steps.length ? t().stay : t().next;
+  nextStepBtn.textContent = enteringC53HostWizard
+    ? L("进入 MDVR 向导", "Enter MDVR Wizard")
+    : state.step === steps.length
+      ? t().stay
+      : t().next;
   nextStepBtn.disabled = state.productPickerOpen
     ? !Boolean(state.productId)
-    : state.step === steps.length || !validateCurrentStep();
+    : (state.step === steps.length && !enteringC53HostWizard) || !validateCurrentStep();
 }
 
 function validateCurrentStep() {
   if (state.productPickerOpen) return Boolean(state.productId);
   if (!isCustomFlow()) {
+    if (is960C53Product() && state.c53?.mode === "cascade" && state.step === 4) {
+      return Boolean(state.c53.cascadeHost);
+    }
     if (state.step === 1) {
       if (isAvmProduct()) return Boolean(state.packageId) && Boolean(state.avm?.mode);
       return isC6Product() ? Boolean(state.packageId) : Boolean(state.scenarioId);

@@ -169,6 +169,16 @@ const C53_STEPS = {
   ],
 };
 
+// In cascade mode the host MDVR owns screen selection, so C53 has an alerts-only step.
+const C53_CASCADE_STEPS = {
+  zh: null, en: [
+    { id: 1, title: "Choose Mode & C53 Kit", description: "Choose standalone or cascade, then select the C53-L or C53-R kit." },
+    { id: 2, title: "Choose Mounting, GPS & Front BSD", description: "Add the matching bracket and configure Front BSD. GPS is provided by the upstream host." },
+    { id: 3, title: "Choose Alert Accessories", description: "Configure the matching-side B2 alarm and optional B3 extension cable." },
+    { id: 4, title: "Choose Host", description: "Select the upstream MDVR; configure the screen and its cables in that host wizard." },
+  ],
+};
+
 const IPC966_STEPS = {
   zh: null, en: [
     { id: 1, title: "Choose Core Kit", description: "Start with the 966C46-IPC base kit." },
