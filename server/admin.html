@@ -15,7 +15,7 @@
       input, button { box-sizing: border-box; border-radius: 9px; padding: 10px 12px; font: inherit; }
       input { border: 1px solid #b9cac6; min-width: 260px; } button { border: 0; background: #006b5e; color: #fff; cursor: pointer; font-weight: 700; }
       table { width: 100%; border-collapse: collapse; font-size: 14px; } th, td { padding: 9px 4px; border-bottom: 1px solid #e6eeeb; text-align: left; vertical-align: top; } th { color: #61757a; }
-      .feedback { grid-column: 1 / -1; } #status { margin: 12px 0 0; color: #9a3b18; } @media (max-width: 720px) { header, .metrics, .grid { grid-template-columns: 1fr; } input { min-width: 0; width: 100%; } }
+      .feedback, .annotations { grid-column: 1 / -1; } #status { margin: 12px 0 0; color: #9a3b18; } @media (max-width: 720px) { header, .metrics, .grid { grid-template-columns: 1fr; } input { min-width: 0; width: 100%; } }
     </style>
   </head>
   <body>
@@ -26,7 +26,7 @@
     <p id="status"></p>
     <main id="dashboard" hidden>
       <section class="metrics"><div class="card"><p class="muted">Exported solutions</p><div class="metric" id="exports">0</div><p class="muted">Last 30 days</p></div><div class="card"><p class="muted">Unique browser sessions</p><div class="metric" id="sessions">0</div><p class="muted">Not verified people</p></div></section>
-      <section class="grid"><div class="card"><h2>Products selected</h2><table><thead><tr><th>Product</th><th>Exports</th></tr></thead><tbody id="products"></tbody></table></div><div class="card"><h2>Most-used components</h2><table><thead><tr><th>Part number</th><th>Component</th><th>Uses</th></tr></thead><tbody id="components"></tbody></table></div><div class="card feedback"><h2>Feedback queue</h2><table><thead><tr><th>Received</th><th>Product</th><th>Comment</th><th>Contact</th></tr></thead><tbody id="feedback"></tbody></table></div></section>
+      <section class="grid"><div class="card"><h2>Products selected</h2><table><thead><tr><th>Product</th><th>Exports</th></tr></thead><tbody id="products"></tbody></table></div><div class="card"><h2>Most-used components</h2><table><thead><tr><th>Part number</th><th>Component</th><th>Uses</th></tr></thead><tbody id="components"></tbody></table></div><div class="card feedback"><h2>Feedback queue</h2><table><thead><tr><th>Received</th><th>Product</th><th>Comment</th><th>Contact</th></tr></thead><tbody id="feedback"></tbody></table></div><div class="card annotations"><h2>Element annotations</h2><table><thead><tr><th>Received</th><th>Product / step</th><th>Element</th><th>Comment</th><th>Contact</th></tr></thead><tbody id="annotations"></tbody></table></div></section>
     </main>
     <script>
       const escape = (value) => String(value || "").replace(/[&<>\"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[character]));
@@ -40,6 +40,7 @@
           document.getElementById("products").innerHTML = rows(data.productCounts, (item) => `<tr><td>${escape(item.productName || item.productId)}</td><td>${item.exports}</td></tr>`, "No exported solutions yet.");
           document.getElementById("components").innerHTML = rows(data.components, (item) => `<tr><td>${escape(item.partNumber)}</td><td>${escape(item.name)}</td><td>${item.uses}</td></tr>`, "No components recorded yet.");
           document.getElementById("feedback").innerHTML = rows(data.feedback, (item) => `<tr><td>${escape(item.createdAt)}</td><td>${escape(item.productName)}</td><td>${escape(item.message)}</td><td>${escape(item.contact)}</td></tr>`, "No feedback yet.");
+          document.getElementById("annotations").innerHTML = rows(data.annotations, (item) => `<tr><td>${escape(item.createdAt)}</td><td>${escape(item.productName)} / ${escape(item.step)}</td><td>${escape(item.targetLabel)}</td><td>${escape(item.message)}</td><td>${escape(item.contact)}</td></tr>`, "No annotations yet.");
           document.getElementById("dashboard").hidden = false; status.textContent = "";
         } catch (error) { status.textContent = error.message; }
       });

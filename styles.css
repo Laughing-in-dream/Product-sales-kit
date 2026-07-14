@@ -117,6 +117,31 @@ body {
   background: var(--accent-soft);
 }
 
+.annotation-mode .shell * {
+  cursor: crosshair !important;
+}
+
+.annotation-mode .shell :is(button, label, .scenario-card, .package-card, .item-card, .option-card, .group-card, .storage-card, .wiring-card, .review-card, .summary, .wizard-stage, .wizard-actions, .cart-actions, img, h1, h2, h3, h4, p):hover {
+  outline: 3px solid var(--warm);
+  outline-offset: 3px;
+}
+
+.annotation-selected {
+  outline: 3px solid var(--warm) !important;
+  outline-offset: 3px;
+}
+
+.annotation-target {
+  padding: 12px;
+  border: 1px solid rgba(197, 123, 38, 0.28);
+  border-radius: 12px;
+  background: var(--warm-soft);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
 .feedback-dialog {
   width: min(560px, calc(100vw - 32px));
   border: 1px solid var(--line);

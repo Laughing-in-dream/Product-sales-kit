@@ -35,6 +35,23 @@ db.exec(`
     page_url TEXT,
     items_json TEXT NOT NULL
   );
+  CREATE TABLE IF NOT EXISTS annotations (
+    id INTEGER PRIMARY KEY,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    version TEXT NOT NULL,
+    session_id TEXT NOT NULL,
+    product_id TEXT,
+    product_name TEXT,
+    step INTEGER,
+    message TEXT NOT NULL,
+    contact TEXT,
+    page_url TEXT,
+    target_label TEXT NOT NULL,
+    target_selector TEXT,
+    target_text TEXT,
+    target_bounds_json TEXT,
+    items_json TEXT NOT NULL
+  );
   CREATE TABLE IF NOT EXISTS solution_events (
     id INTEGER PRIMARY KEY,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -87,6 +104,12 @@ function buildContext(body) {
     step: Number.isInteger(body.step) ? body.step : null,
     items: cleanItems(body.items),
   };
+}
+
+function cleanBounds(bounds) {
+  if (!bounds || typeof bounds !== "object") return "";
+  const cleanNumber = (value) => Number.isFinite(Number(value)) ? Math.round(Number(value)) : null;
+  return JSON.stringify({ x: cleanNumber(bounds.x), y: cleanNumber(bounds.y), width: cleanNumber(bounds.width), height: cleanNumber(bounds.height) });
 }
 
 function readJson(request) {
@@ -153,6 +176,11 @@ function overview() {
     SELECT id, created_at AS createdAt, version, product_name AS productName, message, contact, step
     FROM feedback ORDER BY id DESC LIMIT 100
   `).all();
+  const annotations = db.prepare(`
+    SELECT id, created_at AS createdAt, version, product_name AS productName, step, message, contact,
+      target_label AS targetLabel, target_selector AS targetSelector, target_text AS targetText
+    FROM annotations ORDER BY id DESC LIMIT 100
+  `).all();
   return {
     period: "Last 30 days",
     exports: totals.exports,
@@ -160,6 +188,7 @@ function overview() {
     productCounts,
     components: [...components.values()].sort((a, b) => b.uses - a.uses).slice(0, 50),
     feedback,
+    annotations,
   };
 }
 
@@ -201,6 +230,21 @@ const server = http.createServer(async (request, response) => {
       db.prepare(`INSERT INTO feedback (version, session_id, product_id, product_name, step, message, contact, page_url, items_json)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`)
         .run(context.version, context.sessionId, context.productId, context.productName, context.step, message, cleanText(body.contact, 200), cleanText(body.pageUrl, 1000), JSON.stringify(context.items));
+      return sendJson(response, 201, { ok: true });
+    }
+    if (request.method === "POST" && url.pathname === "/api/annotations") {
+      const body = await readJson(request);
+      const context = buildContext(body);
+      const message = cleanText(body.message, 2000);
+      const targetLabel = cleanText(body.targetLabel, 240);
+      if (!message) return sendJson(response, 400, { error: "An annotation message is required." });
+      if (!targetLabel) return sendJson(response, 400, { error: "An annotated element is required." });
+      db.prepare(`INSERT INTO annotations (version, session_id, product_id, product_name, step, message, contact, page_url, target_label, target_selector, target_text, target_bounds_json, items_json)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).run(
+        context.version, context.sessionId, context.productId, context.productName, context.step, message,
+        cleanText(body.contact, 200), cleanText(body.pageUrl, 1000), targetLabel, cleanText(body.targetSelector, 700),
+        cleanText(body.targetText, 1000), cleanBounds(body.targetBounds), JSON.stringify(context.items)
+      );
       return sendJson(response, 201, { ok: true });
     }
     if (request.method === "POST" && url.pathname === "/api/solutions") {

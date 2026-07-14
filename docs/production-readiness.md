@@ -9,13 +9,13 @@
 - [ ] Configure a process manager such as `systemd` or PM2 to restart the service after a reboot.
 - [ ] Configure automated daily backups of `server/data/configurator.db` and test restoring one backup.
 - [ ] Open `/admin` from a private browser window and confirm the token is required.
-- [ ] Submit one test feedback message and export one test Excel list; confirm both appear in `/admin`.
+- [ ] Submit one test feedback message, one element annotation, and export one test Excel list; confirm all appear in `/admin`.
 - [ ] Review `docs/release-notes.md`, update the visible version, and tag the Git commit before each release.
 
 ## Operating rules
 
 - A “solution provided” means an Excel list was exported. The dashboard reports exported solutions and unique browser sessions, not verified individual people.
-- Feedback contains the active product, step, chosen items, and the visitor's message. Do not ask customers to enter passwords, vehicle-identification numbers, or other sensitive data.
+- Feedback and annotations contain the active product, step, chosen items, page element context, and the visitor's message. Do not ask customers to enter passwords, vehicle-identification numbers, or other sensitive data.
 - Read the feedback queue before changing product rules. Confirm the applicable product knowledge-base document first.
 - Keep the feedback API on the same HTTPS domain as the configurator. This avoids cross-site configuration and keeps the browser request simple.
 

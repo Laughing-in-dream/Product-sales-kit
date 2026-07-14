@@ -1,6 +1,6 @@
 # Tencent Cloud Server Deployment
 
-This server keeps the configurator, feedback API, Excel-export telemetry, and internal dashboard on one HTTPS domain.
+This server keeps the configurator, feedback and element-annotation APIs, Excel-export telemetry, and internal dashboard on one HTTPS domain.
 
 ## Server prerequisites
 
@@ -40,4 +40,4 @@ Use `systemd` or PM2 to make the process persistent. Store `ADMIN_TOKEN` in the 
 - Health check: `https://your-domain/healthz`
 - SQLite data: `server/data/configurator.db` (ignored by Git)
 
-Back up `server/data/configurator.db` daily before updates. The dashboard intentionally reports exported solutions and unique browser sessions rather than claiming to identify individual people.
+Back up `server/data/configurator.db` daily before updates. The dashboard intentionally reports exported solutions and unique browser sessions rather than claiming to identify individual people. Element annotations include the clicked element label and page context so the review team can reproduce the issue.

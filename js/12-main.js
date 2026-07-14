@@ -426,6 +426,95 @@ function closeFeedbackDialog() {
   if (feedbackDialog.open) feedbackDialog.close();
 }
 
+let annotationModeActive = false;
+let annotationContext = null;
+let annotationSelectedElement = null;
+
+function annotationLabel(element) {
+  const explicitLabel = element.getAttribute("data-comment-label");
+  if (explicitLabel) return explicitLabel.trim().slice(0, 240);
+  const text = (element.getAttribute("aria-label") || element.innerText || element.alt || "").replace(/\s+/g, " ").trim();
+  if (text) return text.slice(0, 240);
+  return element.id || element.getAttribute("data-comment-id") || element.tagName.toLowerCase();
+}
+
+function annotationSelector(element) {
+  if (element.id) return `#${element.id}`;
+  const commentId = element.getAttribute("data-comment-id");
+  if (commentId) return `[data-comment-id="${commentId.replace(/"/g, "\\\"")}"]`;
+  const classes = [...element.classList].filter((name) => !name.startsWith("annotation-")).slice(0, 3);
+  return `${element.tagName.toLowerCase()}${classes.map((name) => `.${name}`).join("")}` || element.tagName.toLowerCase();
+}
+
+function getAnnotationTarget(node) {
+  if (!(node instanceof Element)) return null;
+  if (node.closest(".topbar")) return null;
+  const target = node.closest("[data-comment-id], button, label, .scenario-card, .package-card, .item-card, .option-card, .group-card, .storage-card, .wiring-card, .review-card, .summary, .wizard-stage, .wizard-actions, .cart-actions, img, h1, h2, h3, h4, p");
+  if (!target || !document.querySelector(".shell")?.contains(target)) return null;
+  return target;
+}
+
+function setAnnotationMode(active) {
+  annotationModeActive = active;
+  document.body.classList.toggle("annotation-mode", active);
+  annotationButton.setAttribute("aria-pressed", String(active));
+  annotationButton.textContent = active ? "Click an element" : "Annotate";
+}
+
+function clearAnnotationSelection() {
+  annotationSelectedElement?.classList.remove("annotation-selected");
+  annotationSelectedElement = null;
+  annotationContext = null;
+}
+
+function openAnnotationDialog(element) {
+  clearAnnotationSelection();
+  annotationSelectedElement = element;
+  annotationSelectedElement.classList.add("annotation-selected");
+  const rect = element.getBoundingClientRect();
+  annotationContext = {
+    targetLabel: annotationLabel(element),
+    targetSelector: annotationSelector(element),
+    targetText: (element.innerText || element.alt || "").replace(/\s+/g, " ").trim().slice(0, 1000),
+    targetBounds: {
+      x: Math.round(rect.left + window.scrollX), y: Math.round(rect.top + window.scrollY),
+      width: Math.round(rect.width), height: Math.round(rect.height),
+    },
+  };
+  annotationForm.reset();
+  annotationStatus.textContent = "";
+  annotationTarget.textContent = `Selected element: ${annotationContext.targetLabel}`;
+  if (typeof annotationDialog.showModal === "function") annotationDialog.showModal();
+}
+
+function closeAnnotationDialog() {
+  if (annotationDialog.open) annotationDialog.close();
+  clearAnnotationSelection();
+}
+
+function submitAnnotation(event) {
+  event.preventDefault();
+  const message = annotationMessage.value.trim();
+  if (!message || !annotationContext) return;
+  annotationStatus.textContent = "Sending…";
+  const submitButton = annotationForm.querySelector("button[type=submit]");
+  submitButton.disabled = true;
+  postToServer("/api/annotations", {
+    ...activeBuildContext(),
+    ...annotationContext,
+    message,
+    contact: annotationContact.value.trim(),
+    pageUrl: window.location.href,
+  }).then(() => {
+    annotationStatus.textContent = "Thank you. Your annotation has been sent.";
+    annotationForm.reset();
+  }).catch((error) => {
+    annotationStatus.textContent = error.message || "Annotation could not be sent. Please try again later.";
+  }).finally(() => {
+    submitButton.disabled = false;
+  });
+}
+
 function openReleaseDialog() {
   releaseContent.replaceChildren(...APP_RELEASE_NOTES.map((note) => {
     const item = document.createElement("li");
@@ -530,6 +619,21 @@ exportExcelBtn.addEventListener("click", exportExcel);
 feedbackButton.addEventListener("click", openFeedbackDialog);
 feedbackForm.addEventListener("submit", submitFeedback);
 document.querySelectorAll("[data-feedback-close]").forEach((button) => button.addEventListener("click", closeFeedbackDialog));
+annotationButton.addEventListener("click", () => setAnnotationMode(!annotationModeActive));
+annotationForm.addEventListener("submit", submitAnnotation);
+document.querySelectorAll("[data-annotation-close]").forEach((button) => button.addEventListener("click", closeAnnotationDialog));
+document.querySelector(".shell").addEventListener("click", (event) => {
+  if (!annotationModeActive) return;
+  const target = getAnnotationTarget(event.target);
+  if (!target) return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  setAnnotationMode(false);
+  openAnnotationDialog(target);
+}, true);
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && annotationModeActive) setAnnotationMode(false);
+});
 document.getElementById("app-version").addEventListener("click", openReleaseDialog);
 document.querySelectorAll("[data-release-close]").forEach((button) => button.addEventListener("click", closeReleaseDialog));
 
