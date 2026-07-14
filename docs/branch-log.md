@@ -8,6 +8,7 @@ This is a plain-language log of work performed on each branch. It is deliberatel
 
 - Added an annotation mode so a beta reviewer can click the specific page element that needs attention and leave a comment against it.
 - The internal dashboard now shows the element label, page context, comment, and contact details together, so product and UI issues can be reproduced without guessing where they occurred.
+- Standardized the close icon in the release-note, feedback, and annotation dialogs so it remains aligned across browsers.
 
 ### B1.0.1 beta preparation — 2026-07-14
 
