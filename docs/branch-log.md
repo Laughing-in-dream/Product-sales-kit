@@ -4,6 +4,10 @@ This is a plain-language log of work performed on each branch. It is deliberatel
 
 ## main
 
+### Streamax visual identity — 2026-07-14
+
+- Added the supplied Streamax logo to the top-left of the configurator, while keeping version, annotation, and feedback actions grouped on the right.
+
 ### Element annotations for beta review — 2026-07-14
 
 - Added an annotation mode so a beta reviewer can click the specific page element that needs attention and leave a comment against it.

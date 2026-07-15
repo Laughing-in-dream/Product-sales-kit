@@ -85,7 +85,34 @@ body {
 }
 
 .topbar {
+  justify-content: space-between;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
   justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 136px;
+  height: 42px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: var(--accent-deep);
+  box-shadow: 0 8px 18px rgba(19, 78, 74, 0.18);
+}
+
+.brand-logo img {
+  display: block;
+  width: 108px;
+  max-height: 22px;
+  object-fit: contain;
 }
 
 .version-badge,
@@ -2259,6 +2286,10 @@ button.secondary {
   .panel-head {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .topbar-actions {
+    justify-content: flex-start;
   }
 
   .hero-highlights {
