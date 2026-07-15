@@ -480,46 +480,6 @@ function clearAnnotationSelection() {
   annotationContext = null;
 }
 
-function createAnnotationCaptureMarker(element) {
-  const rect = element.getBoundingClientRect();
-  const marker = document.createElement("span");
-  marker.className = "annotation-capture-marker";
-  marker.textContent = "1";
-  marker.setAttribute("aria-hidden", "true");
-  marker.style.left = `${Math.max(8, Math.min(window.innerWidth - 36, rect.right - 14))}px`;
-  marker.style.top = `${Math.max(8, rect.top - 14)}px`;
-  document.querySelector(".shell").append(marker);
-  return marker;
-}
-
-function screenshotDataUrl(canvas) {
-  const maxWidth = 1440;
-  const maxHeight = 1800;
-  const scale = Math.min(1, maxWidth / canvas.width, maxHeight / canvas.height);
-  if (scale === 1) return canvas.toDataURL("image/jpeg", 0.76);
-  const resized = document.createElement("canvas");
-  resized.width = Math.max(1, Math.round(canvas.width * scale));
-  resized.height = Math.max(1, Math.round(canvas.height * scale));
-  resized.getContext("2d").drawImage(canvas, 0, 0, resized.width, resized.height);
-  return resized.toDataURL("image/jpeg", 0.76);
-}
-
-async function captureAnnotationScreenshot(element) {
-  if (typeof window.html2canvas !== "function") throw new Error("Screen capture is unavailable in this browser.");
-  const marker = createAnnotationCaptureMarker(element);
-  try {
-    const canvas = await window.html2canvas(document.querySelector(".shell"), {
-      backgroundColor: "#f3f5f3",
-      logging: false,
-      scale: 1,
-      useCORS: true,
-    });
-    return screenshotDataUrl(canvas);
-  } finally {
-    marker.remove();
-  }
-}
-
 async function openAnnotationDialog(element) {
   clearAnnotationSelection();
   annotationSelectedElement = element;
@@ -533,17 +493,11 @@ async function openAnnotationDialog(element) {
       x: Math.round(rect.left + window.scrollX), y: Math.round(rect.top + window.scrollY),
       width: Math.round(rect.width), height: Math.round(rect.height),
     },
+    reviewState: JSON.parse(JSON.stringify(state)),
   };
   annotationForm.reset();
-  annotationStatus.textContent = "Capturing the marked page for the review team…";
+  annotationStatus.textContent = "The review team will see this element highlighted in its page view.";
   annotationTarget.textContent = `Selected element: ${annotationContext.targetLabel}`;
-  try {
-    annotationContext.screenshotDataUrl = await captureAnnotationScreenshot(element);
-    annotationStatus.textContent = "A screenshot with marker 1 will be attached to this annotation.";
-  } catch (error) {
-    annotationContext.screenshotDataUrl = "";
-    annotationStatus.textContent = "The element details will be sent, but a screenshot could not be captured.";
-  }
   if (typeof annotationDialog.showModal === "function") annotationDialog.showModal();
 }
 
@@ -705,6 +659,14 @@ document.querySelector(".shell").addEventListener("click", (event) => {
 }, true);
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && annotationModeActive) setAnnotationMode(false);
+});
+window.addEventListener("message", (event) => {
+  if (event.origin !== window.location.origin || event.data?.type !== "annotation-review-state") return;
+  const reviewState = event.data.state;
+  if (!reviewState || typeof reviewState !== "object") return;
+  const safeState = JSON.parse(JSON.stringify(reviewState));
+  Object.assign(state, safeState, { language: "en" });
+  render();
 });
 document.getElementById("app-version").addEventListener("click", openReleaseDialog);
 document.querySelectorAll("[data-release-close]").forEach((button) => button.addEventListener("click", closeReleaseDialog));

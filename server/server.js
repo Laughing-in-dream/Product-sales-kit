@@ -5,7 +5,6 @@
 const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
-const crypto = require("node:crypto");
 const { DatabaseSync } = require("node:sqlite");
 
 const ROOT_DIR = path.resolve(__dirname, "..");
@@ -13,8 +12,7 @@ const PORT = Number(process.env.PORT || 8080);
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || "";
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "data");
 const MAX_BODY_BYTES = 64 * 1024;
-const MAX_ANNOTATION_BODY_BYTES = 5 * 1024 * 1024;
-const MAX_ANNOTATION_IMAGE_BYTES = 3 * 1024 * 1024;
+const MAX_ANNOTATION_BODY_BYTES = 128 * 1024;
 
 if (!ADMIN_TOKEN) {
   console.error("ADMIN_TOKEN is required. Refusing to start without an admin password.");
@@ -22,8 +20,6 @@ if (!ADMIN_TOKEN) {
 }
 
 fs.mkdirSync(DATA_DIR, { recursive: true });
-const ANNOTATION_IMAGE_DIR = path.join(DATA_DIR, "annotations");
-fs.mkdirSync(ANNOTATION_IMAGE_DIR, { recursive: true });
 const db = new DatabaseSync(path.join(DATA_DIR, "configurator.db"));
 db.exec(`
   PRAGMA journal_mode = WAL;
@@ -55,6 +51,7 @@ db.exec(`
     target_selector TEXT,
     target_text TEXT,
     target_bounds_json TEXT,
+    review_state_json TEXT,
     items_json TEXT NOT NULL
   );
   CREATE TABLE IF NOT EXISTS solution_events (
@@ -67,8 +64,8 @@ db.exec(`
     items_json TEXT NOT NULL
   );
 `);
-if (!db.prepare("PRAGMA table_info(annotations)").all().some((column) => column.name === "screenshot_path")) {
-  db.exec("ALTER TABLE annotations ADD COLUMN screenshot_path TEXT");
+if (!db.prepare("PRAGMA table_info(annotations)").all().some((column) => column.name === "review_state_json")) {
+  db.exec("ALTER TABLE annotations ADD COLUMN review_state_json TEXT");
 }
 
 const MIME_TYPES = {
@@ -144,20 +141,6 @@ function readJson(request, maxBytes = MAX_BODY_BYTES) {
   });
 }
 
-function saveAnnotationScreenshot(dataUrl) {
-  if (!dataUrl) return "";
-  const match = /^data:image\/(jpeg|png);base64,([A-Za-z0-9+/=]+)$/.exec(String(dataUrl));
-  if (!match) throw new Error("Annotation screenshot must be a PNG or JPEG image.");
-  const image = Buffer.from(match[2], "base64");
-  if (!image.length || image.length > MAX_ANNOTATION_IMAGE_BYTES) {
-    throw new Error("Annotation screenshot is too large.");
-  }
-  const extension = match[1] === "jpeg" ? "jpg" : "png";
-  const fileName = `annotation-${Date.now()}-${crypto.randomUUID()}.${extension}`;
-  fs.writeFileSync(path.join(ANNOTATION_IMAGE_DIR, fileName), image);
-  return fileName;
-}
-
 function isAdmin(request) {
   const header = request.headers.authorization || "";
   return header === `Bearer ${ADMIN_TOKEN}`;
@@ -200,10 +183,9 @@ function overview() {
   `).all();
   const annotations = db.prepare(`
     SELECT id, created_at AS createdAt, version, product_name AS productName, step, message, contact,
-      target_label AS targetLabel, target_selector AS targetSelector, target_text AS targetText,
-      screenshot_path AS screenshotPath
+      target_label AS targetLabel, target_selector AS targetSelector, target_text AS targetText
     FROM annotations ORDER BY id DESC LIMIT 100
-  `).all().map((annotation) => ({ ...annotation, screenshotAvailable: Boolean(annotation.screenshotPath) }));
+  `).all();
   return {
     period: "Last 30 days",
     exports: totals.exports,
@@ -245,17 +227,21 @@ const server = http.createServer(async (request, response) => {
       if (!isAdmin(request)) return sendJson(response, 401, { error: "Administrator token required" });
       return sendJson(response, 200, overview());
     }
-    const screenshotMatch = /^\/api\/admin\/annotations\/(\d+)\/screenshot$/.exec(url.pathname);
-    if (request.method === "GET" && screenshotMatch) {
+    if (request.method === "GET" && url.pathname === "/admin/review") {
+      response.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
+      return fs.createReadStream(path.join(__dirname, "admin-review.html")).pipe(response);
+    }
+    const annotationMatch = /^\/api\/admin\/annotations\/(\d+)$/.exec(url.pathname);
+    if (request.method === "GET" && annotationMatch) {
       if (!isAdmin(request)) return sendJson(response, 401, { error: "Administrator token required" });
-      const annotation = db.prepare("SELECT screenshot_path FROM annotations WHERE id = ?").get(Number(screenshotMatch[1]));
-      if (!annotation?.screenshot_path) return sendJson(response, 404, { error: "Screenshot not found" });
-      const fileName = path.basename(annotation.screenshot_path);
-      const filePath = path.join(ANNOTATION_IMAGE_DIR, fileName);
-      if (!fs.existsSync(filePath)) return sendJson(response, 404, { error: "Screenshot file not found" });
-      const mime = MIME_TYPES[path.extname(filePath).toLowerCase()] || "application/octet-stream";
-      response.writeHead(200, { "Content-Type": mime, "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" });
-      return fs.createReadStream(filePath).pipe(response);
+      const annotation = db.prepare(`SELECT id, created_at AS createdAt, version, product_name AS productName, step, message, contact,
+        target_label AS targetLabel, target_selector AS targetSelector, target_text AS targetText,
+        target_bounds_json AS targetBoundsJson, review_state_json AS reviewStateJson
+        FROM annotations WHERE id = ?`).get(Number(annotationMatch[1]));
+      if (!annotation) return sendJson(response, 404, { error: "Annotation not found" });
+      let reviewState = null;
+      try { reviewState = JSON.parse(annotation.reviewStateJson || "null"); } catch { reviewState = null; }
+      return sendJson(response, 200, { annotation: { ...annotation, reviewState } });
     }
     if (request.method === "POST" && url.pathname === "/api/feedback") {
       const body = await readJson(request);
@@ -274,12 +260,12 @@ const server = http.createServer(async (request, response) => {
       const targetLabel = cleanText(body.targetLabel, 240);
       if (!message) return sendJson(response, 400, { error: "An annotation message is required." });
       if (!targetLabel) return sendJson(response, 400, { error: "An annotated element is required." });
-      const screenshotPath = saveAnnotationScreenshot(body.screenshotDataUrl);
-      db.prepare(`INSERT INTO annotations (version, session_id, product_id, product_name, step, message, contact, page_url, target_label, target_selector, target_text, target_bounds_json, items_json, screenshot_path)
+      const reviewState = body.reviewState && typeof body.reviewState === "object" ? JSON.stringify(body.reviewState).slice(0, 100000) : "";
+      db.prepare(`INSERT INTO annotations (version, session_id, product_id, product_name, step, message, contact, page_url, target_label, target_selector, target_text, target_bounds_json, review_state_json, items_json)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).run(
         context.version, context.sessionId, context.productId, context.productName, context.step, message,
         cleanText(body.contact, 200), cleanText(body.pageUrl, 1000), targetLabel, cleanText(body.targetSelector, 700),
-        cleanText(body.targetText, 1000), cleanBounds(body.targetBounds), JSON.stringify(context.items), screenshotPath
+        cleanText(body.targetText, 1000), cleanBounds(body.targetBounds), reviewState, JSON.stringify(context.items)
       );
       return sendJson(response, 201, { ok: true });
     }

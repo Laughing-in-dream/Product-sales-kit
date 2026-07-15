@@ -47,7 +47,7 @@ The goal is not simply to display products online. The goal is to let a user con
 ### 3.5 Beta feedback and operational visibility
 
 - Provides visible version information and release notes for beta users.
-- Lets a reviewer annotate a specific page element and submit a written change request with a marked screenshot.
+- Lets a user annotate a specific page element and submit a written change request; the reviewer can reopen the same configuration in an administrator-only page with that element highlighted.
 - Provides an internal admin view for feedback, annotations, and exported-solution activity.
 
 ## 4. What the project solves
@@ -58,7 +58,7 @@ The goal is not simply to display products online. The goal is to let a user con
 | Depend heavily on personal experience for cables and connectors | Apply reusable rules, defaults, and installation reminders |
 | Repeatedly ask customers for missing installation details after a call | Use the guided questions to collect the details needed for the solution |
 | Build a list separately and manually check it for omissions | Maintain a live material summary and export one consistent Excel list |
-| Report an issue vaguely through chat or email | Mark the exact UI element and send a screenshot-backed annotation |
+| Report an issue vaguely through chat or email | Mark the exact UI element and let the reviewer reopen it in context |
 
 ## 5. Current effect
 

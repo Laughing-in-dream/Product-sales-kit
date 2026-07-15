@@ -9,7 +9,7 @@
 - [ ] Configure a process manager such as `systemd` or PM2 to restart the service after a reboot.
 - [ ] Configure automated daily backups of `server/data/configurator.db` and test restoring one backup.
 - [ ] Open `/admin` from a private browser window and confirm the token is required.
-- [ ] Submit one test feedback message, one element annotation, and export one test Excel list; confirm all appear in `/admin`.
+- [ ] Submit one test feedback message, one element annotation, and export one test Excel list; confirm all appear in `/admin`, and confirm the annotation opens the reviewer-only highlighted page.
 - [ ] Review `docs/release-notes.md`, update the visible version, and tag the Git commit before each release.
 
 ## Operating rules

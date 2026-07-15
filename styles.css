@@ -162,23 +162,6 @@ html.app-loading body {
   visibility: hidden;
 }
 
-.annotation-capture-marker {
-  position: fixed;
-  z-index: 9999;
-  display: grid;
-  width: 30px;
-  height: 30px;
-  place-items: center;
-  border: 3px solid #fff;
-  border-radius: 999px;
-  background: #c57b26;
-  box-shadow: 0 4px 14px rgba(47, 30, 13, 0.35);
-  color: #fff;
-  font-size: 0.86rem;
-  font-weight: 850;
-  line-height: 1;
-}
-
 .annotation-target {
   padding: 12px;
   border: 1px solid rgba(197, 123, 38, 0.28);

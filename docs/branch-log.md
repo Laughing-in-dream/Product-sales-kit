@@ -30,6 +30,11 @@ This is a plain-language log of work performed on each branch. It is deliberatel
 
 ## codex/ui-stability-optimization
 
+### Annotation page-review workflow — 2026-07-15
+
+- Replaced screenshot-based element annotations with a reviewer-only page view: the dashboard can reopen the relevant configuration and highlight the exact annotated element alongside the requested change.
+- Ordinary visitors continue to see no annotation markers; review data remains behind the administrator token.
+
 ### B1.0.3 first-paint language fix — 2026-07-15
 
 - Prevented the English-default page from briefly showing Chinese placeholder text while scripts load after a refresh.
