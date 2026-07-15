@@ -39,6 +39,5 @@ Use `systemd` or PM2 to make the process persistent. Store `ADMIN_TOKEN` in the 
 - Internal dashboard: `https://your-domain/admin`
 - Health check: `https://your-domain/healthz`
 - SQLite data: `server/data/configurator.db` (ignored by Git)
-- Annotation captures: `server/data/annotations/` (ignored by Git; opened only through the token-protected dashboard)
 
-Back up both `server/data/configurator.db` and `server/data/annotations/` daily before updates. The dashboard intentionally reports exported solutions and unique browser sessions rather than claiming to identify individual people. Element annotations include the clicked element label, page context, written request, and a marked screenshot so the review team can reproduce the issue.
+Back up `server/data/configurator.db` daily before updates. The dashboard intentionally reports exported solutions and unique browser sessions rather than claiming to identify individual people. Element annotations store the clicked element, page context, and written request; the token-protected dashboard can reopen the same configuration and highlight the marked element for the review team.

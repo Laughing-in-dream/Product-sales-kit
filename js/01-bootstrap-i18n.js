@@ -6,8 +6,13 @@ const KEPT_SCENARIO_POSITIONS = new Set([1, 3, 9, 10, 11, 12]);
 const CUSTOM_SCENARIO_ID = "scenario-custom";
 const CUSTOM_FAMILY_ID = "custom";
 // The only user-facing release version. Update it together with docs/release-notes.md.
-const APP_VERSION = "B1.0.2";
+const APP_VERSION = "B1.0.3";
 const APP_RELEASE_NOTES = [
+  {
+    version: "B1.0.3",
+    date: "2026-07-15",
+    notes: ["Page updates."],
+  },
   {
     version: "B1.0.2",
     date: "2026-07-15",
