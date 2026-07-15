@@ -2342,6 +2342,210 @@ button.secondary {
 
 }
 
+/* Selective typography, title, and quotation-summary treatment. */
+body,
+button,
+input,
+textarea,
+select {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Aptos", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: -0.012em;
+}
+
+.hero-main {
+  overflow: hidden;
+}
+
+.topbar {
+  min-height: 58px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(20, 78, 74, 0.1);
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 13px;
+}
+
+.eyebrow {
+  position: relative;
+  display: block;
+  min-width: 0;
+  margin: 0;
+  padding-left: 13px;
+  color: #45534d;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#hero-eyebrow {
+  display: block;
+}
+
+.eyebrow::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 1px;
+  height: 16px;
+  background: rgba(20, 78, 74, 0.18);
+  content: "";
+  transform: translateY(-50%);
+}
+
+#hero-eyebrow {
+  display: block;
+}
+
+.hero-body {
+  padding: 24px 20px 20px;
+}
+
+#hero-title {
+  display: block;
+  max-width: 25ch;
+  margin: 0 0 9px;
+  color: #182620;
+  font-size: clamp(1.55rem, 2.8vw, 2.1rem);
+  font-weight: 720;
+  line-height: 1.12;
+}
+
+.intro {
+  max-width: 64ch;
+  margin: 0;
+  color: #64726b;
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.hero-highlights {
+  margin-top: 16px;
+}
+
+.highlight-pill {
+  background: #f8fbf9;
+  border-color: rgba(20, 78, 74, 0.12);
+  color: #435149;
+  box-shadow: none;
+}
+
+body.compact-flow .hero-body {
+  display: none;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+.summary .panel-head {
+  align-items: flex-start;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid rgba(20, 78, 74, 0.1);
+  background: #f8faf8;
+}
+
+.summary .panel-head h2 {
+  margin: 3px 0 0;
+  font-size: 1.04rem;
+}
+
+.summary-meta {
+  display: grid;
+  gap: 0;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(20, 78, 74, 0.1);
+}
+
+.summary-meta p {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding: 5px 0;
+  color: #66756d;
+  font-size: 0.8rem;
+}
+
+.summary-meta p strong {
+  flex: 0 0 auto;
+  color: #6b7871;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cart-list {
+  min-height: 190px;
+  max-height: 46vh;
+  padding: 14px 16px;
+  overflow-y: auto;
+}
+
+.cart-row {
+  padding: 11px 12px;
+  border: 1px solid rgba(20, 78, 74, 0.11);
+  border-radius: 10px;
+  background: #fbfcfb;
+}
+
+.cart-row strong {
+  font-size: 0.83rem;
+  line-height: 1.36;
+}
+
+.cart-row > div:last-child {
+  flex: 0 0 auto;
+  padding: 3px 8px;
+  border-radius: 7px;
+  background: #eaf5f0;
+  color: #14503a;
+  font-size: 0.77rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.cart-actions {
+  margin-top: auto;
+  padding: 16px 20px;
+  border-top: 1px solid rgba(20, 78, 74, 0.1);
+  background: #f8faf8;
+}
+
+.cart-actions .primary {
+  flex: 1;
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    align-items: flex-start;
+  }
+
+  .topbar-brand {
+    width: 100%;
+  }
+
+  .hero-body {
+    padding: 20px 16px 18px;
+  }
+}
+
 /* ------------------------------------------------------------------
    Stable sales UI refinement
    Keeps the existing rendering structure and product imagery intact.
@@ -2581,5 +2785,205 @@ button.primary {
   .topbar-actions {
     width: 100%;
     justify-content: flex-start;
+  }
+}
+
+/* Final hierarchy pass — deliberately last so it only refines stable layout. */
+#hero-eyebrow {
+  display: block;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Aptos", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: -0.012em;
+}
+
+.hero-main {
+  overflow: hidden;
+}
+
+.topbar {
+  min-height: 58px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(20, 78, 74, 0.1);
+}
+
+.topbar-brand {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 13px;
+}
+
+.eyebrow {
+  position: relative;
+  display: block;
+  min-width: 0;
+  margin: 0;
+  padding-left: 13px;
+  color: #45534d;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eyebrow::before {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 1px;
+  height: 16px;
+  background: rgba(20, 78, 74, 0.18);
+  content: "";
+  transform: translateY(-50%);
+}
+
+.hero-body {
+  padding: 24px 20px 20px;
+}
+
+#hero-title {
+  display: block;
+  max-width: 25ch;
+  margin: 0 0 9px;
+  color: #182620;
+  font-size: clamp(1.55rem, 2.8vw, 2.1rem);
+  font-weight: 720;
+  line-height: 1.12;
+}
+
+.intro {
+  max-width: 64ch;
+  margin: 0;
+  color: #64726b;
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.hero-highlights {
+  margin-top: 16px;
+}
+
+.highlight-pill {
+  background: #f8fbf9;
+  border-color: rgba(20, 78, 74, 0.12);
+  color: #435149;
+  box-shadow: none;
+}
+
+body.compact-flow .hero-body {
+  display: none;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+.summary .panel-head {
+  align-items: flex-start;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid rgba(20, 78, 74, 0.1);
+  background: #f8faf8;
+}
+
+.summary .panel-head h2 {
+  margin: 3px 0 0;
+  font-size: 1.04rem;
+}
+
+.summary-meta {
+  display: grid;
+  gap: 0;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(20, 78, 74, 0.1);
+}
+
+.summary-meta p {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding: 5px 0;
+  color: #66756d;
+  font-size: 0.8rem;
+}
+
+.summary-meta p strong {
+  flex: 0 0 auto;
+  color: #6b7871;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.cart-list {
+  min-height: 190px;
+  max-height: 46vh;
+  padding: 14px 16px;
+  overflow-y: auto;
+}
+
+.cart-row {
+  padding: 11px 12px;
+  border: 1px solid rgba(20, 78, 74, 0.11);
+  border-radius: 10px;
+  background: #fbfcfb;
+}
+
+.cart-row strong {
+  font-size: 0.83rem;
+  line-height: 1.36;
+}
+
+.cart-row > div:last-child {
+  flex: 0 0 auto;
+  padding: 3px 8px;
+  border-radius: 7px;
+  background: #eaf5f0;
+  color: #14503a;
+  font-size: 0.77rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.cart-actions {
+  margin-top: auto;
+  padding: 16px 20px;
+  border-top: 1px solid rgba(20, 78, 74, 0.1);
+  background: #f8faf8;
+}
+
+.cart-actions .primary {
+  flex: 1;
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    align-items: flex-start;
+  }
+
+  .topbar-brand {
+    width: 100%;
+  }
+
+  .hero-body {
+    padding: 20px 16px 18px;
   }
 }

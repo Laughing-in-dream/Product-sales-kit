@@ -8,6 +8,7 @@ This is a plain-language log of work performed on each branch. It is deliberatel
 
 - Created a separate visual-refinement branch that improves hierarchy, navigation, cards, and the live build summary without changing product-selection rules.
 - Home-page product images are protected as full, uncropped product references: no enlargement transforms, cover cropping, or decorative overlays are applied to them.
+- Selectively adopted the strongest parts of the separate Claude review: system typography, top-level product context, and a clearer quotation-style Build Summary, without taking its unstable page-wide layout rewrite.
 
 ### Streamax visual identity — 2026-07-14
 
