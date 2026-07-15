@@ -6,13 +6,24 @@ const KEPT_SCENARIO_POSITIONS = new Set([1, 3, 9, 10, 11, 12]);
 const CUSTOM_SCENARIO_ID = "scenario-custom";
 const CUSTOM_FAMILY_ID = "custom";
 // The only user-facing release version. Update it together with docs/release-notes.md.
-const APP_VERSION = "B1.0.1";
+const APP_VERSION = "B1.0.2";
 const APP_RELEASE_NOTES = [
-  "First controlled beta release for the North America Sales Configurator.",
-  "Selection flows are available for AD Plus 2.0, M1N 2.0, M3N, C6 Lite 2.0, AVM, Z5, and C53.",
-  "Selected material lists export in the Opportunity Product Import Excel format.",
-  "C53 cascade builds continue in the selected MDVR wizard, where the screen is configured.",
-  "Beta feedback and exported-solution telemetry are collected when the companion server is deployed."
+  {
+    version: "B1.0.2",
+    date: "2026-07-15",
+    notes: ["Page updates."],
+  },
+  {
+    version: "B1.0.1",
+    date: "2026-07-14",
+    notes: [
+      "First controlled beta release for the North America Sales Configurator.",
+      "Selection flows are available for AD Plus 2.0, M1N 2.0, M3N, C6 Lite 2.0, AVM, Z5, and C53.",
+      "Selected material lists export in the Opportunity Product Import Excel format.",
+      "C53 cascade builds continue in the selected MDVR wizard, where the screen is configured.",
+      "Beta feedback and exported-solution telemetry are collected when the companion server is deployed.",
+    ],
+  },
 ];
 
 const UI = {

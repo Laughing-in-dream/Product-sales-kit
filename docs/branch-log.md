@@ -30,6 +30,11 @@ This is a plain-language log of work performed on each branch. It is deliberatel
 
 ## codex/ui-stability-optimization
 
+### B1.0.2 beta publication — 2026-07-15
+
+- Prepared the B1.0.2 beta release and made the version button show a chronological release history.
+- Kept the user-facing B1.0.2 note intentionally simple: “Page updates.” Detailed implementation and branch history remain in this internal work log rather than the page seen by users.
+
 ### Compact homepage introduction — 2026-07-15
 
 - Reduced the visual height of the homepage introduction: the title, description, and three benefit labels stay on one line at normal desktop width, without changing their wording.

@@ -576,10 +576,22 @@ function submitAnnotation(event) {
 }
 
 function openReleaseDialog() {
-  releaseContent.replaceChildren(...APP_RELEASE_NOTES.map((note) => {
-    const item = document.createElement("li");
-    item.textContent = note;
-    return item;
+  releaseContent.replaceChildren(...APP_RELEASE_NOTES.map((release) => {
+    const entry = document.createElement("article");
+    entry.className = "release-history-entry";
+
+    const heading = document.createElement("h3");
+    heading.textContent = `${release.version} — ${release.date}`;
+
+    const notes = document.createElement("ul");
+    notes.replaceChildren(...release.notes.map((note) => {
+      const item = document.createElement("li");
+      item.textContent = note;
+      return item;
+    }));
+
+    entry.append(heading, notes);
+    return entry;
   }));
   if (typeof releaseDialog.showModal === "function") releaseDialog.showModal();
 }

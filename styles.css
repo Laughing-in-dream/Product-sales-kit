@@ -224,7 +224,29 @@ body {
   display: grid;
   gap: 10px;
   margin: 20px 0;
-  padding-left: 22px;
+  padding: 0;
+}
+
+.release-history-entry {
+  padding: 13px 14px;
+  border: 1px solid rgba(20, 78, 74, 0.12);
+  border-radius: 12px;
+  background: #f8fbf9;
+}
+
+.release-history-entry h3 {
+  margin: 0;
+  color: var(--accent-deep);
+  font-size: 14px;
+}
+
+.release-history-entry ul {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 13px;
   line-height: 1.5;
 }
 
