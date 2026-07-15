@@ -332,22 +332,32 @@ function zipStore(entries) {
 }
 
 function createOpportunityImportWorkbook(rows) {
-  const headers = ["SortOrder", "Material Number*", "Quantity*", "Sales Price", "Factory*", "Is Substitute Material", "Description"];
+  const importNotes = [
+    "Sort by Arabic numerals in order,\neg:1",
+    "Required, Product Number, \neg:3390001100003",
+    "Required",
+    "Optional,integer",
+    "Required, Dongguan factory/Vitnam Factory",
+    "Optional, True/False",
+    "Optional",
+  ];
+  const headers = ["SortOrder", "Product Code*", "Quantity*", "Sales Price", "Factory*", "Is Substitute Material", "Description"];
   const inlineCell = (reference, value, style = "") =>
     `<c r="${reference}" t="inlineStr"${style}><is><t>${xmlEscape(value)}</t></is></c>`;
   const numberCell = (reference, value, style = "") => `<c r="${reference}"${style}><v>${value}</v></c>`;
   const sheetRows = [
-    `<row r="1">${headers.map((header, index) => inlineCell(`${String.fromCharCode(65 + index)}1`, header)).join("")}</row>`,
+    `<row r="1" ht="72" customHeight="1">${importNotes.map((note, index) => inlineCell(`${String.fromCharCode(65 + index)}1`, note, ' s="3"')).join("")}</row>`,
+    `<row r="2">${headers.map((header, index) => inlineCell(`${String.fromCharCode(65 + index)}2`, header)).join("")}</row>`,
     ...rows.map((row, index) => {
-      const rowNumber = index + 2;
+      const rowNumber = index + 3;
       const material = String(row.partNumber || "").trim();
       const quantity = Math.max(1, Number.parseInt(String(row.quantity || "1"), 10) || 1);
-      return `<row r="${rowNumber}">${numberCell(`A${rowNumber}`, index + 1)}${numberCell(`B${rowNumber}`, material, ' s="2"')}${numberCell(`C${rowNumber}`, quantity, ' s="1"')}${inlineCell(`E${rowNumber}`, "Vietnam factory")}</row>`;
+      return `<row r="${rowNumber}">${numberCell(`A${rowNumber}`, index + 1)}${inlineCell(`B${rowNumber}`, material, ' s="2"')}${numberCell(`C${rowNumber}`, quantity, ' s="1"')}${numberCell(`D${rowNumber}`, 1, ' s="1"')}${inlineCell(`E${rowNumber}`, "Vietnam factory")}</row>`;
     }),
   ].join("");
-  const lastRow = Math.max(1, rows.length + 1);
+  const lastRow = Math.max(2, rows.length + 2);
   const worksheet = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><dimension ref="A1:G${lastRow}"/><sheetFormatPr defaultRowHeight="15"/><cols><col min="2" max="2" width="20.7230769230769" customWidth="1"/><col min="3" max="3" width="10.6307692307692" customWidth="1"/><col min="4" max="4" width="15.0923076923077" customWidth="1"/><col min="5" max="5" width="18.1769230769231" customWidth="1"/><col min="6" max="6" width="25" customWidth="1"/><col min="7" max="7" width="13.0923076923077" customWidth="1"/></cols><sheetData>${sheetRows}</sheetData></worksheet>`;
-  const styles = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="1"><numFmt numFmtId="164" formatCode="0_ "/></numFmts><fonts count="1"><font><sz val="11"/><color theme="1"/><name val="Calibri"/><family val="2"/><scheme val="minor"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"><alignment vertical="center"/></xf></cellStyleXfs><cellXfs count="3"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"><alignment vertical="center"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles><tableStyles count="0" defaultTableStyle="TableStyleMedium2" defaultPivotStyle="PivotStyleLight16"/></styleSheet>`;
+  const styles = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="1"><numFmt numFmtId="164" formatCode="0_ "/></numFmts><fonts count="1"><font><sz val="11"/><color theme="1"/><name val="Calibri"/><family val="2"/><scheme val="minor"/></font></fonts><fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"><alignment vertical="center"/></xf></cellStyleXfs><cellXfs count="4"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"><alignment vertical="center"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1" applyAlignment="1"><alignment horizontal="center" vertical="center"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles><tableStyles count="0" defaultTableStyle="TableStyleMedium2" defaultPivotStyle="PivotStyleLight16"/></styleSheet>`;
   return zipStore([
     { name: "[Content_Types].xml", content: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>` },
     { name: "_rels/.rels", content: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>` },
@@ -470,7 +480,47 @@ function clearAnnotationSelection() {
   annotationContext = null;
 }
 
-function openAnnotationDialog(element) {
+function createAnnotationCaptureMarker(element) {
+  const rect = element.getBoundingClientRect();
+  const marker = document.createElement("span");
+  marker.className = "annotation-capture-marker";
+  marker.textContent = "1";
+  marker.setAttribute("aria-hidden", "true");
+  marker.style.left = `${Math.max(8, Math.min(window.innerWidth - 36, rect.right - 14))}px`;
+  marker.style.top = `${Math.max(8, rect.top - 14)}px`;
+  document.querySelector(".shell").append(marker);
+  return marker;
+}
+
+function screenshotDataUrl(canvas) {
+  const maxWidth = 1440;
+  const maxHeight = 1800;
+  const scale = Math.min(1, maxWidth / canvas.width, maxHeight / canvas.height);
+  if (scale === 1) return canvas.toDataURL("image/jpeg", 0.76);
+  const resized = document.createElement("canvas");
+  resized.width = Math.max(1, Math.round(canvas.width * scale));
+  resized.height = Math.max(1, Math.round(canvas.height * scale));
+  resized.getContext("2d").drawImage(canvas, 0, 0, resized.width, resized.height);
+  return resized.toDataURL("image/jpeg", 0.76);
+}
+
+async function captureAnnotationScreenshot(element) {
+  if (typeof window.html2canvas !== "function") throw new Error("Screen capture is unavailable in this browser.");
+  const marker = createAnnotationCaptureMarker(element);
+  try {
+    const canvas = await window.html2canvas(document.querySelector(".shell"), {
+      backgroundColor: "#f3f5f3",
+      logging: false,
+      scale: 1,
+      useCORS: true,
+    });
+    return screenshotDataUrl(canvas);
+  } finally {
+    marker.remove();
+  }
+}
+
+async function openAnnotationDialog(element) {
   clearAnnotationSelection();
   annotationSelectedElement = element;
   annotationSelectedElement.classList.add("annotation-selected");
@@ -485,8 +535,15 @@ function openAnnotationDialog(element) {
     },
   };
   annotationForm.reset();
-  annotationStatus.textContent = "";
+  annotationStatus.textContent = "Capturing the marked page for the review team…";
   annotationTarget.textContent = `Selected element: ${annotationContext.targetLabel}`;
+  try {
+    annotationContext.screenshotDataUrl = await captureAnnotationScreenshot(element);
+    annotationStatus.textContent = "A screenshot with marker 1 will be attached to this annotation.";
+  } catch (error) {
+    annotationContext.screenshotDataUrl = "";
+    annotationStatus.textContent = "The element details will be sent, but a screenshot could not be captured.";
+  }
   if (typeof annotationDialog.showModal === "function") annotationDialog.showModal();
 }
 
@@ -632,7 +689,7 @@ document.querySelector(".shell").addEventListener("click", (event) => {
   event.preventDefault();
   event.stopImmediatePropagation();
   setAnnotationMode(false);
-  openAnnotationDialog(target);
+  void openAnnotationDialog(target);
 }, true);
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && annotationModeActive) setAnnotationMode(false);

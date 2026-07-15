@@ -5,6 +5,7 @@
 const http = require("node:http");
 const fs = require("node:fs");
 const path = require("node:path");
+const crypto = require("node:crypto");
 const { DatabaseSync } = require("node:sqlite");
 
 const ROOT_DIR = path.resolve(__dirname, "..");
@@ -12,6 +13,8 @@ const PORT = Number(process.env.PORT || 8080);
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || "";
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "data");
 const MAX_BODY_BYTES = 64 * 1024;
+const MAX_ANNOTATION_BODY_BYTES = 5 * 1024 * 1024;
+const MAX_ANNOTATION_IMAGE_BYTES = 3 * 1024 * 1024;
 
 if (!ADMIN_TOKEN) {
   console.error("ADMIN_TOKEN is required. Refusing to start without an admin password.");
@@ -19,6 +22,8 @@ if (!ADMIN_TOKEN) {
 }
 
 fs.mkdirSync(DATA_DIR, { recursive: true });
+const ANNOTATION_IMAGE_DIR = path.join(DATA_DIR, "annotations");
+fs.mkdirSync(ANNOTATION_IMAGE_DIR, { recursive: true });
 const db = new DatabaseSync(path.join(DATA_DIR, "configurator.db"));
 db.exec(`
   PRAGMA journal_mode = WAL;
@@ -62,6 +67,9 @@ db.exec(`
     items_json TEXT NOT NULL
   );
 `);
+if (!db.prepare("PRAGMA table_info(annotations)").all().some((column) => column.name === "screenshot_path")) {
+  db.exec("ALTER TABLE annotations ADD COLUMN screenshot_path TEXT");
+}
 
 const MIME_TYPES = {
   ".css": "text/css; charset=utf-8",
@@ -112,13 +120,13 @@ function cleanBounds(bounds) {
   return JSON.stringify({ x: cleanNumber(bounds.x), y: cleanNumber(bounds.y), width: cleanNumber(bounds.width), height: cleanNumber(bounds.height) });
 }
 
-function readJson(request) {
+function readJson(request, maxBytes = MAX_BODY_BYTES) {
   return new Promise((resolve, reject) => {
     let bytes = 0;
     const chunks = [];
     request.on("data", (chunk) => {
       bytes += chunk.length;
-      if (bytes > MAX_BODY_BYTES) {
+      if (bytes > maxBytes) {
         reject(new Error("Request is too large."));
         request.destroy();
         return;
@@ -134,6 +142,20 @@ function readJson(request) {
     });
     request.on("error", reject);
   });
+}
+
+function saveAnnotationScreenshot(dataUrl) {
+  if (!dataUrl) return "";
+  const match = /^data:image\/(jpeg|png);base64,([A-Za-z0-9+/=]+)$/.exec(String(dataUrl));
+  if (!match) throw new Error("Annotation screenshot must be a PNG or JPEG image.");
+  const image = Buffer.from(match[2], "base64");
+  if (!image.length || image.length > MAX_ANNOTATION_IMAGE_BYTES) {
+    throw new Error("Annotation screenshot is too large.");
+  }
+  const extension = match[1] === "jpeg" ? "jpg" : "png";
+  const fileName = `annotation-${Date.now()}-${crypto.randomUUID()}.${extension}`;
+  fs.writeFileSync(path.join(ANNOTATION_IMAGE_DIR, fileName), image);
+  return fileName;
 }
 
 function isAdmin(request) {
@@ -178,9 +200,10 @@ function overview() {
   `).all();
   const annotations = db.prepare(`
     SELECT id, created_at AS createdAt, version, product_name AS productName, step, message, contact,
-      target_label AS targetLabel, target_selector AS targetSelector, target_text AS targetText
+      target_label AS targetLabel, target_selector AS targetSelector, target_text AS targetText,
+      screenshot_path AS screenshotPath
     FROM annotations ORDER BY id DESC LIMIT 100
-  `).all();
+  `).all().map((annotation) => ({ ...annotation, screenshotAvailable: Boolean(annotation.screenshotPath) }));
   return {
     period: "Last 30 days",
     exports: totals.exports,
@@ -222,6 +245,18 @@ const server = http.createServer(async (request, response) => {
       if (!isAdmin(request)) return sendJson(response, 401, { error: "Administrator token required" });
       return sendJson(response, 200, overview());
     }
+    const screenshotMatch = /^\/api\/admin\/annotations\/(\d+)\/screenshot$/.exec(url.pathname);
+    if (request.method === "GET" && screenshotMatch) {
+      if (!isAdmin(request)) return sendJson(response, 401, { error: "Administrator token required" });
+      const annotation = db.prepare("SELECT screenshot_path FROM annotations WHERE id = ?").get(Number(screenshotMatch[1]));
+      if (!annotation?.screenshot_path) return sendJson(response, 404, { error: "Screenshot not found" });
+      const fileName = path.basename(annotation.screenshot_path);
+      const filePath = path.join(ANNOTATION_IMAGE_DIR, fileName);
+      if (!fs.existsSync(filePath)) return sendJson(response, 404, { error: "Screenshot file not found" });
+      const mime = MIME_TYPES[path.extname(filePath).toLowerCase()] || "application/octet-stream";
+      response.writeHead(200, { "Content-Type": mime, "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff" });
+      return fs.createReadStream(filePath).pipe(response);
+    }
     if (request.method === "POST" && url.pathname === "/api/feedback") {
       const body = await readJson(request);
       const context = buildContext(body);
@@ -233,17 +268,18 @@ const server = http.createServer(async (request, response) => {
       return sendJson(response, 201, { ok: true });
     }
     if (request.method === "POST" && url.pathname === "/api/annotations") {
-      const body = await readJson(request);
+      const body = await readJson(request, MAX_ANNOTATION_BODY_BYTES);
       const context = buildContext(body);
       const message = cleanText(body.message, 2000);
       const targetLabel = cleanText(body.targetLabel, 240);
       if (!message) return sendJson(response, 400, { error: "An annotation message is required." });
       if (!targetLabel) return sendJson(response, 400, { error: "An annotated element is required." });
-      db.prepare(`INSERT INTO annotations (version, session_id, product_id, product_name, step, message, contact, page_url, target_label, target_selector, target_text, target_bounds_json, items_json)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).run(
+      const screenshotPath = saveAnnotationScreenshot(body.screenshotDataUrl);
+      db.prepare(`INSERT INTO annotations (version, session_id, product_id, product_name, step, message, contact, page_url, target_label, target_selector, target_text, target_bounds_json, items_json, screenshot_path)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).run(
         context.version, context.sessionId, context.productId, context.productName, context.step, message,
         cleanText(body.contact, 200), cleanText(body.pageUrl, 1000), targetLabel, cleanText(body.targetSelector, 700),
-        cleanText(body.targetText, 1000), cleanBounds(body.targetBounds), JSON.stringify(context.items)
+        cleanText(body.targetText, 1000), cleanBounds(body.targetBounds), JSON.stringify(context.items), screenshotPath
       );
       return sendJson(response, 201, { ok: true });
     }

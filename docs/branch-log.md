@@ -28,6 +28,14 @@ This is a plain-language log of work performed on each branch. It is deliberatel
 - Added the release-note and branch-log process required before every future publication.
 - Fixed the C53 cascade handoff so the selected MDVR wizard can continue normally; screen selection now occurs in that MDVR wizard.
 
+## codex/ui-stability-optimization
+
+### Import-template export and visual annotations — 2026-07-15
+
+- Matched the Excel export to the approved Opportunity Product Import Template: its explanatory first row, required field names, column order, and `Dates` worksheet are retained.
+- Every exported material now has `Sales Price` preset to `1` and `Factory` preset to `Vietnam factory`; optional substitute-material and description fields are intentionally left blank.
+- Beta annotations now retain a marked screenshot of the selected page element together with the reviewer’s written change request. The internal dashboard can securely open that capture for direct visual review.
+
 ## Rules for future entries
 
 - When work starts on a new branch, create a heading with the branch name and intended customer impact.
