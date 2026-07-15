@@ -30,6 +30,11 @@ This is a plain-language log of work performed on each branch. It is deliberatel
 
 ## codex/ui-stability-optimization
 
+### Compact homepage introduction — 2026-07-15
+
+- Reduced the visual height of the homepage introduction: the title, description, and three benefit labels stay on one line at normal desktop width, without changing their wording.
+- Smaller text and tighter spacing retain the same information while giving the product-selection area more room. Small screens can still wrap naturally instead of overflowing.
+
 ### User guide and project overview — 2026-07-15
 
 - Rewrote the root README as a plain-language introduction for sales, technical support, and beta users: why the configurator exists, what it does, who should use it, and how to start.

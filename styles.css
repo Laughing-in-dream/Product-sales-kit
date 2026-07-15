@@ -2433,24 +2433,27 @@ h4 {
 
 #hero-title {
   display: block;
-  max-width: 25ch;
+  max-width: none !important;
   margin: 0 0 9px;
   color: #182620;
-  font-size: clamp(1.55rem, 2.8vw, 2.1rem);
+  font-size: clamp(1.3rem, 1.8vw, 1.7rem) !important;
   font-weight: 720;
   line-height: 1.12;
+  white-space: nowrap;
 }
 
 .intro {
-  max-width: 64ch;
+  max-width: none !important;
   margin: 0;
   color: #64726b;
-  font-size: 0.94rem;
-  line-height: 1.6;
+  font-size: 0.86rem !important;
+  line-height: 1.45;
+  white-space: nowrap;
 }
 
 .hero-highlights {
-  margin-top: 16px;
+  flex-wrap: nowrap;
+  margin-top: 12px !important;
 }
 
 .highlight-pill {
@@ -2458,6 +2461,20 @@ h4 {
   border-color: rgba(20, 78, 74, 0.12);
   color: #435149;
   box-shadow: none;
+  font-size: 0.7rem;
+  padding: 4px 9px;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  #hero-title,
+  .intro {
+    white-space: normal;
+  }
+
+  .hero-highlights {
+    flex-wrap: wrap;
+  }
 }
 
 body.compact-flow .hero-body {
