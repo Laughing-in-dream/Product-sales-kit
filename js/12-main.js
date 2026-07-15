@@ -207,7 +207,10 @@ function renderStaticContent() {
   document.documentElement.lang = L("zh-CN", "en");
   document.body.classList.toggle("compact-flow", state.step > 1);
   document.title = t().docTitle;
-  document.getElementById("hero-eyebrow").textContent = t().heroEyebrow;
+  const activeProductTitle = String(product?.title || "").replace(/_/g, ".");
+  document.getElementById("hero-eyebrow").textContent = state.productPickerOpen
+    ? t().heroEyebrow
+    : (activeProductTitle || t().heroEyebrow);
   document.getElementById("hero-title").textContent = t().heroTitle;
   document.getElementById("hero-intro").textContent = t().heroIntro;
   document.getElementById("highlight-1").textContent = t().heroHighlights[0];
