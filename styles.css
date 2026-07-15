@@ -158,6 +158,10 @@ body {
   outline-offset: 3px;
 }
 
+html.app-loading body {
+  visibility: hidden;
+}
+
 .annotation-capture-marker {
   position: fixed;
   z-index: 9999;

@@ -716,3 +716,4 @@ if (product) {
 }
 
 render();
+document.documentElement.classList.remove("app-loading");
