@@ -4,26 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AD Plus 2.0 Solution Builder</title>
-    <link rel="stylesheet" href="./styles.css?v=20260714-5" />
+    <link rel="stylesheet" href="./styles.css?v=20260715-6" />
   </head>
   <body>
     <div class="shell">
       <header class="hero">
         <div class="hero-main">
           <div class="topbar">
-            <p id="hero-eyebrow" class="eyebrow">AD Plus 2.0</p>
-            <button id="app-version" class="version-badge version-button" type="button" aria-haspopup="dialog">Beta B1.0.1</button>
-            <button id="annotation-button" class="feedback-button" type="button" aria-pressed="false">Annotate</button>
-            <button id="feedback-button" class="feedback-button" type="button">Send feedback</button>
+            <div class="topbar-brand">
+              <a class="brand-logo" href="./index.html" aria-label="Streamax Sales Configurator home">
+                <img src="./assets/brand/streamax-logo-white.png" alt="Streamax" />
+              </a>
+              <p id="hero-eyebrow" class="eyebrow">AD Plus 2.0</p>
+            </div>
+            <div class="topbar-actions">
+              <button id="app-version" class="version-badge version-button" type="button" aria-haspopup="dialog">Beta B1.0.1</button>
+              <button id="annotation-button" class="feedback-button" type="button" aria-pressed="false">Annotate</button>
+              <button id="feedback-button" class="feedback-button" type="button">Send feedback</button>
+            </div>
           </div>
-          <h1 id="hero-title">一步一步生成 AD Plus 2.0 方案</h1>
-          <p id="hero-intro" class="intro">
-            只聚焦一个产品，让销售或客户按步骤完成选型，自动生成完整清单。
-          </p>
-          <div class="hero-highlights">
-            <div class="highlight-pill" id="highlight-1">只展示当前需要决策的内容</div>
-            <div class="highlight-pill" id="highlight-2">自动带出必选线材与关联件</div>
-            <div class="highlight-pill" id="highlight-3">最终可直接导出给销售或技术支持</div>
+          <div class="hero-body">
+            <h1 id="hero-title">一步一步生成 AD Plus 2.0 方案</h1>
+            <p id="hero-intro" class="intro">
+              只聚焦一个产品，让销售或客户按步骤完成选型，自动生成完整清单。
+            </p>
+            <div class="hero-highlights">
+              <div class="highlight-pill" id="highlight-1">只展示当前需要决策的内容</div>
+              <div class="highlight-pill" id="highlight-2">自动带出必选线材与关联件</div>
+              <div class="highlight-pill" id="highlight-3">最终可直接导出给销售或技术支持</div>
+            </div>
           </div>
         </div>
 
@@ -123,8 +132,9 @@
     </dialog>
 
     <script src="./catalog-data.js?v=20260710-2"></script>
+    <script src="./vendor/html2canvas.min.js?v=1.4.1"></script>
     <!-- 按编号顺序加载，共享全局作用域，顺序不可调换 -->
-    <script src="./js/01-bootstrap-i18n.js?v=20260714-4"></script>
+    <script src="./js/01-bootstrap-i18n.js?v=20260715-5"></script>
     <script src="./js/02-dom-state.js?v=20260714-5"></script>
     <script src="./js/03-data-adplus.js?v=20260710-1"></script>
     <script src="./js/04-product-meta.js?v=20260714-4"></script>
@@ -135,6 +145,6 @@
     <script src="./js/09-render-avm-c6.js?v=20260712-7"></script>
     <script src="./js/10-render-mseries.js?v=20260710-1"></script>
     <script src="./js/11-render-adplus.js?v=20260710-1"></script>
-    <script src="./js/12-main.js?v=20260714-5"></script>
+    <script src="./js/12-main.js?v=20260715-7"></script>
   </body>
 </html>

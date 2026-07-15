@@ -6,26 +6,37 @@ const KEPT_SCENARIO_POSITIONS = new Set([1, 3, 9, 10, 11, 12]);
 const CUSTOM_SCENARIO_ID = "scenario-custom";
 const CUSTOM_FAMILY_ID = "custom";
 // The only user-facing release version. Update it together with docs/release-notes.md.
-const APP_VERSION = "B1.0.1";
+const APP_VERSION = "B1.0.2";
 const APP_RELEASE_NOTES = [
-  "First controlled beta release for the North America Sales Configurator.",
-  "Selection flows are available for AD Plus 2.0, M1N 2.0, M3N, C6 Lite 2.0, AVM, Z5, and C53.",
-  "Selected material lists export in the Opportunity Product Import Excel format.",
-  "C53 cascade builds continue in the selected MDVR wizard, where the screen is configured.",
-  "Beta feedback and exported-solution telemetry are collected when the companion server is deployed."
+  {
+    version: "B1.0.2",
+    date: "2026-07-15",
+    notes: ["Page updates."],
+  },
+  {
+    version: "B1.0.1",
+    date: "2026-07-14",
+    notes: [
+      "First controlled beta release for the North America Sales Configurator.",
+      "Selection flows are available for AD Plus 2.0, M1N 2.0, M3N, C6 Lite 2.0, AVM, Z5, and C53.",
+      "Selected material lists export in the Opportunity Product Import Excel format.",
+      "C53 cascade builds continue in the selected MDVR wizard, where the screen is configured.",
+      "Beta feedback and exported-solution telemetry are collected when the companion server is deployed.",
+    ],
+  },
 ];
 
 const UI = {
   zh: null,
   en: {
-    docTitle: "AD Plus 2.0 Solution Builder",
-    heroEyebrow: "AD Plus 2.0 Wizard",
-    heroTitle: "Build an AD Plus 2.0 solution step by step",
-    heroIntro: "Focus on one product, guide sales or customers through the selection flow, and generate a complete list automatically.",
+    docTitle: "Streamax Sales Configurator",
+    heroEyebrow: "Streamax Sales Configurator",
+    heroTitle: "Configure complete vehicle video solutions",
+    heroIntro: "Choose a product line, configure the required components, and export a ready-to-quote material list.",
     heroHighlights: [
-      "Show only the decision needed at the current step",
-      "Auto-include required cables and related items",
-      "Export a ready-to-share list at the end",
+      "Explore available product solutions",
+      "Automatically match required components and cables",
+      "Export a ready-to-quote material list",
     ],
     homeCompareTitle: "Exploded Solution Preview",
     homeCompareIntro: "Below are two sample approaches based on the first home-page solution: a fully rebuilt modular version on the left and an original-image overlay version on the right.",
@@ -34,7 +45,7 @@ const UI = {
     homeCompareRebuildNote: "Each module is independent, so it can be added, replaced, or reconnected later.",
     homeCompareOverlayNote: "Keeps the original visual style and highlights key modules with overlays.",
     heroNoteLabel: "What This Does",
-    heroNoteTitle: "A customer-facing AD Plus 2.0 configurator",
+    heroNoteTitle: "A customer-facing Streamax configurator",
     heroNoteBody: "This is not an internal material spreadsheet. It turns a complex sellable list into a guided selection flow.",
     prev: "Previous",
     next: "Next",
