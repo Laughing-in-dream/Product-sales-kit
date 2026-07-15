@@ -1,36 +1,52 @@
-# North America Sales Configurator
+# Streamax Sales Configurator
 
-这是一个基于 `North America Sales List.xlsx` 自动生成的本地选型/购物车工具原型。
+Streamax Sales Configurator is a guided product-solution tool for the North America sales team, technical support team, and invited beta users.
 
-> 📚 **产品需求知识库在 [docs/knowledge/](docs/README.md)** —— 所有产品限制规则
-> （如 AD Plus 2.0 的摄像头路数上限）以知识库为准，改规则前先看那里。
-> 开发约定见 [AGENTS.md](AGENTS.md)（所有 AI 工具共同遵守）。
+It turns a long, technical product list into a clear step-by-step selection experience. Instead of manually matching hosts, cameras, cables, storage cards, displays, and accessories in spreadsheets, users can build a solution around the customer’s real installation needs and export a material list for follow-up.
 
-## 当前能力
+## Why this website exists
 
-- 按产品线浏览
-- 按系统方案切换
-- 自动预选与当前方案直接关联的物料
-- 手动补充线材、配件和可选件
-- 实时汇总购物车
-- 导出 CSV / JSON 清单
+Vehicle video and safety solutions are rarely a simple “choose one product” decision. A workable solution depends on details such as the vehicle type, installation position, available power connection, camera quantity, cable length, recording requirement, and whether storage or a display is needed.
 
-## 生成数据
+Those details are easy to miss when working only from a sales list. They can delay quotation, increase the need for repeated technical confirmation, and create installation risk when an extension cable, adapter, or matching connector is omitted.
 
-先用内置 Python 生成前端数据文件：
+This configurator makes those decisions visible and guided so that teams can focus on the customer scenario rather than repeatedly sorting through parts and connectors.
 
-```powershell
-& "C:\Users\wwkch\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe" .\scripts\extract_catalog.py
-```
+## What the configurator does
 
-生成后会得到 `catalog-data.js`。
+- Guides users through available product lines and solution paths.
+- Shows compatible products, accessories, cables, displays, and storage options in the context of the selected solution.
+- Applies product-specific checks, such as camera/interface limits, algorithm capacity, recording-channel capacity, and required supporting cables.
+- Adds helpful defaults and installation reminders where a selection requires an adapter cable or extension cable.
+- Maintains a live build summary while the solution is being configured.
+- Exports the selected material list in the approved Excel format for quotation and follow-up.
+- Provides a beta feedback and on-page annotation function so users can report a problem against the exact page element they are reviewing.
 
-## 打开方式
+## Who it is for
 
-直接双击打开 [index.html](C:\Users\wwkch\Desktop\North America Sales List\index.html) 即可。
+- New sales and technical-support colleagues who need a faster, more consistent starting point.
+- Experienced technical users who want to reduce repetitive cable and accessory checks.
+- Sales teams preparing a customer discussion, discovery call follow-up, or preliminary quotation.
+- Internal beta reviewers validating product rules and user experience.
 
-## 现阶段限制
+## How to use it
 
-- Excel 里的业务规则还没有完全结构化，尤其是某些分组到底应当单选还是多选。
-- 当前版本先按“推荐预选 + 人工确认”的方式工作。
-- 如果后续你们愿意补一层规则表，我可以把这个工具升级成真正的傻瓜式向导。
+1. Open the configurator and select the relevant product or solution path.
+2. Follow the guided steps and answer the installation-related choices shown on each page.
+3. Review the Build Summary on the right before exporting.
+4. Export the Excel material list and use it as the basis for customer follow-up and order preparation.
+5. During beta testing, use **Annotate** or **Send feedback** to report any unclear rule, missing product, or UI issue.
+
+## Important note
+
+The configurator is designed to reduce routine selection risk, not to replace final technical validation. Before placing an order or confirming an installation, verify the exported list against the latest approved sellable catalog, Salesforce ordering SKU, vehicle conditions, and installation requirements.
+
+## Project and maintenance information
+
+- Project overview for management and stakeholders: [docs/project-overview.md](docs/project-overview.md)
+- Product-rule knowledge base: [docs/knowledge/](docs/README.md)
+- Beta release notes: [docs/release-notes.md](docs/release-notes.md)
+- Branch work log: [docs/branch-log.md](docs/branch-log.md)
+- Production readiness checklist: [docs/production-readiness.md](docs/production-readiness.md)
+
+For release and project feedback, contact Kevin Wang at [kevinwang@Streamax.com](mailto:kevinwang@Streamax.com).

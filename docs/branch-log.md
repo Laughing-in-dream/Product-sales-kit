@@ -30,6 +30,11 @@ This is a plain-language log of work performed on each branch. It is deliberatel
 
 ## codex/ui-stability-optimization
 
+### User guide and project overview — 2026-07-15
+
+- Rewrote the root README as a plain-language introduction for sales, technical support, and beta users: why the configurator exists, what it does, who should use it, and how to start.
+- Added a separate management-facing project overview covering the business problem, first-phase outcomes, current limitations, measurement plan, and the proposed second-phase roadmap.
+
 ### Claude visual language, with layout safeguards — 2026-07-15
 
 - Brought the floating Streamax header, more polished type rendering, and calmer action buttons from the Claude visual review into the stable configurator.
