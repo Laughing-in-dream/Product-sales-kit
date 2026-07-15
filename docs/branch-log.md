@@ -4,6 +4,11 @@ This is a plain-language log of work performed on each branch. It is deliberatel
 
 ## main
 
+### Stable sales UI refinement — 2026-07-15
+
+- Created a separate visual-refinement branch that improves hierarchy, navigation, cards, and the live build summary without changing product-selection rules.
+- Home-page product images are protected as full, uncropped product references: no enlargement transforms, cover cropping, or decorative overlays are applied to them.
+
 ### Streamax visual identity — 2026-07-14
 
 - Added the supplied Streamax logo to the top-left of the configurator, while keeping version, annotation, and feedback actions grouped on the right.
