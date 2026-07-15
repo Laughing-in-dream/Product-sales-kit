@@ -2563,6 +2563,80 @@ body.compact-flow .hero-body {
   }
 }
 
+/* Claude-inspired visual chrome only. Content, grids, and product media stay untouched. */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.hero-main {
+  overflow: visible !important;
+}
+
+.topbar {
+  position: sticky;
+  top: 12px;
+  z-index: 30;
+  min-height: 58px;
+  padding: 10px 16px !important;
+  border: 1px solid rgba(20, 78, 74, 0.13);
+  border-bottom: 0 !important;
+  border-radius: 16px;
+  background: rgba(255, 252, 247, 0.88);
+  box-shadow: 0 10px 26px rgba(20, 42, 37, 0.1);
+  backdrop-filter: saturate(1.2) blur(14px);
+  -webkit-backdrop-filter: saturate(1.2) blur(14px);
+}
+
+.brand-logo {
+  min-width: 0;
+  height: 34px;
+  padding: 0 13px;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(20, 42, 37, 0.14);
+}
+
+.brand-logo img {
+  width: 92px;
+  max-height: 18px;
+}
+
+.topbar-actions {
+  gap: 8px;
+}
+
+.version-badge,
+.feedback-button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 7px 11px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.version-badge {
+  background: #edf7f4;
+}
+
+.feedback-button {
+  background: rgba(255, 255, 255, 0.86);
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    top: 8px;
+    border-radius: 14px;
+  }
+}
+
 /* ------------------------------------------------------------------
    Stable sales UI refinement
    Keeps the existing rendering structure and product imagery intact.

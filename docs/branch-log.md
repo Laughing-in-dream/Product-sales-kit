@@ -30,6 +30,12 @@ This is a plain-language log of work performed on each branch. It is deliberatel
 
 ## codex/ui-stability-optimization
 
+### Claude visual language, with layout safeguards — 2026-07-15
+
+- Brought the floating Streamax header, more polished type rendering, and calmer action buttons from the Claude visual review into the stable configurator.
+- Kept every existing label, instruction, product-selection rule, and page structure exactly as it is; this change is visual only.
+- Preserved the current one-row and tiled layouts, including the C6 Lite four-option row. Product images remain fully visible with no cover cropping, zooming, or replacement artwork.
+
 ### Import-template export and visual annotations — 2026-07-15
 
 - Matched the Excel export to the approved Opportunity Product Import Template: its explanatory first row, required field names, column order, and `Dates` worksheet are retained.
